@@ -2,6 +2,7 @@
     "name": "co-stack/lib",
     "type": "library",
     "description": "A set of really useful, well tested and high performant php functions",
+    "license": "MIT",
     "authors": [
         {
             "name": "Oliver Eglseder",
