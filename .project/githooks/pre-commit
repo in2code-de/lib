@@ -1,0 +1,76 @@
+#!/bin/bash
+
+# -e Exit immediately if a command exits with a non-zero status.
+# -u Treat unset variables as error. Kind of a strict mode
+set -eu
+
+# Determine environment
+SELF_PID=$$
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+# Initialize debugging
+DEBUG="${DEBUG-0}"
+[[ "$DEBUG" -eq 1 ]] && echo -e "\e[1mDebug enabled.\e[0m \e[31mPlease clean up the temporary directory yourself\e[0m"
+[[ "$DEBUG" -eq 1 ]] && echo -e "Follow the background processes with '\e[1mwatch -n0.1 ps --forest -o pid,tty,stat,time,cmd -g \$( ps -o sid= -p $SELF_PID )\e[0m'"
+
+# Getting staged files
+
+# All checks
+# CHECKS=("qa-behat-cheap" "qa-composer" "qa-lint" "qa-phpcs" "qa-phpmd" "qa-phpstan" "qa-phpunit")
+
+# Initialize test names array
+CHECKS=()
+
+FILES=$(git diff --cached --name-only)
+if [[ " ${FILES[@]} " =~ ".php " ]]; then
+    [[ "$DEBUG" -eq 1 ]] && echo "Staged PHP files detected"
+    CHECKS+=("qa-lint")
+    CHECKS+=("qa-phpcs")
+    CHECKS+=("qa-phpmd")
+    CHECKS+=("qa-phpstan")
+    CHECKS+=("qa-phpunit")
+fi
+if [[ " ${FILES[@]} " =~ "composer.json " ]]; then
+    [[ "$DEBUG" -eq 1 ]] && echo "Staged composer.json file detected"
+    CHECKS+=("qa-composer")
+fi
+
+[[ ${#CHECKS[@]} -eq 0 ]] && echo "No checks to execute." && exit 0
+echo "Executing QA checks ..."
+
+# Create temporary directory for process logs
+[[ -d "$DIR/tmp" ]] || mkdir "$DIR/tmp"
+
+# Start all tests and populate PID array with process IDs
+declare -A PIDS
+for CHECK in "${CHECKS[@]}"
+do
+   docker run --rm -v $(pwd):/app/ -w /app/app/ in2code/php-dev:7.2-fpm composer run "$CHECK" > "$DIR/tmp/$CHECK.log" 2>&1 &
+   PIDS["$CHECK"]=$!
+done
+
+# Print all process IDs if in debug mode
+[[ "$DEBUG" -eq 1 ]] && for X in "${!PIDS[@]}"; do printf "[%s]=%s\n" "$X" "${PIDS[$X]}" ; done
+
+# Wait for all processes to end
+for CHECK in "${!PIDS[@]}"
+do
+    # Echo the process log of the failed process so the user can fix it
+    wait ${PIDS[$CHECK]} || (echo "The check $CHECK failed. Please investigate the logs"; cat "$DIR/tmp/$CHECK.log")
+    [[ "$DEBUG" -eq 1 ]] && echo "Done $CHECK"
+done
+
+# Clean process logs if not in debug
+for CHECK in "${!PIDS[@]}"
+do
+    [[ "$DEBUG" -eq 1 ]] || rm "$DIR/tmp/$CHECK.log"
+done
+
+# Remove temporary folder for process logs if not in debug
+[[ "$DEBUG" -eq 1 ]] || rmdir "$DIR/tmp"
+
+# Return this script with exit code 1 if any QA process failed
+for CHECK in "${!PIDS[@]}"
+do
+    wait ${PIDS[$CHECK]} || exit 1
+done

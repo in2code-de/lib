@@ -1,0 +1,41 @@
+stages:
+  - composer
+  - qa
+
+image: in2code/php:7.4-fpm
+
+composer:
+  stage: composer
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - /tmp/composer/cache
+  script: cd app && composer install
+  artifacts:
+    paths:
+      - app/vendor/
+
+qa-composer:
+  stage: qa
+  script: cd app && composer run qa-composer
+
+qa-lint:
+  stage: qa
+  script: cd app && composer run qa-lint
+
+qa-phpcs:
+  stage: qa
+  script: cd app && composer run qa-phpcs
+
+qa-phpmd:
+  stage: qa
+  script: cd app && composer run qa-phpmd
+
+qa-phpstan:
+  stage: qa
+  script: cd app && composer run qa-phpstan
+
+qa-phpunit-coverage:
+  image: in2code/php-dev:7.4-fpm
+  stage: qa
+  script: cd app && composer run qa-phpunit-coverage

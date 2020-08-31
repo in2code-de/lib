@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+  php:
+    build:
+      context: .project/docker/php
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app/:cached
+      - $HOME/.composer/auth.json:/tmp/composer/auth.json
+      - $HOME/.composer/cache/:/tmp/composer/cache/
+      - $SSH_AUTH_SOCK:$SSH_AUTH_SOCK
+    working_dir: /app/app/
+    environment:
+      SSH_AUTH_SOCK: $SSH_AUTH_SOCK
+
+  mail:
+    image: mailhog/mailhog
+    environment:
+      VIRTUAL_PORT: 8025

@@ -1,0 +1,52 @@
+{
+    "name": "co-stack/lib",
+    "type": "library",
+    "description": "A set of really useful, well tested and high performant php functions",
+    "authors": [
+        {
+            "name": "Oliver Eglseder",
+            "email": "oliver.eglseder@co-stack.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4"
+    },
+    "require-dev": {
+        "ergebnis/composer-normalize": "^2.8",
+        "php-parallel-lint/php-parallel-lint": "^1.2",
+        "phpmd/phpmd": "^2.8",
+        "phpstan/phpstan": "^0.12.40",
+        "phpunit/phpunit": "^9.3",
+        "squizlabs/php_codesniffer": "^3.5"
+    },
+    "autoload": {
+        "files": [
+            "funcs/cos_lib_funcs.php"
+        ],
+        "psr-4": {
+            "CoStack\\Lib\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CoStack\\LibTests\\": "tests"
+        }
+    },
+    "scripts": {
+        "qa-all": [
+            "@qa-lint",
+            "@qa-composer",
+            "@qa-phpcs",
+            "@qa-phpmd",
+            "@qa-phpstan",
+            "@qa-phpunit"
+        ],
+        "qa-composer": "composer validate",
+        "qa-lint": "vendor/bin/parallel-lint src tests",
+        "qa-phpcs": "vendor/bin/phpcs",
+        "qa-phpmd": "vendor/bin/phpmd src,tests ansi .phpmd.xml",
+        "qa-phpstan": "vendor/bin/phpstan analyse -c .phpstan.neon",
+        "qa-phpunit": "vendor/bin/phpunit -c .phpunit.xml",
+        "qa-phpunit-coverage": "vendor/bin/phpunit -c .phpunit.xml --coverage-text --colors=never"
+    }
+}
