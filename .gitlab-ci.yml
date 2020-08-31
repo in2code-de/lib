@@ -18,28 +18,50 @@ composer:
 qa-composer:
   stage: qa
   script: composer run qa-composer
+  only:
+    changes:
+      - "composer.json"
 
 qa-lint:
   stage: qa
   script: composer run qa-lint
+  only:
+    changes:
+      - "**/*.php"
 
 qa-phpcs:
   stage: qa
   script: composer run qa-phpcs
+  only:
+    changes:
+      - "**/*.php"
 
 qa-phpmd:
   stage: qa
   script: composer run qa-phpmd
+  only:
+    changes:
+      - "**/*.php"
 
 qa-phpstan:
   stage: qa
   script: composer run qa-phpstan
+  only:
+    changes:
+      - "**/*.php"
 
 qa-psalm:
   stage: qa
   script: composer run qa-psalm
+  only:
+    changes:
+      - "**/*.php"
 
 qa-phpunit-coverage:
   image: in2code/php-dev:7.4-fpm
   stage: qa
   script: composer run qa-phpunit-coverage
+  only:
+    changes:
+      - "**/*.php"
+
