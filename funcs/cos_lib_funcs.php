@@ -3,6 +3,13 @@
 declare(strict_types=1);
 
 if (!function_exists('array_filter_recursive')) {
+    /**
+     * @param array<array-key, (int|string|array)> $array
+     * @param int $limit
+     * @param callable|null $callback
+     * @param int $flags
+     * @return array<array-key, (int|string|array)>
+     */
     function array_filter_recursive(array $array, int $limit, callable $callback = null, int $flags = 0): array
     {
         if ($limit > 1) {

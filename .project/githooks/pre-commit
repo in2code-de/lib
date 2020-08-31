@@ -28,6 +28,7 @@ if [[ " ${FILES[@]} " =~ ".php " ]]; then
     CHECKS+=("qa-phpcs")
     CHECKS+=("qa-phpmd")
     CHECKS+=("qa-phpstan")
+    CHECKS+=("qa-psalm")
     CHECKS+=("qa-phpunit")
 fi
 if [[ " ${FILES[@]} " =~ "composer.json " ]]; then
