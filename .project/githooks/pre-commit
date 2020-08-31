@@ -45,7 +45,7 @@ echo "Executing QA checks ..."
 declare -A PIDS
 for CHECK in "${CHECKS[@]}"
 do
-   docker run --rm -v $(pwd):/app/ -w /app/app/ in2code/php-dev:7.2-fpm composer run "$CHECK" > "$DIR/tmp/$CHECK.log" 2>&1 &
+   docker run --rm -v $(pwd):/app/ -w /app/ in2code/php-dev:7.2-fpm composer run "$CHECK" > "$DIR/tmp/$CHECK.log" 2>&1 &
    PIDS["$CHECK"]=$!
 done
 

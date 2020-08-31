@@ -13,7 +13,7 @@ composer:
   script: composer install
   artifacts:
     paths:
-      - app/vendor/
+      - vendor/
 
 qa-composer:
   stage: qa
