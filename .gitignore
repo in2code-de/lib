@@ -2,3 +2,6 @@
 /.project/githooks/tmp
 /.phpunit.result.cache
 /vendor
+
+# Ignore git archive
+*.zip
