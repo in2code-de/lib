@@ -1,4 +1,4 @@
 /.idea
 /.project/githooks/tmp
-/app/.phpunit.result.cache
-/app/vendor
+/.phpunit.result.cache
+/vendor
