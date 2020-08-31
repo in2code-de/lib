@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 if (!function_exists('array_filter_recursive')) {
     /**
+     * Filters an array the same way array_filter would, but recursively, until $limit is hit.
+     *
      * @param array<array-key, (int|string|array)> $array
      * @param int $limit
      * @param callable|null $callback
