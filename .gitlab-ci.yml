@@ -35,6 +35,10 @@ qa-phpstan:
   stage: qa
   script: composer run qa-phpstan
 
+qa-psalm:
+  stage: qa
+  script: composer run qa-psalm
+
 qa-phpunit-coverage:
   image: in2code/php-dev:7.4-fpm
   stage: qa

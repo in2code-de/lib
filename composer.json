@@ -17,15 +17,16 @@
         "phpmd/phpmd": "^2.8",
         "phpstan/phpstan": "^0.12.40",
         "phpunit/phpunit": "^9.3",
-        "squizlabs/php_codesniffer": "^3.5"
+        "squizlabs/php_codesniffer": "^3.5",
+        "vimeo/psalm": "^3.14"
     },
     "autoload": {
-        "files": [
-            "funcs/cos_lib_funcs.php"
-        ],
         "psr-4": {
             "CoStack\\Lib\\": "src"
-        }
+        },
+        "files": [
+            "funcs/cos_lib_funcs.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
@@ -34,11 +35,12 @@
     },
     "scripts": {
         "qa-all": [
-            "@qa-lint",
             "@qa-composer",
+            "@qa-lint",
             "@qa-phpcs",
             "@qa-phpmd",
             "@qa-phpstan",
+            "@qa-psalm",
             "@qa-phpunit"
         ],
         "qa-composer": "composer validate",
@@ -47,6 +49,7 @@
         "qa-phpmd": "vendor/bin/phpmd src,tests ansi .phpmd.xml",
         "qa-phpstan": "vendor/bin/phpstan analyse -c .phpstan.neon",
         "qa-phpunit": "vendor/bin/phpunit -c .phpunit.xml",
-        "qa-phpunit-coverage": "vendor/bin/phpunit -c .phpunit.xml --coverage-text --colors=never"
+        "qa-phpunit-coverage": "vendor/bin/phpunit -c .phpunit.xml --coverage-text --colors=never",
+        "qa-psalm": "vendor/bin/psalm -c .psalm.xml"
     }
 }
