@@ -100,7 +100,8 @@ class FunctionArrayFilterRecursiveTest extends TestCase
              ->method('__invoke')
              ->withConsecutive(['foo'], ['bar'], ['baz']);
         $mockWrapper = function () use ($mock) {
-            return $mock(...func_get_args()); // @phpstan-ignore-line
+            /** @var callable $mock */
+            return $mock(...func_get_args());
         };
 
         array_filter_recursive($canary, -1, $mockWrapper, ARRAY_FILTER_USE_KEY);
@@ -126,8 +127,8 @@ class FunctionArrayFilterRecursiveTest extends TestCase
             ->withConsecutive([1, 'foo'], [2, 'bar'], [3, 'baz']);
 
         $mockWrapper = function () use ($mock) {
-            $args = func_get_args();
-            return $mock->__invoke(...$args);
+            /** @var callable $mock */
+            return $mock(...func_get_args());
         };
 
         array_filter_recursive($canary, -1, $mockWrapper, ARRAY_FILTER_USE_BOTH);
