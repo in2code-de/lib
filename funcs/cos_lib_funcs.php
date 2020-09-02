@@ -66,3 +66,71 @@ if (!function_exists('array_value')) {
         return $return;
     }
 }
+
+if (!function_exists('array_property')) {
+    /**
+     * Like array_column, but for arrays containing objects.
+     *
+     * @param object[] $array
+     * @param null|string|callable $property
+     * @param null|string|callable $indexKey
+     * @return mixed[]
+     * @throws Exceptions\ObjectArrayContainsNonObjectValueException
+     * @throws Exceptions\PropertyMustBePropertyNameOrCallable
+     * @throws ReflectionException
+     */
+    function array_property(array $array, $property, $indexKey = null): array
+    {
+        $return = [];
+
+        if (empty($array)) {
+            return $return;
+        }
+
+        if (is_string($property)) {
+            $probe = reset($array);
+            /** @psalm-suppress DocblockTypeContradiction */
+            if (!is_object($probe)) {
+                throw new Exceptions\ObjectArrayContainsNonObjectValueException($probe, $array);
+            }
+            $reflection = new ReflectionProperty($probe, $property);
+
+            if ($reflection->isPublic()) {
+                foreach ($array as $object) {
+                    $return[] = $object->{$property};
+                }
+                if (null !== $indexKey) {
+                    $return = array_combine(array_property($array, $indexKey), $return);
+                }
+                return $return;
+            }
+
+            // Accessible reflection is 2 times slower than direct access
+            // but 2 times faster than using closures at all
+            // and 4 times faster than rebinding closures
+            $reflection->setAccessible(true);
+
+            foreach ($array as $object) {
+                $return[] = $reflection->getValue($object);
+            }
+            return $return;
+        }
+
+        if (is_callable($property)) {
+            foreach ($array as $object) {
+                $return[] = $property($object);
+            }
+            if (null !== $indexKey) {
+                $return = array_combine(array_property($array, $indexKey), $return);
+            }
+            return $return;
+        }
+
+        /** @psalm-suppress RedundantConditionGivenDocblockType */
+        if (null === $property && null !== $indexKey) {
+            return array_combine(array_property($array, $indexKey), $array);
+        }
+
+        throw new Exceptions\PropertyMustBePropertyNameOrCallable($property, $array);
+    }
+}

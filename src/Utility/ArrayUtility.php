@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace CoStack\Lib\Utility;
 
 use CoStack\Lib\Exceptions as Exceptions;
+use ReflectionException;
 
 use function array_filter_recursive;
+use function array_property;
 use function array_value;
 
 /**
@@ -36,5 +38,19 @@ class ArrayUtility
     public static function value(array $array, string $path)
     {
         return array_value($array, $path);
+    }
+
+    /**
+     * @param object[] $array
+     * @param null|string|callable $property
+     * @param null|string|callable $indexKey
+     * @return mixed[]
+     * @throws Exceptions\ObjectArrayContainsNonObjectValueException
+     * @throws Exceptions\PropertyMustBePropertyNameOrCallable
+     * @throws ReflectionException
+     */
+    public function property(array $array, $property, $indexKey): array
+    {
+        return array_property($array, $property, $indexKey);
     }
 }

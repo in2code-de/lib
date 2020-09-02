@@ -4,5 +4,5 @@ parameters:
 		- src
 		- tests
 	ignoreErrors:
-		- '#Call to an undefined method PHPUnit\\Framework\\MockObject\\MockObject\&stdClass::__invoke\(\)#'
+		- '#Trying to invoke PHPUnit\\Framework\\MockObject\\MockObject&stdClass but it might not be a callable.#'
 	excludes_analyse:
