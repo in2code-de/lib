@@ -175,3 +175,29 @@ if (!function_exists('concat_paths')) {
         }
     }
 }
+
+if (!function_exists('mkdir_deep')) {
+    /**
+     * Create a directory recursively without need to pass the mode argument.
+     * The default mode is *not* always 0777, as defined in the signature, because it is modified globally by umask().
+     *
+     * @param string $path
+     * @param int|null $mode
+     * @return bool
+     */
+    function mkdir_deep(string $path, int $mode = null): bool
+    {
+        if (is_dir($path)) {
+            return true;
+        }
+        if (!mkdir_deep(dirname($path), $mode)) {
+            // @codeCoverageIgnoreStart
+            return false;
+            // @codeCoverageIgnoreEnd
+        }
+        if (null !== $mode) {
+            return mkdir($path, $mode);
+        }
+        return mkdir($path);
+    }
+}
