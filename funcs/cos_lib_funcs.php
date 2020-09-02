@@ -134,3 +134,44 @@ if (!function_exists('array_property')) {
         throw new Exceptions\PropertyMustBePropertyNameOrCallable($property, $array);
     }
 }
+
+if (!function_exists('concat_paths')) {
+    /**
+     * Concatenate filesystem paths
+     *
+     * @param string ...$paths
+     * @return string
+     */
+    function concat_paths(string ...$paths): string
+    {
+        $doubleDs = DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR;
+        switch (count($paths)) {
+            case 0:
+                return '';
+            case 1:
+                return str_replace($doubleDs, DIRECTORY_SEPARATOR, $paths[0]);
+            default:
+                $first = $paths[0];
+                unset($paths[0]);
+                $prefix = '';
+                $prefixPos = strpos($first, '://');
+                if (false !== $prefixPos) {
+                    $prefix = substr($first, 0, $prefixPos + 3);
+                    $first = substr($first, $prefixPos + 3);
+                }
+
+                $full = $first;
+                foreach ($paths as $path) {
+                    if (!empty($full)) {
+                        $full .= DIRECTORY_SEPARATOR;
+                    }
+
+                    $full .= $path;
+                }
+                while (false !== strpos($full, $doubleDs)) {
+                    $full = str_replace($doubleDs, DIRECTORY_SEPARATOR, $full);
+                }
+                return $prefix . $full;
+        }
+    }
+}

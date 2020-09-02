@@ -44,7 +44,7 @@
             "@qa-psalm",
             "@qa-phpunit"
         ],
-        "qa-composer": "composer validate",
+        "qa-composer": "composer validate --no-check-lock",
         "qa-lint": "vendor/bin/parallel-lint src tests",
         "qa-phpcs": "vendor/bin/phpcs",
         "qa-phpmd": "vendor/bin/phpmd src,tests ansi .phpmd.xml",
