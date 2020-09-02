@@ -21,14 +21,14 @@ class ArrayPathTerminatesEarlyException extends LibException
     /** @var mixed */
     private $value;
 
-    /** @var array[] */
+    /** @var mixed[] */
     private array $array;
 
     /**
      * @param string $path
      * @param string $key
      * @param mixed $value
-     * @param array[] $array
+     * @param mixed[] $array
      * @param Throwable|null $previous
      */
     public function __construct(string $path, string $key, $value, array $array, Throwable $previous = null)
@@ -61,7 +61,7 @@ class ArrayPathTerminatesEarlyException extends LibException
         return $this->value;
     }
 
-    /** @return array[] $array */
+    /** @return mixed[] $array */
     public function getArray(): array
     {
         return $this->array;

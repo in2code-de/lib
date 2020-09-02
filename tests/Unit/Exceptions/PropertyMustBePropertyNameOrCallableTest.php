@@ -6,6 +6,7 @@ namespace CoStack\LibTests\Unit\Exceptions;
 
 use CoStack\Lib\Exceptions\PropertyMustBePropertyNameOrCallable;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 use function uniqid;
 
@@ -22,7 +23,7 @@ class PropertyMustBePropertyNameOrCallableTest extends TestCase
     public function testExceptionContainsConstructorArguments(): void
     {
         $canaryValue = uniqid();
-        $canaryArray = [uniqid()];
+        $canaryArray = [new stdClass()];
 
         $exception = new PropertyMustBePropertyNameOrCallable($canaryValue, $canaryArray);
 

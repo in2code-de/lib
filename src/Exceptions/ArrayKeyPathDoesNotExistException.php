@@ -17,13 +17,13 @@ class ArrayKeyPathDoesNotExistException extends LibException
 
     private string $key;
 
-    /** @var array[] */
+    /** @var mixed[] */
     private array $array;
 
     /**
      * @param string $path
      * @param string $key
-     * @param array[] $array
+     * @param mixed[] $array
      * @param Throwable|null $previous
      */
     public function __construct(string $path, string $key, array $array, Throwable $previous = null)
@@ -45,7 +45,7 @@ class ArrayKeyPathDoesNotExistException extends LibException
         return $this->key;
     }
 
-    /** @return array[] $array */
+    /** @return mixed[] $array */
     public function getArray(): array
     {
         return $this->array;
