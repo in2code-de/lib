@@ -283,6 +283,7 @@ class ArrayPropertyTest extends TestCase
 
     /**
      * @covers \array_property
+     * @uses \CoStack\Lib\Exceptions\PropertyMustBePropertyNameOrCallable
      */
     public function testFunctionThrowsExceptionIfPropertyIsInvalidAndIndexKeyIsNotSet(): void
     {
@@ -295,6 +296,7 @@ class ArrayPropertyTest extends TestCase
 
     /**
      * @covers \array_property
+     * @uses \CoStack\Lib\Exceptions\PropertyMustBePropertyNameOrCallable
      */
     public function testFunctionThrowsExceptionIfIndexKeyIsInvalid(): void
     {
@@ -307,6 +309,7 @@ class ArrayPropertyTest extends TestCase
 
     /**
      * @covers \array_property
+     * @uses \CoStack\Lib\Exceptions\ObjectArrayContainsNonObjectValueException
      */
     public function testFunctionThrowsExceptionIfValueIsNotAnObject(): void
     {

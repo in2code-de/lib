@@ -18,6 +18,9 @@ class ArrayPathTerminatesEarlyException extends LibException
 
     private string $key;
 
+    /** @var mixed */
+    private $value;
+
     /** @var array[] */
     private array $array;
 
@@ -32,6 +35,7 @@ class ArrayPathTerminatesEarlyException extends LibException
     {
         $this->path = $path;
         $this->key = $key;
+        $this->value = $value;
         $this->array = $array;
 
         parent::__construct(
@@ -49,6 +53,12 @@ class ArrayPathTerminatesEarlyException extends LibException
     public function getKey(): string
     {
         return $this->key;
+    }
+
+    /** @return mixed */
+    public function getValue()
+    {
+        return $this->value;
     }
 
     /** @return array[] $array */

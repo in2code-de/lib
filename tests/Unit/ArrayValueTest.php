@@ -32,6 +32,7 @@ class ArrayValueTest extends TestCase
 
     /**
      * @covers \array_value
+     * @uses \CoStack\Lib\Exceptions\ArrayKeyPathDoesNotExistException
      */
     public function testFunctionThrowsArrayKeyPathDoesNotExistException(): void
     {
@@ -45,6 +46,7 @@ class ArrayValueTest extends TestCase
 
     /**
      * @covers \array_value
+     * @uses \CoStack\Lib\Exceptions\ArrayPathTerminatesEarlyException
      */
     public function testFunctionThrowsExceptionIfPathPartTerminatesInNonArrayValue(): void
     {
