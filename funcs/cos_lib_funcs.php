@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use CoStack\Lib\Exceptions as Exceptions;
+use In2code\PerpetualOx\Service\Exception\MissingConstructorArgumentException;
 
 if (!function_exists('array_filter_recursive')) {
     /**
@@ -198,5 +199,58 @@ if (!function_exists('mkdir_deep')) {
             return mkdir($path, $mode);
         }
         return mkdir($path);
+    }
+}
+
+
+if (!function_exists('factory')) {
+    /**
+     * Creates a new instance of a class with constructor arguments provided as an associative array
+     *
+     * @template T
+     * @psalm-param class-string<T> $class
+     * @param mixed[] $arguments
+     * @return T
+     *
+     * @throws ReflectionException
+     * @throws Exceptions\MissingConstructorArgumentException
+     */
+    function factory(string $class, array $arguments = []): object
+    {
+        $constructor = (new \ReflectionClass($class))->getConstructor();
+        if (null === $constructor) {
+            return new $class();
+        }
+
+        $constructorArgs = [];
+
+        foreach ($constructor->getParameters() as $reflectionParameter) {
+            $position = $reflectionParameter->getPosition();
+            $name = $reflectionParameter->getName();
+
+
+            if (!isset($arguments[$name])) {
+                if ($reflectionParameter->isOptional()) {
+                    $constructorArgs[$position] = $reflectionParameter->getDefaultValue();
+                } else {
+                    throw new Exceptions\MissingConstructorArgumentException($class, $name);
+                }
+            } else {
+                $value = $arguments[$name];
+                if ($reflectionParameter->hasType() && null !== $reflectionType = $reflectionParameter->getType()) {
+                    if ($reflectionType instanceof ReflectionNamedType) {
+                        $variableTypeName = $reflectionType->getName();
+                    } else {
+                        // @codeCoverageIgnoreStart
+                        $variableTypeName = $reflectionType->__toString();
+                        // @codeCoverageIgnoreEnd
+                    }
+                    settype($value, $variableTypeName);
+                }
+                $constructorArgs[$position] = $value;
+            }
+        }
+
+        return new $class(...$constructorArgs);
     }
 }
