@@ -221,7 +221,6 @@ if (!function_exists('factory')) {
      *
      * @throws Exceptions\MissingConstructorArgumentException
      * @throws ReflectionException
-     * @noinspection PhpUndefinedClassInspection
      */
     function factory(string $class, array $arguments = []): object
     {
