@@ -2,8 +2,13 @@
 
 declare(strict_types=1);
 
+namespace CoStack\Lib;
+
 use CoStack\Lib\Exceptions as Exceptions;
-use In2code\PerpetualOx\Service\Exception\MissingConstructorArgumentException;
+use ReflectionClass;
+use ReflectionException;
+use ReflectionNamedType;
+use ReflectionProperty;
 
 if (!function_exists('array_filter_recursive')) {
     /**
@@ -209,15 +214,18 @@ if (!function_exists('factory')) {
      *
      * @template T
      * @psalm-param class-string<T> $class
+     * @param string $class
      * @param mixed[] $arguments
-     * @return T
+     * @psalm-return T
+     * @return object
      *
-     * @throws ReflectionException
      * @throws Exceptions\MissingConstructorArgumentException
+     * @throws ReflectionException
+     * @noinspection PhpUndefinedClassInspection
      */
     function factory(string $class, array $arguments = []): object
     {
-        $constructor = (new \ReflectionClass($class))->getConstructor();
+        $constructor = (new ReflectionClass($class))->getConstructor();
         if (null === $constructor) {
             return new $class();
         }
@@ -242,6 +250,7 @@ if (!function_exists('factory')) {
                         $variableTypeName = $reflectionType->getName();
                     } else {
                         // @codeCoverageIgnoreStart
+                        /** @noinspection PhpDeprecationInspection */
                         $variableTypeName = $reflectionType->__toString();
                         // @codeCoverageIgnoreEnd
                     }

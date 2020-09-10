@@ -12,10 +12,12 @@ use CoStack\LibTests\Unit\Double\FactoryTestClassThree;
 use CoStack\LibTests\Unit\Double\FactoryTestClassTwo;
 use PHPUnit\Framework\TestCase;
 
+use function CoStack\Lib\factory;
+
 class FactoryTest extends TestCase
 {
     /**
-     * @covers \factory
+     * @covers \CoStack\Lib\factory
      */
     public function testFunctionCreatesNewInstanceOfClassWithoutArgs(): void
     {
@@ -24,7 +26,7 @@ class FactoryTest extends TestCase
     }
 
     /**
-     * @covers \factory
+     * @covers \CoStack\Lib\factory
      */
     public function testFunctionCreatesNewInstanceOfClassWithArgs(): void
     {
@@ -41,7 +43,7 @@ class FactoryTest extends TestCase
     }
 
     /**
-     * @covers \factory
+     * @covers \CoStack\Lib\factory
      */
     public function testFunctionConvertsArgumentsToExpectedType(): void
     {
@@ -64,7 +66,7 @@ class FactoryTest extends TestCase
     }
 
     /**
-     * @covers \factory
+     * @covers \CoStack\Lib\factory
      */
     public function testFunctionThrowsExceptionForMissingNonOptionalArgument(): void
     {
@@ -75,7 +77,7 @@ class FactoryTest extends TestCase
     }
 
     /**
-     * @covers \factory
+     * @covers \CoStack\Lib\factory
      */
     public function testFunctionCreatesInstanceWithDefaultArgumentsIfNoneAreProvided(): void
     {
@@ -85,7 +87,7 @@ class FactoryTest extends TestCase
     }
 
     /**
-     * @covers \factory
+     * @covers \CoStack\Lib\factory
      */
     public function testFunctionCreatesInstanceOfClassWithoutConstructor(): void
     {

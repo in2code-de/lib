@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 use stdClass;
 
 use function array_count_values;
-use function array_property;
+use function CoStack\Lib\array_property;
 use function func_get_args;
 use function property_exists;
 use function sprintf;
@@ -26,7 +26,7 @@ use function uniqid;
 class ArrayPropertyTest extends TestCase
 {
     /**
-     * @covers \array_property
+     * @covers \CoStack\Lib\array_property
      */
     public function testFunctionReturnsEmptyArrayForEmptyArray(): void
     {
@@ -36,7 +36,7 @@ class ArrayPropertyTest extends TestCase
     }
 
     /**
-     * @covers \array_property
+     * @covers \CoStack\Lib\array_property
      */
     public function testFunctionReturnsPublicPropertyValuesByString(): void
     {
@@ -63,7 +63,7 @@ class ArrayPropertyTest extends TestCase
     }
 
     /**
-     * @covers \array_property
+     * @covers \CoStack\Lib\array_property
      */
     public function testFunctionReturnsPrivatePropertyValuesByString(): void
     {
@@ -95,7 +95,7 @@ class ArrayPropertyTest extends TestCase
     }
 
     /**
-     * @covers \array_property
+     * @covers \CoStack\Lib\array_property
      */
     public function testFunctionDoesNotInvokeGetter(): void
     {
@@ -140,7 +140,7 @@ class ArrayPropertyTest extends TestCase
     }
 
     /**
-     * @covers \array_property
+     * @covers \CoStack\Lib\array_property
      */
     public function testFunctionInvokedOnlyWithIndexKeyIndexesArray(): void
     {
@@ -175,7 +175,7 @@ class ArrayPropertyTest extends TestCase
     }
 
     /**
-     * @covers \array_property
+     * @covers \CoStack\Lib\array_property
      */
     public function testFunctionReturnsValuesReturnedByClosure(): void
     {
@@ -247,7 +247,7 @@ class ArrayPropertyTest extends TestCase
     }
 
     /**
-     * @covers       \array_property
+     * @covers \CoStack\Lib\array_property
      *
      * @dataProvider propertyAndIndexKeyMatrixProvider
      *
@@ -282,7 +282,7 @@ class ArrayPropertyTest extends TestCase
     }
 
     /**
-     * @covers \array_property
+     * @covers \CoStack\Lib\array_property
      * @uses \CoStack\Lib\Exceptions\PropertyMustBePropertyNameOrCallable
      */
     public function testFunctionThrowsExceptionIfPropertyIsInvalidAndIndexKeyIsNotSet(): void
@@ -295,7 +295,7 @@ class ArrayPropertyTest extends TestCase
     }
 
     /**
-     * @covers \array_property
+     * @covers \CoStack\Lib\array_property
      * @uses \CoStack\Lib\Exceptions\PropertyMustBePropertyNameOrCallable
      */
     public function testFunctionThrowsExceptionIfIndexKeyIsInvalid(): void
@@ -308,7 +308,7 @@ class ArrayPropertyTest extends TestCase
     }
 
     /**
-     * @covers \array_property
+     * @covers \CoStack\Lib\array_property
      * @uses \CoStack\Lib\Exceptions\ObjectArrayContainsNonObjectValueException
      */
     public function testFunctionThrowsExceptionIfValueIsNotAnObject(): void

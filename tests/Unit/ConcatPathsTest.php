@@ -6,14 +6,14 @@ namespace CoStack\LibTests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
-use function concat_paths;
+use function CoStack\Lib\concat_paths;
 
 use const DIRECTORY_SEPARATOR;
 
 class ConcatPathsTest extends TestCase
 {
     /**
-     * @covers \concat_paths
+     * @covers \CoStack\Lib\concat_paths
      */
     public function testFunctionSupportsProtocols(): void
     {
@@ -23,7 +23,7 @@ class ConcatPathsTest extends TestCase
     }
 
     /**
-     * @covers \concat_paths
+     * @covers \CoStack\Lib\concat_paths
      */
     public function testFunctionReturnsEmptyStringForEmptyPaths(): void
     {
@@ -33,7 +33,7 @@ class ConcatPathsTest extends TestCase
     }
 
     /**
-     * @covers \concat_paths
+     * @covers \CoStack\Lib\concat_paths
      */
     public function testFunctionReturnsPathWithoutDuplicateDirectorySeparator(): void
     {
@@ -43,7 +43,7 @@ class ConcatPathsTest extends TestCase
     }
 
     /**
-     * @covers \concat_paths
+     * @covers \CoStack\Lib\concat_paths
      */
     public function testFunctionPreservesAbsoluteness(): void
     {
@@ -80,7 +80,7 @@ class ConcatPathsTest extends TestCase
     }
 
     /**
-     * @covers \concat_paths
+     * @covers \CoStack\Lib\concat_paths
      *
      * @dataProvider pathsForConcatenationDataProvider
      *

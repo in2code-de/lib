@@ -7,9 +7,9 @@ namespace CoStack\Lib\Utility;
 use CoStack\Lib\Exceptions as Exceptions;
 use ReflectionException;
 
-use function array_filter_recursive;
-use function array_property;
-use function array_value;
+use function CoStack\Lib\array_filter_recursive;
+use function CoStack\Lib\array_property;
+use function CoStack\Lib\array_value;
 
 /**
  * @codeCoverageIgnore

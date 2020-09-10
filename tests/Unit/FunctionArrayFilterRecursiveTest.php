@@ -7,7 +7,7 @@ namespace CoStack\LibTests\Unit;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-use function array_filter_recursive;
+use function CoStack\Lib\array_filter_recursive;
 use function func_get_args;
 
 use const ARRAY_FILTER_USE_BOTH;
@@ -16,7 +16,7 @@ use const ARRAY_FILTER_USE_KEY;
 class FunctionArrayFilterRecursiveTest extends TestCase
 {
     /**
-     * @covers \array_filter_recursive
+     * @covers \CoStack\Lib\array_filter_recursive
      */
     public function testFunctionStopsFilterAtGivenLevel(): void
     {
@@ -57,7 +57,7 @@ class FunctionArrayFilterRecursiveTest extends TestCase
     }
 
     /**
-     * @covers \array_filter_recursive
+     * @covers \CoStack\Lib\array_filter_recursive
      */
     public function testClosureCanBeUsedAsFilterFunction(): void
     {
@@ -83,7 +83,7 @@ class FunctionArrayFilterRecursiveTest extends TestCase
     }
 
     /**
-     * @covers \array_filter_recursive
+     * @covers \CoStack\Lib\array_filter_recursive
      */
     public function testFunctionSupportsUseKeyFlag(): void
     {
@@ -108,7 +108,7 @@ class FunctionArrayFilterRecursiveTest extends TestCase
     }
 
     /**
-     * @covers \array_filter_recursive
+     * @covers \CoStack\Lib\array_filter_recursive
      */
     public function testFunctionSupportsUseBothFlag(): void
     {

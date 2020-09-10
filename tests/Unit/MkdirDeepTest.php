@@ -6,17 +6,17 @@ namespace CoStack\LibTests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
-use function concat_paths;
+use function CoStack\Lib\concat_paths;
+use function CoStack\Lib\mkdir_deep;
 use function escapeshellarg;
 use function exec;
-use function mkdir_deep;
 use function sys_get_temp_dir;
 use function uniqid;
 
 class MkdirDeepTest extends TestCase
 {
     /**
-     * @covers \mkdir_deep
+     * @covers \CoStack\Lib\mkdir_deep
      */
     public function testFunctionCreatesDirectory(): void
     {
@@ -31,7 +31,7 @@ class MkdirDeepTest extends TestCase
     }
 
     /**
-     * @covers \mkdir_deep
+     * @covers \CoStack\Lib\mkdir_deep
      */
     public function testFunctionAllowsSettingMode(): void
     {

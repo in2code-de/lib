@@ -9,12 +9,12 @@ use CoStack\Lib\Exceptions\ArrayPathTerminatesEarlyException;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-use function array_value;
+use function CoStack\Lib\array_value;
 
 class ArrayValueTest extends TestCase
 {
     /**
-     * @covers \array_value
+     * @covers \CoStack\Lib\array_value
      */
     public function testFunctionReturnsValueAtTheEndOfThePath(): void
     {
@@ -31,7 +31,7 @@ class ArrayValueTest extends TestCase
     }
 
     /**
-     * @covers \array_value
+     * @covers \CoStack\Lib\array_value
      * @uses \CoStack\Lib\Exceptions\ArrayKeyPathDoesNotExistException
      */
     public function testFunctionThrowsArrayKeyPathDoesNotExistException(): void
@@ -45,7 +45,7 @@ class ArrayValueTest extends TestCase
     }
 
     /**
-     * @covers \array_value
+     * @covers \CoStack\Lib\array_value
      * @uses \CoStack\Lib\Exceptions\ArrayPathTerminatesEarlyException
      */
     public function testFunctionThrowsExceptionIfPathPartTerminatesInNonArrayValue(): void
@@ -61,7 +61,7 @@ class ArrayValueTest extends TestCase
     }
 
     /**
-     * @covers \array_value
+     * @covers \CoStack\Lib\array_value
      */
     public function testFunctionReturnsArrayIfPathIsEmpty(): void
     {
