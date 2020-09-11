@@ -10,7 +10,7 @@ use ReflectionException;
 use ReflectionNamedType;
 use ReflectionProperty;
 
-if (!function_exists('array_filter_recursive')) {
+if (!function_exists('\CoStack\Lib\array_filter_recursive')) {
     /**
      * Filters an array the same way array_filter would, but recursively, until $limit is hit.
      *
@@ -39,7 +39,7 @@ if (!function_exists('array_filter_recursive')) {
     }
 }
 
-if (!function_exists('array_value')) {
+if (!function_exists('\CoStack\Lib\array_value')) {
     /**
      * Returns a subset of the array by walking down the keys defined in $path, separated by dots.
      *
@@ -73,7 +73,7 @@ if (!function_exists('array_value')) {
     }
 }
 
-if (!function_exists('array_property')) {
+if (!function_exists('\CoStack\Lib\array_property')) {
     /**
      * Like array_column, but for arrays containing objects.
      *
@@ -140,7 +140,7 @@ if (!function_exists('array_property')) {
     }
 }
 
-if (!function_exists('concat_paths')) {
+if (!function_exists('\CoStack\Lib\concat_paths')) {
     /**
      * Concatenate filesystem paths
      *
@@ -181,7 +181,7 @@ if (!function_exists('concat_paths')) {
     }
 }
 
-if (!function_exists('mkdir_deep')) {
+if (!function_exists('\CoStack\Lib\mkdir_deep')) {
     /**
      * Create a directory recursively without need to pass the mode argument.
      * The default mode is *not* always 0777, as defined in the signature, because it is modified globally by umask().
@@ -207,8 +207,7 @@ if (!function_exists('mkdir_deep')) {
     }
 }
 
-
-if (!function_exists('factory')) {
+if (!function_exists('\CoStack\Lib\factory')) {
     /**
      * Creates a new instance of a class with constructor arguments provided as an associative array
      *
@@ -234,7 +233,6 @@ if (!function_exists('factory')) {
         foreach ($constructor->getParameters() as $reflectionParameter) {
             $position = $reflectionParameter->getPosition();
             $name = $reflectionParameter->getName();
-
 
             if (!isset($arguments[$name])) {
                 if ($reflectionParameter->isOptional()) {
