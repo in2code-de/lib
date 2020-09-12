@@ -251,7 +251,9 @@ if (!function_exists('\CoStack\Lib\factory')) {
                         $variableTypeName = $reflectionType->__toString();
                         // @codeCoverageIgnoreEnd
                     }
-                    settype($value, $variableTypeName);
+                    if (in_array($variableTypeName, ['int', 'string', 'float', 'array', 'bool'])) {
+                        settype($value, $variableTypeName);
+                    }
                 }
                 $constructorArgs[$position] = $value;
             }
