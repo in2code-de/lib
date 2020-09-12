@@ -19,7 +19,7 @@ class MissingConstructorArgumentException extends LibException
     {
         $this->class = $class;
         $this->argumentName = $argumentName;
-        parent::__construct(sprintf(self::MESSAGE, $class, $argumentName), self::CODE, $previous);
+        parent::__construct(sprintf(self::MESSAGE, $argumentName, $class), self::CODE, $previous);
     }
 
     public function getClass(): string
