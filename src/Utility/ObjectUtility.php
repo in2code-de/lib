@@ -9,6 +9,9 @@ use ReflectionException;
 
 use function CoStack\Lib\factory;
 
+/**
+ * @codeCoverageIgnore
+ */
 class ObjectUtility
 {
     /**

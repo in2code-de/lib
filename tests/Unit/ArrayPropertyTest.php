@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CoStack\LibTests\Unit;
 
-use CoStack\Lib\Exceptions\ObjectArrayContainsNonObjectValueException;
+use CoStack\Lib\Exceptions\ArrayContainsNonObjectValueException;
 use CoStack\Lib\Exceptions\PropertyMustBePropertyNameOrCallable;
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -309,12 +309,12 @@ class ArrayPropertyTest extends TestCase
 
     /**
      * @covers \CoStack\Lib\array_property
-     * @uses \CoStack\Lib\Exceptions\ObjectArrayContainsNonObjectValueException
+     * @uses \CoStack\Lib\Exceptions\ArrayContainsNonObjectValueException
      */
     public function testFunctionThrowsExceptionIfValueIsNotAnObject(): void
     {
-        self::expectException(ObjectArrayContainsNonObjectValueException::class);
-        self::expectExceptionCode(ObjectArrayContainsNonObjectValueException::CODE);
+        self::expectException(ArrayContainsNonObjectValueException::class);
+        self::expectExceptionCode(ArrayContainsNonObjectValueException::CODE);
 
         // @phpstan-ignore-next-line
         array_property(['foo'], 'foo');

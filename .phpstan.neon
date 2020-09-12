@@ -5,4 +5,5 @@ parameters:
 		- tests
 	ignoreErrors:
 		- '#Trying to invoke PHPUnit\\Framework\\MockObject\\MockObject&stdClass but it might not be a callable.#'
+		- '#PHPDoc tag @return with type mixed is not subtype of native type object.#'
 	excludes_analyse:

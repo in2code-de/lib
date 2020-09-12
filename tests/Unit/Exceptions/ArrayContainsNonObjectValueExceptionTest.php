@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace CoStack\LibTests\Unit\Exceptions;
 
-use CoStack\Lib\Exceptions\ObjectArrayContainsNonObjectValueException;
+use CoStack\Lib\Exceptions\ArrayContainsNonObjectValueException;
 use PHPUnit\Framework\TestCase;
 
 use function uniqid;
 
 /**
- * @coversDefaultClass \CoStack\Lib\Exceptions\ObjectArrayContainsNonObjectValueException
+ * @coversDefaultClass \CoStack\Lib\Exceptions\ArrayContainsNonObjectValueException
  */
-class ObjectArrayContainsNonObjectValueExceptionTest extends TestCase
+class ArrayContainsNonObjectValueExceptionTest extends TestCase
 {
     /**
      * @covers ::__construct
@@ -24,7 +24,7 @@ class ObjectArrayContainsNonObjectValueExceptionTest extends TestCase
         $canaryValue = uniqid();
         $canaryArray = [uniqid()];
 
-        $exception = new ObjectArrayContainsNonObjectValueException($canaryValue, $canaryArray);
+        $exception = new ArrayContainsNonObjectValueException($canaryValue, $canaryArray);
 
         self::assertSame($canaryValue, $exception->getValue());
         self::assertSame($canaryArray, $exception->getArray());

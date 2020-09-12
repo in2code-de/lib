@@ -81,7 +81,7 @@ if (!function_exists('\CoStack\Lib\array_property')) {
      * @param null|string|callable $property
      * @param null|string|callable $indexKey
      * @return mixed[]
-     * @throws Exceptions\ObjectArrayContainsNonObjectValueException
+     * @throws Exceptions\ArrayContainsNonObjectValueException
      * @throws Exceptions\PropertyMustBePropertyNameOrCallable
      * @throws ReflectionException
      */
@@ -97,7 +97,7 @@ if (!function_exists('\CoStack\Lib\array_property')) {
             $probe = reset($array);
             /** @psalm-suppress DocblockTypeContradiction */
             if (!is_object($probe)) {
-                throw new Exceptions\ObjectArrayContainsNonObjectValueException($probe, $array);
+                throw new Exceptions\ArrayContainsNonObjectValueException($probe, $array);
             }
             $reflection = new ReflectionProperty($probe, $property);
 

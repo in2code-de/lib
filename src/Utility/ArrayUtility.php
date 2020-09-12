@@ -45,7 +45,7 @@ class ArrayUtility
      * @param null|string|callable $property
      * @param null|string|callable $indexKey
      * @return mixed[]
-     * @throws Exceptions\ObjectArrayContainsNonObjectValueException
+     * @throws Exceptions\ArrayContainsNonObjectValueException
      * @throws Exceptions\PropertyMustBePropertyNameOrCallable
      * @throws ReflectionException
      */
