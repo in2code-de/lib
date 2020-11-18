@@ -41,7 +41,8 @@ class ArrayPropertyTest extends TestCase
     public function testFunctionReturnsPublicPropertyValuesByString(): void
     {
         $testObject = new class {
-            public string $foo;
+            /** @var string */
+            public $foo;
         };
 
         $expected = [
@@ -68,7 +69,8 @@ class ArrayPropertyTest extends TestCase
     public function testFunctionReturnsPrivatePropertyValuesByString(): void
     {
         $testObject = new class {
-            private string $foo;
+            /** @var string */
+            public $foo;
 
             public function setFoo(string $value): void
             {
@@ -101,10 +103,11 @@ class ArrayPropertyTest extends TestCase
     {
         $calls = [];
         $mock = new class ($calls) {
-            private string $foo = 'bar';
+            /** @var string */
+            private $foo = 'bar';
 
             /** @var string[] */
-            private array $calls;
+            private $calls;
 
             /** @param string[] $calls */
             public function __construct(&$calls)
@@ -145,7 +148,8 @@ class ArrayPropertyTest extends TestCase
     public function testFunctionInvokedOnlyWithIndexKeyIndexesArray(): void
     {
         $testObject = new class {
-            private string $foo;
+            /** @var string */
+            private $foo;
 
             public function setFoo(string $value): void
             {
@@ -180,7 +184,8 @@ class ArrayPropertyTest extends TestCase
     public function testFunctionReturnsValuesReturnedByClosure(): void
     {
         $testObject = new class {
-            private string $foo;
+            /** @var string */
+            private $foo;
 
             public function setFoo(string $foo): void
             {
@@ -257,9 +262,11 @@ class ArrayPropertyTest extends TestCase
     public function testFunctionWithPropertyAndIndexKeyWillReturnIndexedArray($property, $indexKey): void
     {
         $testObject = new class {
-            public string $foo;
+            /** @var string */
+            public $foo;
 
-            public string $bar;
+            /** @var string */
+            public $bar;
         };
 
         $expected = [

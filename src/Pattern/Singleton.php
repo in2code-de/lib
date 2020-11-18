@@ -9,7 +9,8 @@ namespace CoStack\Lib\Pattern;
  */
 trait Singleton
 {
-    private static self $instance;
+    /** @var self */
+    private static $instance;
 
     final private function __construct()
     {

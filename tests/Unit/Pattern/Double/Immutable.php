@@ -18,9 +18,11 @@ class Immutable
 {
     use MagicMethodsForImmutables;
 
-    public ?string $foo;
+    /** @var string|null */
+    public $foo;
 
-    public ?string $bar;
+    /** @var string|null */
+    public $bar;
 
     public function __construct(?string $foo = '', ?string $bar = null)
     {

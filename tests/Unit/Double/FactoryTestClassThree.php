@@ -6,12 +6,16 @@ namespace CoStack\LibTests\Unit\Double;
 
 class FactoryTestClassThree
 {
-    public int $intArg;
-    public string $stringArg;
+    /** @var int */
+    public $intArg;
+    /** @var string */
+    public $stringArg;
     /** @var mixed[] */
-    public array $arrayArg;
-    public bool $boolArg;
-    public float $floatArg;
+    public $arrayArg;
+    /** @var bool */
+    public $boolArg;
+    /** @var float */
+    public $floatArg;
 
     /**
      * @param int $intArg

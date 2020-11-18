@@ -18,7 +18,7 @@ class ArrayContainsNonObjectValueException extends LibException
     private $value;
 
     /** @var mixed[] */
-    private array $array;
+    private $array;
 
     /**
      * @param mixed $value

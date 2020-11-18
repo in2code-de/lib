@@ -11,9 +11,11 @@ class MissingConstructorArgumentException extends LibException
     private const MESSAGE = 'Missing constructor argument "%s" for class "%s".';
     public const CODE = 1599662098;
 
-    private string $class;
+    /** @var string */
+    private $class;
 
-    private string $argumentName;
+    /** @var string */
+    private $argumentName;
 
     public function __construct(string $class, string $argumentName, Throwable $previous = null)
     {

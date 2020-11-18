@@ -14,15 +14,17 @@ class ArrayPathTerminatesEarlyException extends LibException
     private const MESSAGE = 'The array path "%s" is terminated early, because the value before key "%s" is a "%s" instead of an array';
     public const CODE = 1598892530;
 
-    private string $path;
+    /** @var string */
+    private $path;
 
-    private string $key;
+    /** @var string */
+    private $key;
 
     /** @var mixed */
     private $value;
 
     /** @var mixed[] */
-    private array $array;
+    private $array;
 
     /**
      * @param string $path

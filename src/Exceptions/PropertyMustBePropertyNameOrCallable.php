@@ -19,7 +19,7 @@ class PropertyMustBePropertyNameOrCallable extends LibException
     private $value;
 
     /** @var object[] */
-    private array $array;
+    private $array;
 
     /**
      * @param mixed $value

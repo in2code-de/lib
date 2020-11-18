@@ -6,7 +6,8 @@ namespace CoStack\LibTests\Unit\Double;
 
 class FactoryTestClassTwo
 {
-    public int $myValue;
+    /** @var int */
+    public $myValue;
 
     public function __construct(int $myValue)
     {

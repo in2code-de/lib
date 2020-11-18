@@ -11,9 +11,11 @@ class BadMethodCallException extends LibException
     private const MESSAGE = 'Call to undefined method "%s" on class "%s"';
     public const CODE = 1602239449;
 
-    private string $class;
+    /** @var string */
+    private $class;
 
-    private string $method;
+    /** @var string */
+    private $method;
 
     public function __construct(string $class, string $method, Throwable $previous = null)
     {

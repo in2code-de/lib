@@ -11,9 +11,11 @@ class ArgumentCountErrorException extends LibException
     private const MESSAGE = 'Missing argument for method "%s" on class "%s"';
     public const CODE = 1602239549;
 
-    private string $class;
+    /** @var string */
+    private $class;
 
-    private string $method;
+    /** @var string */
+    private $method;
 
     public function __construct(string $class, string $method, Throwable $previous = null)
     {
