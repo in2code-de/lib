@@ -247,7 +247,7 @@ class ArrayPropertyTest extends TestCase
     }
 
     /**
-     * @covers \CoStack\Lib\array_property
+     * @covers       \CoStack\Lib\array_property
      *
      * @dataProvider propertyAndIndexKeyMatrixProvider
      *
@@ -285,6 +285,32 @@ class ArrayPropertyTest extends TestCase
      * @covers \CoStack\Lib\array_property
      * @uses \CoStack\Lib\Exceptions\PropertyMustBePropertyNameOrCallable
      */
+    public function testFunctionThrowsExceptionIfPropertyIsInvalidAndIndexKeyIsNotSet(): void
+    {
+        self::expectException(PropertyMustBePropertyNameOrCallable::class);
+        self::expectExceptionCode(PropertyMustBePropertyNameOrCallable::CODE);
+
+        // @phpstan-ignore-next-line
+        array_property([new stdClass()], false);
+    }
+
+    /**
+     * @covers \CoStack\Lib\array_property
+     * @uses   \CoStack\Lib\Exceptions\PropertyMustBePropertyNameOrCallable
+     */
+    public function testFunctionThrowsExceptionIfIndexKeyIsInvalid(): void
+    {
+        self::expectException(PropertyMustBePropertyNameOrCallable::class);
+        self::expectExceptionCode(PropertyMustBePropertyNameOrCallable::CODE);
+
+        // @phpstan-ignore-next-line
+        array_property([new stdClass()], null, false);
+    }
+
+    /**
+     * @covers \CoStack\Lib\array_property
+     * @uses   \CoStack\Lib\Exceptions\PropertyMustBePropertyNameOrCallable
+     */
     public function testFunctionThrowsExceptionIfBotPropertyAndKeyAreNotSet(): void
     {
         self::expectException(PropertyMustBePropertyNameOrCallable::class);
@@ -296,7 +322,7 @@ class ArrayPropertyTest extends TestCase
 
     /**
      * @covers \CoStack\Lib\array_property
-     * @uses \CoStack\Lib\Exceptions\ArrayContainsNonObjectValueException
+     * @uses   \CoStack\Lib\Exceptions\ArrayContainsNonObjectValueException
      */
     public function testFunctionThrowsExceptionIfValueIsNotAnObject(): void
     {

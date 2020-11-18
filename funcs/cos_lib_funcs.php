@@ -49,7 +49,7 @@ if (!function_exists('\CoStack\Lib\array_value')) {
      * @throws Exceptions\ArrayPathTerminatesEarlyException
      * @throws Exceptions\ArrayKeyPathDoesNotExistException
      */
-    function array_value(array $array, string $path): mixed
+    function array_value(array $array, string $path)
     {
         // Trim all chars and dots
         $path = trim($path, " \t\n\r\0\x0B.");
@@ -85,7 +85,7 @@ if (!function_exists('\CoStack\Lib\array_property')) {
      * @throws Exceptions\PropertyMustBePropertyNameOrCallable
      * @throws ReflectionException
      */
-    function array_property(array $array, null|string|callable $property, null|string|callable $indexKey = null): array
+    function array_property(array $array, $property, $indexKey = null): array
     {
         $return = [];
 
@@ -131,7 +131,8 @@ if (!function_exists('\CoStack\Lib\array_property')) {
             return $return;
         }
 
-        if (null !== $indexKey) {
+        /** @psalm-suppress RedundantConditionGivenDocblockType */
+        if (null === $property && null !== $indexKey) {
             return array_combine(array_property($array, $indexKey), $array);
         }
 

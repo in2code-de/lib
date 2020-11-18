@@ -14,7 +14,8 @@ class ArrayContainsNonObjectValueException extends LibException
     private const MESSAGE = 'The given array must only contain objects, but the first element is a "%s"';
     public const CODE = 1599055645;
 
-    private mixed $value;
+    /** @var mixed */
+    private $value;
 
     /** @var mixed[] */
     private array $array;
@@ -24,7 +25,7 @@ class ArrayContainsNonObjectValueException extends LibException
      * @param mixed[] $array
      * @param Throwable|null $previous
      */
-    public function __construct(mixed $value, array $array, Throwable $previous = null)
+    public function __construct($value, array $array, Throwable $previous = null)
     {
         $this->value = $value;
         $this->array = $array;
@@ -32,7 +33,8 @@ class ArrayContainsNonObjectValueException extends LibException
         parent::__construct(sprintf(self::MESSAGE, gettype($value)), self::CODE, $previous);
     }
 
-    public function getValue(): mixed
+    /** @return mixed */
+    public function getValue()
     {
         return $this->value;
     }

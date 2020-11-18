@@ -51,7 +51,7 @@ class ArrayUtility
      */
     // phpcs:disable PSR12.Operators.OperatorSpacing.NoSpaceBefore
     // phpcs:disable PSR12.Operators.OperatorSpacing.NoSpaceAfter
-    public function property(array $array, null|string|callable $property, null|string|callable $indexKey): array
+    public function property(array $array, $property, $indexKey): array
     {
         // phpcs:enable PSR12.Operators.OperatorSpacing.NoSpaceBefore
         // phpcs:enable PSR12.Operators.OperatorSpacing.NoSpaceAfter
