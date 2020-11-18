@@ -22,8 +22,8 @@ class MkdirDeepTest extends TestCase
     {
         $prefix = concat_paths(sys_get_temp_dir(), uniqid());
         $path = concat_paths($prefix, '/bar/baz/boo');
-        self::assertDirectoryDoesNotExist($prefix);
-        self::assertDirectoryDoesNotExist($path);
+        self::assertDirectoryNotExists($prefix);
+        self::assertDirectoryNotExists($path);
         $success = mkdir_deep($path);
         self::assertTrue($success);
         self::assertDirectoryExists($path);
@@ -37,8 +37,8 @@ class MkdirDeepTest extends TestCase
     {
         $prefix = concat_paths(sys_get_temp_dir(), uniqid());
         $path = concat_paths($prefix, '/bar/baz/boo');
-        self::assertDirectoryDoesNotExist($prefix);
-        self::assertDirectoryDoesNotExist($path);
+        self::assertDirectoryNotExists($prefix);
+        self::assertDirectoryNotExists($path);
         $success = mkdir_deep($path, 0700);
         self::assertTrue($success);
         self::assertDirectoryExists($path);

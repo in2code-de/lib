@@ -12,7 +12,7 @@ stages:
   - composer
   - qa
 
-image: in2code/php:7.3-fpm
+image: in2code/php:7.2-fpm
 
 composer:
   stage: composer
@@ -68,7 +68,7 @@ qa-psalm:
       - "**/*.php"
 
 qa-phpunit-coverage:
-  image: in2code/php-dev:7.3-fpm
+  image: in2code/php-dev:7.2-fpm
   stage: qa
   script: composer run qa-phpunit-coverage
   only:

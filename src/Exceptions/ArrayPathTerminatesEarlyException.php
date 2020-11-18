@@ -43,7 +43,7 @@ class ArrayPathTerminatesEarlyException extends LibException
         parent::__construct(
             sprintf(self::MESSAGE, $path, $key, gettype($value)),
             self::CODE,
-            $previous,
+            $previous
         );
     }
 
