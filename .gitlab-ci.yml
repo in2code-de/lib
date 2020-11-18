@@ -1,4 +1,14 @@
+include:
+  - template: Dependency-Scanning.gitlab-ci.yml
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Secret-Detection.gitlab-ci.yml
+
+gemnasium-dependency_scanning:
+  variables:
+    DS_REMEDIATE: "false"
+
 stages:
+  - test
   - composer
   - qa
 
