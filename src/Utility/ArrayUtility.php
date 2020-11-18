@@ -49,8 +49,12 @@ class ArrayUtility
      * @throws Exceptions\PropertyMustBePropertyNameOrCallable
      * @throws ReflectionException
      */
-    public function property(array $array, $property, $indexKey): array
+    // phpcs:disable PSR12.Operators.OperatorSpacing.NoSpaceBefore
+    // phpcs:disable PSR12.Operators.OperatorSpacing.NoSpaceAfter
+    public function property(array $array, null|string|callable $property, null|string|callable $indexKey): array
     {
+        // phpcs:enable PSR12.Operators.OperatorSpacing.NoSpaceBefore
+        // phpcs:enable PSR12.Operators.OperatorSpacing.NoSpaceAfter
         return array_property($array, $property, $indexKey);
     }
 }

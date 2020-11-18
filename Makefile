@@ -62,7 +62,8 @@ init-git:
 init-docker:
 	echo "$(EMOJI_rocket) Initializing docker environment"
 	docker-compose pull
-	docker-compose up -d --build
+	docker-compose build --pull
+	docker-compose up -d
 
 ## To start an existing project incl. rsync from fileadmin, uploads and database dump
 install-project: init-git stop init-docker composer-install

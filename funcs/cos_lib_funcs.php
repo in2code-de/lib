@@ -45,11 +45,11 @@ if (!function_exists('\CoStack\Lib\array_value')) {
      *
      * @param array $array
      * @param string $path
-     * @return array|mixed
+     * @return mixed
      * @throws Exceptions\ArrayPathTerminatesEarlyException
      * @throws Exceptions\ArrayKeyPathDoesNotExistException
      */
-    function array_value(array $array, string $path)
+    function array_value(array $array, string $path): mixed
     {
         // Trim all chars and dots
         $path = trim($path, " \t\n\r\0\x0B.");
@@ -85,7 +85,7 @@ if (!function_exists('\CoStack\Lib\array_property')) {
      * @throws Exceptions\PropertyMustBePropertyNameOrCallable
      * @throws ReflectionException
      */
-    function array_property(array $array, $property, $indexKey = null): array
+    function array_property(array $array, null|string|callable $property, null|string|callable $indexKey = null): array
     {
         $return = [];
 
@@ -131,8 +131,7 @@ if (!function_exists('\CoStack\Lib\array_property')) {
             return $return;
         }
 
-        /** @psalm-suppress RedundantConditionGivenDocblockType */
-        if (null === $property && null !== $indexKey) {
+        if (null !== $indexKey) {
             return array_combine(array_property($array, $indexKey), $array);
         }
 
@@ -173,7 +172,7 @@ if (!function_exists('\CoStack\Lib\concat_paths')) {
 
                     $full .= $path;
                 }
-                while (false !== strpos($full, $doubleDs)) {
+                while (str_contains($full, $doubleDs)) {
                     $full = str_replace($doubleDs, DIRECTORY_SEPARATOR, $full);
                 }
                 return $prefix . $full;

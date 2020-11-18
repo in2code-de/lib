@@ -1,4 +1,4 @@
-FROM in2code/php-dev:7.4-fpm
+FROM in2code/php-dev:8.0-fpm
 
 USER root
 

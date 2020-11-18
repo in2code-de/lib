@@ -12,9 +12,9 @@ trait MagicMethodsForImmutables
     /**
      * @param string $method
      * @param mixed[] $arguments
-     * @return mixed|bool|static
+     * @return mixed
      */
-    public function __call(string $method, array $arguments)
+    public function __call(string $method, array $arguments): mixed
     {
         $method3 = substr($method, 0, 3);
         if ('get' === $method3 || 'has' === $method3) {
