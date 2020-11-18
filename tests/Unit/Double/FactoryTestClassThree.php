@@ -6,13 +6,6 @@ namespace CoStack\LibTests\Unit\Double;
 
 class FactoryTestClassThree
 {
-    public int $intArg;
-    public string $stringArg;
-    /** @var mixed[] */
-    public array $arrayArg;
-    public bool $boolArg;
-    public float $floatArg;
-
     /**
      * @param int $intArg
      * @param string $stringArg
@@ -20,12 +13,14 @@ class FactoryTestClassThree
      * @param bool $boolArg
      * @param float $floatArg
      */
-    public function __construct(int $intArg, string $stringArg, array $arrayArg, bool $boolArg, float $floatArg)
-    {
-        $this->intArg = $intArg;
-        $this->stringArg = $stringArg;
-        $this->arrayArg = $arrayArg;
-        $this->boolArg = $boolArg;
-        $this->floatArg = $floatArg;
+    // phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact
+    public function __construct(
+        public int $intArg,
+        public string $stringArg,
+        public array $arrayArg,
+        public bool $boolArg,
+        public float $floatArg,
+    ) {
+        // phpcs:enable Generic.WhiteSpace.ScopeIndent.IncorrectExact
     }
 }

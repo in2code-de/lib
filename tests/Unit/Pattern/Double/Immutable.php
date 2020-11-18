@@ -18,13 +18,7 @@ class Immutable
 {
     use MagicMethodsForImmutables;
 
-    public ?string $foo;
-
-    public ?string $bar;
-
-    public function __construct(?string $foo = '', ?string $bar = null)
+    public function __construct(public ?string $foo = '', public ?string $bar = null)
     {
-        $this->foo = $foo;
-        $this->bar = $bar;
     }
 }

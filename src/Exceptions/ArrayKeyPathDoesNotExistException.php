@@ -13,25 +13,20 @@ class ArrayKeyPathDoesNotExistException extends LibException
     private const MESSAGE = 'The array path "%s" does not exist in the given array, because the key "%s" can not be found';
     public const CODE = 1598890975;
 
-    private string $path;
-
-    private string $key;
-
-    /** @var mixed[] */
-    private array $array;
-
     /**
      * @param string $path
      * @param string $key
      * @param mixed[] $array
      * @param Throwable|null $previous
      */
-    public function __construct(string $path, string $key, array $array, Throwable $previous = null)
-    {
-        $this->path = $path;
-        $this->key = $key;
-        $this->array = $array;
-
+    // phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact
+    public function __construct(
+        private string $path,
+        private string $key,
+        private array $array,
+        Throwable $previous = null,
+    ) {
+        // phpcs:enable Generic.WhiteSpace.ScopeIndent.IncorrectExact
         parent::__construct(sprintf(self::MESSAGE, $path, $key), self::CODE, $previous);
     }
 

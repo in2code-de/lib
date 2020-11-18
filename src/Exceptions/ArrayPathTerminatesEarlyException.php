@@ -14,15 +14,6 @@ class ArrayPathTerminatesEarlyException extends LibException
     private const MESSAGE = 'The array path "%s" is terminated early, because the value before key "%s" is a "%s" instead of an array';
     public const CODE = 1598892530;
 
-    private string $path;
-
-    private string $key;
-
-    private mixed $value;
-
-    /** @var mixed[] */
-    private array $array;
-
     /**
      * @param string $path
      * @param string $key
@@ -30,13 +21,15 @@ class ArrayPathTerminatesEarlyException extends LibException
      * @param mixed[] $array
      * @param Throwable|null $previous
      */
-    public function __construct(string $path, string $key, mixed $value, array $array, Throwable $previous = null)
-    {
-        $this->path = $path;
-        $this->key = $key;
-        $this->value = $value;
-        $this->array = $array;
-
+    // phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact
+    public function __construct(
+        private string $path,
+        private string $key,
+        private mixed $value,
+        private array $array,
+        Throwable $previous = null,
+    ) {
+        // phpcs:enable Generic.WhiteSpace.ScopeIndent.IncorrectExact
         parent::__construct(
             sprintf(self::MESSAGE, $path, $key, gettype($value)),
             self::CODE,

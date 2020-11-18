@@ -103,13 +103,9 @@ class ArrayPropertyTest extends TestCase
         $mock = new class ($calls) {
             private string $foo = 'bar';
 
-            /** @var string[] */
-            private array $calls;
-
             /** @param string[] $calls */
-            public function __construct(&$calls)
+            public function __construct(private array &$calls)
             {
-                $this->calls = &$calls;
             }
 
             public function getFoo(): void

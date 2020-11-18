@@ -6,10 +6,7 @@ namespace CoStack\LibTests\Unit\Double;
 
 class FactoryTestClassFour
 {
-    public string $foo;
-
-    public function __construct(string $foo = 'bar')
+    public function __construct(public string $foo = 'bar')
     {
-        $this->foo = $foo;
     }
 }
