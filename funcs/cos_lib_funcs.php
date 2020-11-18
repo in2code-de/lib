@@ -173,7 +173,7 @@ if (!function_exists('\CoStack\Lib\concat_paths')) {
 
                     $full .= $path;
                 }
-                while (str_contains($full, $doubleDs)) {
+                while (false !== strpos($full, $doubleDs)) {
                     $full = str_replace($doubleDs, DIRECTORY_SEPARATOR, $full);
                 }
                 return $prefix . $full;
