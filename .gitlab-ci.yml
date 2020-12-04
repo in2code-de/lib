@@ -73,4 +73,3 @@ qa-phpunit-coverage:
   only:
     changes:
       - "**/*.php"
-
