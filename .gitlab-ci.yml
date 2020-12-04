@@ -73,3 +73,6 @@ qa-phpunit-coverage:
   only:
     changes:
       - "**/*.php"
+  artifacts:
+    reports:
+      junit: .project/artifacts/rspec.xml
