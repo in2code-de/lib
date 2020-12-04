@@ -1,5 +1,7 @@
 /.idea
 /.project/githooks/tmp
+/.project/artifacts/*
+!/.project/artifacts/.gitkeep
 /.phpunit.result.cache
 /vendor
 /composer.lock
