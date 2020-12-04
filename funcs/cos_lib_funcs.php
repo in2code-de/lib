@@ -4,11 +4,18 @@ declare(strict_types=1);
 
 namespace CoStack\Lib;
 
+use Closure;
 use CoStack\Lib\Exceptions as Exceptions;
+use Exception;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionNamedType;
 use ReflectionProperty;
+
+use function define;
+use function is_array;
+use function is_callable;
+use function str_replace;
 
 if (!function_exists('\CoStack\Lib\array_filter_recursive')) {
     /**
@@ -259,5 +266,48 @@ if (!function_exists('\CoStack\Lib\factory')) {
         }
 
         return new $class(...$constructorArgs);
+    }
+}
+
+if (!function_exists('\CoStack\Lib\filter')) {
+    define(__NAMESPACE__ . '\\FILTER_INVERT', 1 << 0);
+    define(__NAMESPACE__ . '\\FILTER_MATCH_LOOSE', 1 << 1);
+
+    /**
+     * For use with array_filter(). Creates a filter closure for you that matches the given $specimen.
+     * The filter closure passed to array_filter will remove all elements, which do NOT match the $specimen.
+     * You can invert the function to remove all entries which DO match your given $specimen by
+     * passing the FILTER_INVERT flag.
+     * The FILTER_MATCH_LOOSE flag can be added to use non-strict matching.
+     *
+     * @param int|float|string|bool $specimen The value to match against
+     * @param int $flags FILTER_* constants from the \CoStack\Lib\ namespace
+     * @return Closure
+     * @throws Exception
+     */
+    function filter(int|float|string|bool $specimen, int $flags = 0): Closure
+    {
+        $comparison = (($flags & FILTER_INVERT) ? '!' : '=') . '=' . (($flags & FILTER_MATCH_LOOSE) ? '' : '=');
+
+        switch ($comparison) {
+            case '==':
+                return static function (mixed $probe) use ($specimen): bool {
+                    return $probe == $specimen;
+                };
+            case '===':
+                return static function (mixed $probe) use ($specimen): bool {
+                    return $probe === $specimen;
+                };
+            case '!=':
+                return static function (mixed $probe) use ($specimen): bool {
+                    return $probe != $specimen;
+                };
+            case '!==':
+                return static function (mixed $probe) use ($specimen): bool {
+                    return $probe !== $specimen;
+                };
+        }
+        // Satisfy psalm :face_with_rolling_eyes:
+        throw new Exception('Unexpected error occurred');
     }
 }
