@@ -27,6 +27,7 @@ So you don't need to bother about performance or implementation details.
 * `concat_paths`. Concatenate filesystem paths without duplicate directory separators.
 * `mkdir_deep`. `mkdir` with the `recursive` flag, but without `mode`.
 * `factory`. Creates a new object by mapping an associative array to constructor arguments.
+* `filter`. Factory for simple filter closures for use with `array_filter`.
 
 ## Compatibility
 

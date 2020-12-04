@@ -1,0 +1,27 @@
+<?php
+
+declare(strict_types=1);
+
+namespace CoStack\Lib\Utility;
+
+use Closure;
+use Exception;
+
+use function CoStack\Lib\filter;
+
+/**
+ * @codeCoverageIgnore
+ */
+class FilterUtility
+{
+    /**
+     * @param int|float|string|bool $specimen
+     * @param int $flags
+     * @return Closure
+     * @throws Exception
+     */
+    public static function filter($specimen, int $flags = 0): Closure
+    {
+        return filter($specimen, $flags);
+    }
+}

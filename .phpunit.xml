@@ -28,4 +28,8 @@
             <directory suffix=".php">funcs</directory>
         </include>
     </coverage>
+
+    <logging>
+        <junit outputFile=".project/artifacts/rspec.xml" />
+    </logging>
 </phpunit>

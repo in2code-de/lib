@@ -2,6 +2,7 @@
 /.project/githooks/tmp
 /.phpunit.result.cache
 /vendor
+/composer.lock
 
 # Ignore git archive
 *.zip
