@@ -69,8 +69,10 @@ qa-psalm:
 qa-phpunit-coverage:
   image: in2code/php-dev:7.3-fpm
   stage: qa
-  script: composer run qa-phpunit-coverage
+  script: php -dxdebug.mode=coverage vendor/bin/phpunit -c .phpunit.xml --coverage-text --colors=never
   only:
     changes:
       - "**/*.php"
-
+  artifacts:
+    reports:
+      junit: .project/artifacts/rspec.xml

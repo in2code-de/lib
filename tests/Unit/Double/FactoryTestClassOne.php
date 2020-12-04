@@ -7,7 +7,7 @@ namespace CoStack\LibTests\Unit\Double;
 class FactoryTestClassOne
 {
     /** @var mixed[] */
-    public array $args;
+    public $args;
 
     public function __construct()
     {
