@@ -1,6 +1,6 @@
 <phpunit
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/9.3/phpunit.xsd"
+        xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/8.5/phpunit.xsd"
         colors="true"
         forceCoversAnnotation="true"
         beStrictAboutChangesToGlobalState="true"
@@ -22,10 +22,14 @@
         </testsuite>
     </testsuites>
 
-    <coverage processUncoveredFiles="true">
-        <include>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src</directory>
             <directory suffix=".php">funcs</directory>
-        </include>
-    </coverage>
+        </whitelist>
+    </filter>
+
+    <logging>
+        <log type="junit" target=".project/artifacts/rspec.xml"/>
+    </logging>
 </phpunit>
