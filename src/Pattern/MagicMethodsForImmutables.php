@@ -17,6 +17,7 @@ trait MagicMethodsForImmutables
      * @return mixed
      * @throws ArgumentCountErrorException
      * @throws BadMethodCallException
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity) There is no perfect way to do this better
      */
     public function __call(string $method, array $arguments): mixed
     {
@@ -30,7 +31,6 @@ trait MagicMethodsForImmutables
                 }
                 return $value;
             }
-            throw new BadMethodCallException(static::class, $method);
         }
         if ('without' === substr($method, 0, 7)) {
             $property = lcfirst(substr($method, 7));
