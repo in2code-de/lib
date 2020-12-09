@@ -17,6 +17,7 @@
         "php-parallel-lint/php-parallel-lint": "^1.2",
         "phpmd/phpmd": "^2.9",
         "phpstan/phpstan": "^0.12.56",
+        "phpunit/php-invoker": "^2.0",
         "phpunit/phpunit": "^8.5",
         "squizlabs/php_codesniffer": "dev-master",
         "vimeo/psalm": "^4.1"

@@ -83,6 +83,7 @@ class FilterTest extends TestCase
         self::expectException(TypeErrorException::class);
         self::expectExceptionCode(TypeErrorException::CODE);
 
+        // @phpstan-ignore-next-line
         filter(null);
     }
 }
