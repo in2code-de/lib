@@ -13,8 +13,10 @@ use ReflectionNamedType;
 use ReflectionProperty;
 
 use function define;
+use function gettype;
 use function is_array;
 use function is_callable;
+use function is_scalar;
 use function str_replace;
 
 if (!function_exists('\CoStack\Lib\array_filter_recursive')) {
@@ -288,6 +290,11 @@ if (!function_exists('\CoStack\Lib\filter')) {
      */
     function filter($specimen, int $flags = 0): Closure
     {
+        if (!is_scalar($specimen)) {
+            throw new Exceptions\TypeErrorException('specimen', gettype($specimen), 'int|float|string|bool');
+        }
+
+        /** @var '=='|'==='|'!='|'!==' $comparison */
         $comparison = (($flags & FILTER_INVERT) ? '!' : '=') . '=' . (($flags & FILTER_MATCH_LOOSE) ? '' : '=');
 
         switch ($comparison) {
@@ -316,7 +323,5 @@ if (!function_exists('\CoStack\Lib\filter')) {
                         return $probe !== $specimen;
                     };
         }
-        // Satisfy psalm :face_with_rolling_eyes:
-        throw new Exception('Unexpected error occurred');
     }
 }
