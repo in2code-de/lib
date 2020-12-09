@@ -80,6 +80,21 @@ login-php:
 	echo "$(EMOJI_elephant) Logging into the PHP container"
 	docker-compose exec php bash
 
+## Switch to a git branch at rebuild the dev env
+switch-branch:
+	git checkout $(ARGS)
+	rm -rf composer.lock vendor
+	make install-project
+
+merge-branch-into:
+	BRANCH=$$(git branch --show-current) \
+		&& git checkout $(ARGS) \
+		&& git merge --no-commit $$BRANCH
+	rm -rf composer.lock vendor
+	make install-project
+	docker-compose exec php composer qa-all
+	git commit
+
 # SETTINGS
 TARGET_MAX_CHAR_NUM := 25
 MAKEFLAGS += --silent
