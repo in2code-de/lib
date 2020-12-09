@@ -13,6 +13,8 @@ use CoStack\Lib\Pattern\MagicMethodsForImmutables;
  * @method bool hasBar()
  * @method static withFoo(?string $foo)
  * @method static withBar(?string $bar)
+ * @method static withoutFoo()
+ * @method static withoutBar()
  */
 class Immutable
 {

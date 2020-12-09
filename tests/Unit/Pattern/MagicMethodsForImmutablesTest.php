@@ -9,9 +9,6 @@ use CoStack\Lib\Exceptions\BadMethodCallException;
 use CoStack\LibTests\Unit\Pattern\Double\Immutable;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \CoStack\LibTests\Unit\Pattern\MagicMethodsForImmutablesTest
- */
 class MagicMethodsForImmutablesTest extends TestCase
 {
     /**
@@ -89,5 +86,32 @@ class MagicMethodsForImmutablesTest extends TestCase
 
         // @phpstan-ignore-next-line
         $canary->withBar();
+    }
+
+    /**
+     * @covers \CoStack\LibTests\Unit\Pattern\Double\Immutable::__call
+     */
+    public function testTraitRemovesValueIfWithoutPropertyIsCalled(): void
+    {
+        $canary = new Immutable();
+        $canary->foo = 'foo';
+
+        $canary = $canary->withoutFoo();
+
+        self::assertNull($canary->foo);
+    }
+
+    /**
+     * @covers \CoStack\LibTests\Unit\Pattern\Double\Immutable::__call
+     */
+    public function testTraitThrowsExceptionIfWithoutPropertyDoesNotExist(): void
+    {
+        $canary = new Immutable();
+
+        self::expectException(BadMethodCallException::class);
+        self::expectExceptionCode(BadMethodCallException::CODE);
+
+        // @phpstan-ignore-next-line
+        $canary->withoutBaz();
     }
 }
