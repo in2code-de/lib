@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CoStack\LibTests\Unit;
 
+use CoStack\Lib\Exceptions\TypeErrorException;
 use PHPUnit\Framework\TestCase;
 
 use function array_filter;
@@ -72,5 +73,16 @@ class FilterTest extends TestCase
         $filter = filter($specimen, $flags);
         $actual = array_filter($canary, $filter);
         self::assertSame($expected, $actual);
+    }
+
+    /**
+     * @covers \CoStack\Lib\filter
+     */
+    public function testFunctionThrowsExceptionIfSpecimenTypeIsNotAllowed(): void
+    {
+        self::expectException(TypeErrorException::class);
+        self::expectExceptionCode(TypeErrorException::CODE);
+
+        filter(null);
     }
 }
