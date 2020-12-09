@@ -86,14 +86,29 @@ switch-branch:
 	rm -rf composer.lock vendor
 	make install-project
 
+merge-downstream:
+	ON_HEAD=''; for BRANCH in $$(git branch -l php* --format="%(refname)" --sort=-refname | cut -d'/' -f3); do \
+		if [[ "$$ON_HEAD" -eq "" ]]; then \
+			ON_HEAD='1'; \
+			git checkout $$BRANCH; \
+		else \
+			make merge-branch-into $$BRANCH; \
+		fi; \
+	done
+
 merge-branch-into:
-	BRANCH=$$(git branch --show-current) \
+	MESSAGE="$$(git log -1 --pretty=%s)" \
+		&& if [[ "$$MESSAGE" != "[BACKPORT]"* ]]; then MESSAGE="[BACKPORT]$$MESSAGE"; fi \
+		&& BRANCH=$$(git branch --show-current) \
 		&& git checkout $(ARGS) \
-		&& git merge --no-commit $$BRANCH
-	rm -rf composer.lock vendor
-	make install-project
-	docker-compose exec php composer qa-all
-	git commit
+		&& git merge -m "$$MESSAGE" $$BRANCH \
+		&& rm -rf composer.lock vendor \
+		&& make install-project \
+		&& docker-compose exec php composer qa-all \
+		|| git reset --soft HEAD~1 && exit 1
+
+%:
+    @:
 
 # SETTINGS
 TARGET_MAX_CHAR_NUM := 25
