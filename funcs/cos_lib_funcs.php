@@ -287,6 +287,7 @@ if (!function_exists('\CoStack\Lib\filter')) {
      * @param int $flags FILTER_* constants from the \CoStack\Lib\ namespace
      * @return Closure
      * @throws Exception
+     * @psalm-suppress DocblockTypeContradiction $specimen can be something different despite the DocBlock
      */
     function filter($specimen, int $flags = 0): Closure
     {
