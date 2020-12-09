@@ -287,6 +287,7 @@ if (!function_exists('\CoStack\Lib\filter')) {
      */
     function filter(int|float|string|bool $specimen, int $flags = 0): Closure
     {
+        /** @var '=='|'==='|'!='|'!==' $comparison */
         $comparison = (($flags & FILTER_INVERT) ? '!' : '=') . '=' . (($flags & FILTER_MATCH_LOOSE) ? '' : '=');
 
         switch ($comparison) {
@@ -307,7 +308,5 @@ if (!function_exists('\CoStack\Lib\filter')) {
                     return $probe !== $specimen;
                 };
         }
-        // Satisfy psalm :face_with_rolling_eyes:
-        throw new Exception('Unexpected error occurred');
     }
 }
