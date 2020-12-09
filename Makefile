@@ -86,6 +86,15 @@ switch-branch:
 	rm -rf composer.lock vendor
 	make install-project
 
+merge-branch-into:
+	BRANCH=$$(git branch --show-current) \
+		&& git checkout $(ARGS) \
+		&& git merge --no-commit $$BRANCH
+	rm -rf composer.lock vendor
+	make install-project
+	docker-compose exec php composer qa-all
+	git commit
+
 # SETTINGS
 TARGET_MAX_CHAR_NUM := 25
 MAKEFLAGS += --silent
