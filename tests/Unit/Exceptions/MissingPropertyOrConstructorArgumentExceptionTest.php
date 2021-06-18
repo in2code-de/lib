@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 use function uniqid;
 
 /**
+ * @SuppressWarnings(PHPMD.LongClassName)
  * @coversDefaultClass \CoStack\Lib\Exceptions\MissingPropertyOrConstructorArgumentException
  */
 class MissingPropertyOrConstructorArgumentExceptionTest extends TestCase
