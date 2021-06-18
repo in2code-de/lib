@@ -229,44 +229,69 @@ if (!function_exists('\CoStack\Lib\factory')) {
      */
     function factory(string $class, array $arguments = []): object
     {
-        $constructor = (new ReflectionClass($class))->getConstructor();
-        if (null === $constructor) {
-            return new $class();
-        }
-
+        $reflectionClass = new ReflectionClass($class);
         $constructorArgs = [];
 
-        foreach ($constructor->getParameters() as $reflectionParameter) {
-            $position = $reflectionParameter->getPosition();
-            $name = $reflectionParameter->getName();
-
-            if (!isset($arguments[$name])) {
-                if ($reflectionParameter->isOptional()) {
-                    $constructorArgs[$position] = $reflectionParameter->getDefaultValue();
-                } else {
-                    throw new Exceptions\MissingConstructorArgumentException($class, $name);
-                }
-            } else {
-                $value = $arguments[$name];
-                if ($reflectionParameter->hasType()) {
-                    $reflectionType = $reflectionParameter->getType();
-                    if ($reflectionType instanceof ReflectionNamedType) {
-                        $variableTypeName = $reflectionType->getName();
-                    } else {
-                        // @codeCoverageIgnoreStart
-                        /** @noinspection PhpDeprecationInspection */
-                        $variableTypeName = $reflectionType->__toString();
-                        // @codeCoverageIgnoreEnd
-                    }
-                    if (in_array($variableTypeName, ['int', 'string', 'float', 'array', 'bool'])) {
-                        settype($value, $variableTypeName);
-                    }
-                }
-                $constructorArgs[$position] = $value;
+        $constructor = $reflectionClass->getConstructor();
+        $properties = $reflectionClass->getProperties();
+        $publicProperties = [];
+        foreach ($properties as $index => $property) {
+            if ($property->isPublic()) {
+                $publicProperties[] = $property->getName();
             }
         }
 
-        return new $class(...$constructorArgs);
+        if (null !== $constructor) {
+            foreach ($constructor->getParameters() as $reflectionParameter) {
+                $position = $reflectionParameter->getPosition();
+                $name = $reflectionParameter->getName();
+
+                if (!isset($arguments[$name])) {
+                    if ($reflectionParameter->isOptional()) {
+                        $constructorArgs[$position] = $reflectionParameter->getDefaultValue();
+                    } else {
+                        throw new Exceptions\MissingConstructorArgumentException($class, $name);
+                    }
+                } else {
+                    $value = $arguments[$name];
+                    // Remove the argument which was mapped to the constructor.
+                    // All remaining arguments will be mapped to public properties.
+                    unset($arguments[$name]);
+                    if ($reflectionParameter->hasType()) {
+                        $reflectionType = $reflectionParameter->getType();
+                        if ($reflectionType instanceof ReflectionNamedType) {
+                            $variableTypeName = $reflectionType->getName();
+                        } else {
+                            // @codeCoverageIgnoreStart
+                            /** @noinspection PhpDeprecationInspection */
+                            $variableTypeName = $reflectionType->__toString();
+                            // @codeCoverageIgnoreEnd
+                        }
+                        if (in_array($variableTypeName, ['int', 'string', 'float', 'array', 'bool'])) {
+                            settype($value, $variableTypeName);
+                        }
+                    }
+                    $constructorArgs[$position] = $value;
+                }
+            }
+        }
+
+        foreach ($arguments as $name => $value) {
+            if (!$reflectionClass->hasProperty($name)) {
+                throw new Exceptions\MissingPropertyOrConstructorArgumentException($class, $name);
+            }
+            if (!$reflectionClass->getProperty($name)->isPublic()) {
+                throw new Exceptions\PropertyNotPublicException($class, $name);
+            }
+        }
+
+        $object = new $class(...$constructorArgs);
+
+        foreach ($arguments as $name => $value) {
+            $object->{$name} = $value;
+        }
+
+        return $object;
     }
 }
 
