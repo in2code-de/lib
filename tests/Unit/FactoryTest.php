@@ -5,9 +5,13 @@ declare(strict_types=1);
 namespace CoStack\LibTests\Unit;
 
 use CoStack\Lib\Exceptions\MissingConstructorArgumentException;
+use CoStack\Lib\Exceptions\MissingPropertyOrConstructorArgumentException;
+use CoStack\Lib\Exceptions\PropertyNotPublicException;
 use CoStack\LibTests\Unit\Double\FactoryTestClassFive;
 use CoStack\LibTests\Unit\Double\FactoryTestClassFour;
 use CoStack\LibTests\Unit\Double\FactoryTestClassOne;
+use CoStack\LibTests\Unit\Double\FactoryTestClassSeven;
+use CoStack\LibTests\Unit\Double\FactoryTestClassSix;
 use CoStack\LibTests\Unit\Double\FactoryTestClassThree;
 use CoStack\LibTests\Unit\Double\FactoryTestClassTwo;
 use PHPUnit\Framework\TestCase;
@@ -95,5 +99,62 @@ class FactoryTest extends TestCase
         $object = factory(FactoryTestClassFive::class);
 
         self::assertInstanceOf(FactoryTestClassFive::class, $object);
+    }
+
+    /**
+     * @covers \CoStack\Lib\factory
+     */
+    public function testFunctionMapsArgumentsToPublicProperties(): void
+    {
+        /** @var FactoryTestClassSix $object */
+        $object = factory(FactoryTestClassSix::class, ['foo' => 'baz', 'bar' => 13]);
+
+        self::assertSame($object->foo, 'baz');
+        self::assertSame($object->bar, 13);
+    }
+
+    /**
+     * @covers \CoStack\Lib\factory
+     */
+    public function testFunctionMapsArgumentsToConstructorAndPublicProperties(): void
+    {
+        /** @var FactoryTestClassSeven $object */
+        $object = factory(FactoryTestClassSeven::class, ['foo' => 'boo', 'bar' => 24.85]);
+
+        self::assertSame($object->foo, 'boo');
+        self::assertSame($object->bar, 24.85);
+    }
+
+    /**
+     * @covers \CoStack\Lib\factory
+     */
+    public function testFunctionThrowsExceptionIfArgumentIsNotInConstructorOrProperty(): void
+    {
+        self::expectException(MissingPropertyOrConstructorArgumentException::class);
+        self::expectExceptionCode(MissingPropertyOrConstructorArgumentException::CODE);
+
+        factory(FactoryTestClassSeven::class, ['foo' => 'faz', '_does_not_exist' => 'blob']);
+    }
+
+    /**
+     * @covers \CoStack\Lib\factory
+     */
+    public function testFunctionThrowsExceptionIfPropertyIsProtected(): void
+    {
+        self::expectException(PropertyNotPublicException::class);
+        self::expectExceptionCode(PropertyNotPublicException::CODE);
+
+        factory(FactoryTestClassSeven::class, ['foo' => 'faz', 'beng' => 'blob']);
+    }
+
+    /**
+     * @covers \CoStack\Lib\factory
+     */
+    public function testFunctionThrowsExceptionIfPropertyIsPrivate(): void
+    {
+        self::expectException(PropertyNotPublicException::class);
+        self::expectExceptionCode(PropertyNotPublicException::CODE);
+
+        factory(FactoryTestClassSeven::class, ['foo' => 'faz', 'fump' => 'blob']);
     }
 }
