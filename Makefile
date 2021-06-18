@@ -92,7 +92,7 @@ merge-downstream:
 			ON_HEAD='1'; \
 			git checkout $$BRANCH; \
 		else \
-			make merge-branch-into $$BRANCH; \
+			(make merge-branch-into $$BRANCH || exit 1); \
 		fi; \
 	done
 
@@ -104,8 +104,7 @@ merge-branch-into:
 		&& git merge -m "$$MESSAGE" $$BRANCH \
 		&& rm -rf composer.lock vendor \
 		&& make install-project \
-		&& docker-compose exec php composer qa-all \
-		|| git reset --soft HEAD~1 && exit 1
+		&& (docker-compose exec php composer qa-all || exit 1)
 
 %:
     @:
