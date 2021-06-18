@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace CoStack\LibTests\Unit\Double;
 
+/**
+ * @SuppressWarnings(PHPMD.UnusedPrivateField)
+ */
 class FactoryTestClassSeven
 {
     /** @var string */
