@@ -248,7 +248,8 @@ if (!function_exists('\CoStack\Lib\factory')) {
                 }
             } else {
                 $value = $arguments[$name];
-                if ($reflectionParameter->hasType() && null !== $reflectionType = $reflectionParameter->getType()) {
+                if ($reflectionParameter->hasType()) {
+                    $reflectionType = $reflectionParameter->getType();
                     if ($reflectionType instanceof ReflectionNamedType) {
                         $variableTypeName = $reflectionType->getName();
                     } else {
