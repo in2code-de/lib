@@ -31,5 +31,6 @@ class TypeErrorExceptionTest extends TestCase
         self::assertSame($canaryArgumentName, $exception->getArgumentName());
         self::assertSame($canaryActualType, $exception->getActualType());
         self::assertSame($canaryExpectedType, $exception->getExpectedType());
+        self::assertSame(1607526148, $exception->getCode());
     }
 }
