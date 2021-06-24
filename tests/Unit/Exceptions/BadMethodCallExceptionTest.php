@@ -26,5 +26,6 @@ class BadMethodCallExceptionTest extends TestCase
 
         self::assertSame($canaryClass, $exception->getClass());
         self::assertSame($canaryMethod, $exception->getMethod());
+        self::assertSame(1602239449, $exception->getCode());
     }
 }

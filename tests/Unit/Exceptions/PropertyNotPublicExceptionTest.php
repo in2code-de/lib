@@ -29,5 +29,6 @@ class PropertyNotPublicExceptionTest extends TestCase
 
         self::assertSame($canaryClass, $exception->getClass());
         self::assertSame($canaryPropertyName, $exception->getProperty());
+        self::assertSame(1624002587, $exception->getCode());
     }
 }
