@@ -34,5 +34,6 @@ class ArrayPathTerminatesEarlyExceptionTest extends TestCase
         self::assertSame($canaryKey, $exception->getKey());
         self::assertSame($canaryValue, $exception->getValue());
         self::assertSame($canaryArray, $exception->getArray());
+        self::assertSame(1598892530, $exception->getCode());
     }
 }

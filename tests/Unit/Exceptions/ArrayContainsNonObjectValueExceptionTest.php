@@ -28,5 +28,6 @@ class ArrayContainsNonObjectValueExceptionTest extends TestCase
 
         self::assertSame($canaryValue, $exception->getValue());
         self::assertSame($canaryArray, $exception->getArray());
+        self::assertSame(1599055645, $exception->getCode());
     }
 }
