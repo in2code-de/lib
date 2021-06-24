@@ -18,7 +18,7 @@ class MissingPropertyOrConstructorArgumentExceptionTest extends TestCase
     /**
      * @covers ::__construct
      * @covers ::getClass
-     * @covers ::getArgumentName
+     * @covers ::getProperty
      */
     public function testExceptionContainsConstructorArguments(): void
     {
