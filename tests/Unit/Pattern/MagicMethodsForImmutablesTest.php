@@ -114,4 +114,26 @@ class MagicMethodsForImmutablesTest extends TestCase
         // @phpstan-ignore-next-line
         $canary->withoutBaz();
     }
+
+    /**
+     * @covers \CoStack\LibTests\Unit\Pattern\Double\Immutable::__call
+     */
+    public function testTraitClonesTheObjectWhenWithIsCalled(): void
+    {
+        $canary = new Immutable();
+        $actual = $canary->withBar(null);
+
+        $this->assertNotSame($canary, $actual);
+    }
+
+    /**
+     * @covers \CoStack\LibTests\Unit\Pattern\Double\Immutable::__call
+     */
+    public function testTraitClonesTheObjectWhenWithoutIsCalled(): void
+    {
+        $canary = new Immutable();
+        $actual = $canary->withoutBar();
+
+        $this->assertNotSame($canary, $actual);
+    }
 }
