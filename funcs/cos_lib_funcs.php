@@ -228,6 +228,8 @@ if (!function_exists('\CoStack\Lib\factory')) {
      * @return object
      *
      * @throws Exceptions\MissingConstructorArgumentException
+     * @throws Exceptions\MissingPropertyOrConstructorArgumentException
+     * @throws Exceptions\PropertyNotPublicException
      * @throws ReflectionException
      */
     function factory(string $class, array $arguments = []): object
@@ -236,13 +238,6 @@ if (!function_exists('\CoStack\Lib\factory')) {
         $constructorArgs = [];
 
         $constructor = $reflectionClass->getConstructor();
-        $properties = $reflectionClass->getProperties();
-        $publicProperties = [];
-        foreach ($properties as $index => $property) {
-            if ($property->isPublic()) {
-                $publicProperties[] = $property->getName();
-            }
-        }
 
         if (null !== $constructor) {
             foreach ($constructor->getParameters() as $reflectionParameter) {
