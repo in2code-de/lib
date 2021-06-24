@@ -69,7 +69,18 @@ qa-psalm:
 qa-phpunit-coverage:
   image: in2code/php-dev:7.4-fpm
   stage: qa
-  script: php -dxdebug.mode=coverage vendor/bin/phpunit -c .phpunit.xml --coverage-text --colors=never
+  script: XDEBUG_MODE=coverage vendor/bin/phpunit -c .phpunit.xml --coverage-text --colors=never
+  only:
+    changes:
+      - "**/*.php"
+  artifacts:
+    reports:
+      junit: .project/artifacts/rspec.xml
+
+qa-infection:
+  image: in2code/php-dev:8.0-fpm
+  stage: qa
+  script: XDEBUG_MODE=coverage vendor/bin/infection --configuration=.infection.json -j$(nproc) --min-covered-msi=100 --min-msi=100
   only:
     changes:
       - "**/*.php"
