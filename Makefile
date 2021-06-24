@@ -101,7 +101,7 @@ merge-branch-into:
 		&& if [[ "$$MESSAGE" != "[BACKPORT]"* ]]; then MESSAGE="[BACKPORT]$$MESSAGE"; fi \
 		&& BRANCH=$$(git branch --show-current) \
 		&& git checkout $(ARGS) \
-		&& git merge -m "$$MESSAGE" $$BRANCH \
+		&& git merge -m "$$MESSAGE" $$BRANCH
 		&& rm -rf composer.lock vendor \
 		&& make install-project \
 		&& (docker-compose exec php composer qa-all || exit 1)

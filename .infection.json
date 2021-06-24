@@ -1,0 +1,18 @@
+{
+  "source": {
+    "directories": [
+      "funcs",
+      "src/Exceptions",
+      "src/Pattern"
+    ]
+  },
+  "phpUnit": {
+    "configDir": "."
+  },
+  "logs": {
+    "text": ".project\/artifacts\/infection.log"
+  },
+  "mutators": {
+    "@default": true
+  }
+}
