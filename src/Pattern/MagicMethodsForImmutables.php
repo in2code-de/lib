@@ -21,6 +21,12 @@ trait MagicMethodsForImmutables
      */
     public function __call(string $method, array $arguments): mixed
     {
+        if ('is' === substr($method, 0, 2)) {
+            $property = lcfirst(substr($method, 2));
+            if (property_exists($this, $property)) {
+                return (bool)$this->{$property};
+            }
+        }
         $method3 = substr($method, 0, 3);
         if ('get' === $method3 || 'has' === $method3) {
             $property = lcfirst(substr($method, 3));
