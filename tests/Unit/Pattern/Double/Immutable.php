@@ -15,6 +15,11 @@ use CoStack\Lib\Pattern\MagicMethodsForImmutables;
  * @method static withBar(?string $bar)
  * @method static withoutFoo()
  * @method static withoutBar()
+ * @method bool isBoo()
+ * @method bool hasBoo()
+ * @method bool getBoo()
+ * @method static withBoo(?bool $baz)
+ * @method static withoutBoo()
  */
 class Immutable
 {
@@ -24,9 +29,12 @@ class Immutable
 
     public ?string $bar;
 
-    public function __construct(?string $foo = '', ?string $bar = null)
+    public ?bool $boo;
+
+    public function __construct(?string $foo = '', ?string $bar = null, ?bool $boo = null)
     {
         $this->foo = $foo;
         $this->bar = $bar;
+        $this->boo = $boo;
     }
 }
