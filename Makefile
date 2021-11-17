@@ -63,8 +63,7 @@ merge-downstream:
 			&& if [[ "$$MESSAGE" != "[BACKPORT]"* ]]; then MESSAGE="[BACKPORT]$$MESSAGE"; fi \
 			&& CURRENT=$$(git branch --show-current) \
 			&& git checkout $$BRANCH \
-			&& git merge -m "$$MESSAGE" $$CURRENT \
-			&& make install test; \
+			&& git merge --verify -m "$$MESSAGE" $$CURRENT; \
 		fi; \
 	done
 
