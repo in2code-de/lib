@@ -39,6 +39,8 @@ fi
 [[ ${#CHECKS[@]} -eq 0 ]] && echo "No checks to execute." && exit 0
 echo "Executing QA checks ..."
 
+export $(cat ".env" | xargs)
+
 # Create temporary directory for process logs
 [[ -d "$DIR/tmp" ]] || mkdir "$DIR/tmp"
 
@@ -46,7 +48,7 @@ echo "Executing QA checks ..."
 declare -A PIDS
 for CHECK in "${CHECKS[@]}"
 do
-   docker-compose run --rm php composer run "$CHECK" > "$DIR/tmp/$CHECK.log" 2>&1 &
+   docker run --rm -v $PWD:/app co-stack/lib:$TAG composer run "$CHECK" > "$DIR/tmp/$CHECK.log" 2>&1 &
    PIDS["$CHECK"]=$!
 done
 
