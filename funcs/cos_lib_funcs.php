@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace CoStack\Lib;
 
 use Closure;
-use CoStack\Lib\Exceptions as Exceptions;
+use CoStack\Lib\Exceptions;
 use Exception;
 use ReflectionClass;
 use ReflectionException;
