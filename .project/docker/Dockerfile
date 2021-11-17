@@ -1,7 +1,5 @@
-FROM in2code/php-dev:7.4-fpm
-
+ARG IMAGE
+FROM $IMAGE
 USER root
-
 RUN docker-php-ext-install pcntl
-
 USER 1000:1000

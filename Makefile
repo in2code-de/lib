@@ -21,64 +21,31 @@ help:
 	} \
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
 
-## Stop all containers
-stop:
-	echo "$(EMOJI_stop) Shutting down"
-	docker-compose stop
-	sleep 0.4
-	docker-compose down --remove-orphans
+## Install this project (required once after checkout)
+install: .prepare .clean .install-githooks .build
+	docker run --rm -v $(PWD):/app -v $(HOME)/.composer/cache:/tmp/composer/cache -v $(HOME)/.composer/auth.json:/tmp/composer/auth.json co-stack/lib:$(TAG) composer i
 
-## Removes all containers and volumes
-destroy: stop
-	echo "$(EMOJI_litter) Removing the project"
-	docker-compose down -v --remove-orphans
+.prepare:
+	[ -d "$$HOME/.composer/cache" ] || mkdir -p "$$HOME/.composer/cache"
+	[ -f "$$HOME/.composer/auth.json" ] || echo "{}" > "$$HOME/.composer/auth.json"
 
-## Starts docker-compose up -d
-start:
-	echo "$(EMOJI_up) Starting the docker project"
-	docker-compose up -d --build
+.clean:
+	[ ! -f "composer.lock" ] || rm "composer.lock"
+	[ ! -d "vendor" ] || rm -rf "vendor"
 
-## Starts composer-install
-composer:
-	echo "$(EMOJI_package) Running composer"
-	docker-compose exec php composer $(ARGS)
+.build:
+	docker inspect co-stack/lib:$(TAG) > /dev/null || DOCKER_BUILDKIT=1 docker build --build-arg IMAGE=$(IMAGE) -f .project/docker/Dockerfile -t co-stack/lib:$(TAG) .
 
-## Starts composer-install
-composer-install:
-	echo "$(EMOJI_package) Installing composer dependencies"
-	docker-compose exec php composer install
+## Run all tests
+test: .build
+	docker run --rm -v $(PWD):/app co-stack/lib:$(TAG) composer run qa-all
 
-## Starts composer-install
-composer-install-production:
-	echo "$(EMOJI_package) Installing composer dependencies (without dev)"
-	docker-compose exec php composer install --no-dev -ao
+## Run a bash in a docker environment
+bash: .build
+	docker run --rm -it -v $(PWD):/app -v $(HOME)/.composer/cache:/tmp/composer/cache -v $(HOME)/.composer/auth.json:/tmp/composer/auth.json co-stack/lib:$(TAG) bash
 
-## Initialize everything git-related
-init-git:
-	echo "$(EMOJI_nutandbolt) Setting up git pre-commit hook"
+.install-githooks:
 	git config core.hooksPath .project/githooks
-
-## Initialize the docker setup
-init-docker:
-	echo "$(EMOJI_rocket) Initializing docker environment"
-	docker-compose pull
-	docker-compose build --pull
-	docker-compose up -d
-
-## To start an existing project incl. rsync from fileadmin, uploads and database dump
-install-project: init-git stop init-docker composer-install
-	echo "---------------------"
-	echo ""
-	echo "The project is online $(EMOJI_thumbsup)"
-	echo ""
-	echo 'Stop the project with "make stop"'
-	echo ""
-	echo "---------------------"
-
-## Log into the PHP container
-login-php:
-	echo "$(EMOJI_elephant) Logging into the PHP container"
-	docker-compose exec php bash
 
 ## Switch to a git branch at rebuild the dev env
 switch-branch:
@@ -87,31 +54,25 @@ switch-branch:
 	make install-project
 
 merge-downstream:
-	ON_HEAD=''; for BRANCH in $$(git branch -l php* --format="%(refname)" --sort=-refname | cut -d'/' -f3); do \
+	ON_HEAD=''; for BRANCH in $$(git branch -l 'php*' --format="%(refname)" --sort=-refname | cut -d'/' -f3); do \
 		if [[ "$$ON_HEAD" -eq "" ]]; then \
 			ON_HEAD='1'; \
 			git checkout $$BRANCH; \
 		else \
-			(make merge-branch-into $$BRANCH || exit 1); \
+			MESSAGE="$$(git log -1 --pretty=%s)" \
+			&& if [[ "$$MESSAGE" != "[BACKPORT]"* ]]; then MESSAGE="[BACKPORT]$$MESSAGE"; fi \
+			&& CURRENT=$$(git branch --show-current) \
+			&& git checkout $$BRANCH \
+			&& git merge -m "$$MESSAGE" $$CURRENT \
+			&& make install test; \
 		fi; \
 	done
 
-merge-branch-into:
-	MESSAGE="$$(git log -1 --pretty=%s)" \
-		&& if [[ "$$MESSAGE" != "[BACKPORT]"* ]]; then MESSAGE="[BACKPORT]$$MESSAGE"; fi \
-		&& BRANCH=$$(git branch --show-current) \
-		&& git checkout $(ARGS) \
-		&& git merge -m "$$MESSAGE" $$BRANCH
-		&& rm -rf composer.lock vendor \
-		&& make install-project \
-		&& (docker-compose exec php composer qa-all || exit 1)
-
-%:
-    @:
+include .env
 
 # SETTINGS
 TARGET_MAX_CHAR_NUM := 25
-MAKEFLAGS += --silent
+#MAKEFLAGS += --silent
 SHELL := /bin/bash
 VERSION := 1.0.0
 ARGS = $(filter-out $@,$(MAKECMDGOALS))
