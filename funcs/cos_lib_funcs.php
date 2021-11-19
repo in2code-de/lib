@@ -342,27 +342,19 @@ if (!function_exists('\CoStack\Lib\filter')) {
             case '==':
                 return
                     /** @param int|float|string|bool $probe */
-                    static function ($probe) use ($specimen): bool {
-                        return $probe == $specimen;
-                    };
+                    static fn($probe): bool => $probe == $specimen;
             case '===':
                 return
                     /** @param int|float|string|bool $probe */
-                    static function ($probe) use ($specimen): bool {
-                        return $probe === $specimen;
-                    };
+                    static fn($probe): bool => $probe === $specimen;
             case '!=':
                 return
                     /** @param int|float|string|bool $probe */
-                    static function ($probe) use ($specimen): bool {
-                        return $probe != $specimen;
-                    };
+                    static fn($probe): bool => $probe != $specimen;
             case '!==':
                 return
                     /** @param int|float|string|bool $probe */
-                    static function ($probe) use ($specimen): bool {
-                        return $probe !== $specimen;
-                    };
+                    static fn($probe): bool => $probe !== $specimen;
         }
     }
 }
