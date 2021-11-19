@@ -330,23 +330,11 @@ if (!function_exists('\CoStack\Lib\filter')) {
         /** @var '=='|'==='|'!='|'!==' $comparison */
         $comparison = (($flags & FILTER_INVERT) ? '!' : '=') . '=' . (($flags & FILTER_MATCH_LOOSE) ? '' : '=');
 
-        switch ($comparison) {
-            case '==':
-                return static function (mixed $probe) use ($specimen): bool {
-                    return $probe == $specimen;
-                };
-            case '===':
-                return static function (mixed $probe) use ($specimen): bool {
-                    return $probe === $specimen;
-                };
-            case '!=':
-                return static function (mixed $probe) use ($specimen): bool {
-                    return $probe != $specimen;
-                };
-            case '!==':
-                return static function (mixed $probe) use ($specimen): bool {
-                    return $probe !== $specimen;
-                };
-        }
+        return match ($comparison) {
+            '==' => static fn(mixed $probe): bool => $probe == $specimen,
+            '===' => static fn(mixed $probe): bool => $probe === $specimen,
+            '!=' => static fn(mixed $probe): bool => $probe != $specimen,
+            '!==' => static fn(mixed $probe): bool => $probe !== $specimen,
+        };
     }
 }
