@@ -12,12 +12,31 @@ use ReflectionException;
 use ReflectionNamedType;
 use ReflectionProperty;
 
+use function array_column;
+use function array_combine;
+use function array_filter;
+use function array_key_exists;
 use function define;
+use function dirname;
+use function explode;
+use function function_exists;
 use function gettype;
+use function in_array;
 use function is_array;
 use function is_callable;
+use function is_dir;
+use function is_object;
 use function is_scalar;
+use function is_string;
+use function mkdir;
+use function reset;
+use function settype;
 use function str_replace;
+use function strpos;
+use function substr;
+use function trim;
+
+use const DIRECTORY_SEPARATOR;
 
 if (!function_exists('\CoStack\Lib\array_filter_recursive')) {
     /**
