@@ -9,6 +9,7 @@ use ReflectionException;
 
 use function CoStack\Lib\array_filter_recursive;
 use function CoStack\Lib\array_property;
+use function CoStack\Lib\array_unique_keys;
 use function CoStack\Lib\array_value;
 
 /**
@@ -56,5 +57,14 @@ class ArrayUtility
         // phpcs:enable PSR12.Operators.OperatorSpacing.NoSpaceBefore
         // phpcs:enable PSR12.Operators.OperatorSpacing.NoSpaceAfter
         return array_property($array, $property, $indexKey);
+    }
+
+    /**
+     * @param array<mixed> ...$arrays
+     * @return array<int, int|string>
+     */
+    public function uniqueKeys(array ...$arrays): array
+    {
+        return array_unique_keys($arrays);
     }
 }

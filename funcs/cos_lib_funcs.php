@@ -15,7 +15,11 @@ use ReflectionProperty;
 use function array_column;
 use function array_combine;
 use function array_filter;
+use function array_flip;
 use function array_key_exists;
+use function array_keys;
+use function array_map;
+use function array_merge;
 use function define;
 use function dirname;
 use function explode;
@@ -42,11 +46,13 @@ if (!function_exists('\CoStack\Lib\array_filter_recursive')) {
     /**
      * Filters an array the same way array_filter would, but recursively, until $limit is hit.
      *
-     * @param array<array-key, (int|string|array)> $array
+     * @param array<array-key, int|string|array> $array
      * @param int $limit
      * @param callable|null $callback
      * @param int $flags
-     * @return array<array-key, (int|string|array)>
+     * @return array<array-key, int|string|array>
+     *
+     * @noinspection PhpDocSignatureInspection
      */
     function array_filter_recursive(array $array, int $limit, callable $callback = null, int $flags = 0): array
     {
@@ -165,6 +171,23 @@ if (!function_exists('\CoStack\Lib\array_property')) {
         }
 
         throw new Exceptions\PropertyMustBePropertyNameOrCallable($property, $array);
+    }
+}
+
+if (!function_exists('\CoStack\Lib\array_unique_keys')) {
+    /**
+     * Return all keys from all arrays in a list.
+     * A list consist of consecutive key numbers from 0 to count($array)-1
+     *
+     * @param array<mixed> ...$arrays
+     * @return array<int, int|string>
+     *
+     * @noinspection PhpDocSignatureInspection
+     */
+    function array_unique_keys(array ...$arrays): array
+    {
+        // array_keys(array_flip(...)) is a bit (~2.5%) faster than array_values(array_unique(...))
+        return array_keys(array_flip(array_merge(...array_map('array_keys', $arrays))));
     }
 }
 
