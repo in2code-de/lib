@@ -8,8 +8,6 @@ use CoStack\Lib\Exceptions\PropertyMustBePropertyNameOrCallable;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-use function uniqid;
-
 /**
  * @coversDefaultClass \CoStack\Lib\Exceptions\PropertyMustBePropertyNameOrCallable
  */
@@ -17,18 +15,15 @@ class PropertyMustBePropertyNameOrCallableTest extends TestCase
 {
     /**
      * @covers ::__construct
-     * @covers ::getValue
-     * @covers ::getArray
      */
     public function testExceptionContainsConstructorArguments(): void
     {
-        $canaryValue = uniqid();
-        $canaryArray = [new stdClass()];
+        $exception = new PropertyMustBePropertyNameOrCallable('foo', [new stdClass()]);
 
-        $exception = new PropertyMustBePropertyNameOrCallable($canaryValue, $canaryArray);
-
-        self::assertSame($canaryValue, $exception->getValue());
-        self::assertSame($canaryArray, $exception->getArray());
+        self::assertSame(
+            'The property argument must be a property name or closure but is of type "string" instead',
+            $exception->getMessage()
+        );
         self::assertSame(1599057272, $exception->getCode());
     }
 }

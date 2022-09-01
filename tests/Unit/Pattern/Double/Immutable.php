@@ -5,26 +5,29 @@ declare(strict_types=1);
 namespace CoStack\LibTests\Unit\Pattern\Double;
 
 use CoStack\Lib\Pattern\MagicMethodsForImmutables;
+use JetBrains\PhpStorm\Pure;
 
 /**
  * @method null|string getFoo()
  * @method null|string getBar()
  * @method bool hasFoo()
  * @method bool hasBar()
- * @method static withFoo(?string $foo)
- * @method static withBar(?string $bar)
- * @method static withoutFoo()
- * @method static withoutBar()
+ * @method Immutable withFoo(?string $foo)
+ * @method Immutable withBar(?string $bar)
+ * @method Immutable withoutFoo()
+ * @method Immutable withoutBar()
  * @method bool isBoo()
  * @method bool hasBoo()
  * @method bool getBoo()
- * @method static withBoo(?bool $baz)
- * @method static withoutBoo()
+ * @method Immutable withBoo(?bool $baz)
+ * @method Immutable withoutBoo()
  */
+#[\JetBrains\PhpStorm\Immutable]
 class Immutable
 {
     use MagicMethodsForImmutables;
 
+    #[Pure]
     public function __construct(public ?string $foo = '', public ?string $bar = null, public ?bool $boo = null)
     {
     }

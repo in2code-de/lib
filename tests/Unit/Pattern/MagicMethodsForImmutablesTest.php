@@ -49,8 +49,7 @@ class MagicMethodsForImmutablesTest extends TestCase
      */
     public function testTraitRemovesValueIfWithoutPropertyIsCalled(): void
     {
-        $canary = new Immutable();
-        $canary->foo = 'foo';
+        $canary = new Immutable('foo');
 
         $canary = $canary->withoutFoo();
 

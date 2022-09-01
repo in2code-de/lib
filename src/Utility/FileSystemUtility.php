@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @noinspection PhpUnused
+ */
+
 declare(strict_types=1);
 
 namespace CoStack\Lib\Utility;
@@ -12,10 +16,6 @@ use function CoStack\Lib\mkdir_deep;
  */
 class FileSystemUtility
 {
-    /**
-     * @param string ...$paths
-     * @return string
-     */
     public static function concat(string ...$paths): string
     {
         return concat_paths(...$paths);

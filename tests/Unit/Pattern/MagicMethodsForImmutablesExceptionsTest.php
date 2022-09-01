@@ -18,10 +18,13 @@ class MagicMethodsForImmutablesExceptionsTest extends TestCase
     {
         $canary = new Immutable();
 
-        self::expectException(BadMethodCallException::class);
-        self::expectExceptionCode(BadMethodCallException::CODE);
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionCode(BadMethodCallException::CODE);
 
-        // @phpstan-ignore-next-line
+        /**
+         * @phpstan-ignore-next-line
+         * @noinspection PhpUndefinedMethodInspection
+         */
         $canary->getBaz();
     }
 
@@ -32,10 +35,13 @@ class MagicMethodsForImmutablesExceptionsTest extends TestCase
     {
         $canary = new Immutable();
 
-        self::expectException(BadMethodCallException::class);
-        self::expectExceptionCode(BadMethodCallException::CODE);
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionCode(BadMethodCallException::CODE);
 
-        // @phpstan-ignore-next-line
+        /**
+         * @phpstan-ignore-next-line
+         * @noinspection PhpUndefinedMethodInspection
+         */
         $canary->withBaz();
     }
 
@@ -46,10 +52,13 @@ class MagicMethodsForImmutablesExceptionsTest extends TestCase
     {
         $canary = new Immutable();
 
-        self::expectException(ArgumentCountErrorException::class);
-        self::expectExceptionCode(ArgumentCountErrorException::CODE);
+        $this->expectException(ArgumentCountErrorException::class);
+        $this->expectExceptionCode(ArgumentCountErrorException::CODE);
 
-        // @phpstan-ignore-next-line
+        /**
+         * @phpstan-ignore-next-line
+         * @noinspection PhpParamsInspection
+         */
         $canary->withBar();
     }
 
@@ -60,10 +69,13 @@ class MagicMethodsForImmutablesExceptionsTest extends TestCase
     {
         $canary = new Immutable();
 
-        self::expectException(BadMethodCallException::class);
-        self::expectExceptionCode(BadMethodCallException::CODE);
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionCode(BadMethodCallException::CODE);
 
-        // @phpstan-ignore-next-line
+        /**
+         * @phpstan-ignore-next-line
+         * @noinspection PhpUndefinedMethodInspection
+         */
         $canary->withoutBaz();
     }
 }

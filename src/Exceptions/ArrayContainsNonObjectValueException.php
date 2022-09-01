@@ -15,23 +15,10 @@ class ArrayContainsNonObjectValueException extends LibException
     public const CODE = 1599055645;
 
     /**
-     * @param mixed $value
-     * @param mixed[] $array
-     * @param Throwable|null $previous
+     * @param array<mixed> $array
      */
-    public function __construct(private mixed $value, private array $array, Throwable $previous = null)
+    public function __construct(public readonly mixed $value, public readonly array $array, Throwable $previous = null)
     {
         parent::__construct(sprintf(self::MESSAGE, gettype($value)), self::CODE, $previous);
-    }
-
-    public function getValue(): mixed
-    {
-        return $this->value;
-    }
-
-    /** @return mixed[] $array */
-    public function getArray(): array
-    {
-        return $this->array;
     }
 }

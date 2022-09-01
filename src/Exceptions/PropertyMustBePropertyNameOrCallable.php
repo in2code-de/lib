@@ -16,27 +16,14 @@ class PropertyMustBePropertyNameOrCallable extends LibException
     public const CODE = 1599057272;
 
     /**
-     * @param mixed $value
-     * @param object[] $array
-     * @param Throwable|null $previous
+     * @param array<object> $array
      */
-    public function __construct(private mixed $value, private array $array, Throwable $previous = null)
+    public function __construct(public readonly mixed $value, public readonly array $array, Throwable $previous = null)
     {
         parent::__construct(
             sprintf(self::MESSAGE, is_object($value) ? get_class($value) : gettype($value)),
             self::CODE,
             $previous,
         );
-    }
-
-    public function getValue(): mixed
-    {
-        return $this->value;
-    }
-
-    /** @return object[] $array */
-    public function getArray(): array
-    {
-        return $this->array;
     }
 }

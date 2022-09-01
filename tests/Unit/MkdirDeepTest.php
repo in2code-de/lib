@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @noinspection NonSecureUniqidUsageInspection
+ * @noinspection PhpUnitTestsInspection
+ */
+
 declare(strict_types=1);
 
 namespace CoStack\LibTests\Unit;
@@ -10,6 +15,9 @@ use function CoStack\Lib\concat_paths;
 use function CoStack\Lib\mkdir_deep;
 use function escapeshellarg;
 use function exec;
+use function fileperms;
+use function sprintf;
+use function substr;
 use function sys_get_temp_dir;
 use function uniqid;
 

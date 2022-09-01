@@ -14,18 +14,11 @@ class BadMethodCallExceptionTest extends TestCase
 {
     /**
      * @covers ::__construct
-     * @covers ::getClass
-     * @covers ::getMethod
      */
     public function testExceptionContainsConstructorArguments(): void
     {
-        $canaryClass = uniqid();
-        $canaryMethod = uniqid();
+        $exception = new BadMethodCallException('foo', 'bar');
 
-        $exception = new BadMethodCallException($canaryClass, $canaryMethod);
-
-        self::assertSame($canaryClass, $exception->getClass());
-        self::assertSame($canaryMethod, $exception->getMethod());
         self::assertSame(1602239449, $exception->getCode());
     }
 }

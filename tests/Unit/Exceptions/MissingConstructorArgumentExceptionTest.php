@@ -14,18 +14,11 @@ class MissingConstructorArgumentExceptionTest extends TestCase
 {
     /**
      * @covers ::__construct
-     * @covers ::getClass
-     * @covers ::getArgumentName
      */
     public function testExceptionContainsConstructorArguments(): void
     {
-        $canaryClass = uniqid();
-        $canaryArgumentName = uniqid();
+        $exception = new MissingConstructorArgumentException('foo', 'bar');
 
-        $exception = new MissingConstructorArgumentException($canaryClass, $canaryArgumentName);
-
-        self::assertSame($canaryClass, $exception->getClass());
-        self::assertSame($canaryArgumentName, $exception->getArgumentName());
         self::assertSame(1599662098, $exception->getCode());
     }
 }

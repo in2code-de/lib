@@ -15,47 +15,15 @@ class ArrayPathTerminatesEarlyException extends LibException
     public const CODE = 1598892530;
 
     /**
-     * @param string $path
-     * @param string $key
-     * @param mixed $value
-     * @param mixed[] $array
-     * @param Throwable|null $previous
+     * @param array<mixed> $array
      */
-    // phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact
     public function __construct(
-        private string $path,
-        private string $key,
-        private mixed $value,
-        private array $array,
+        public readonly string $path,
+        public readonly string $key,
+        public readonly mixed $value,
+        public readonly array $array,
         Throwable $previous = null,
     ) {
-        // phpcs:enable Generic.WhiteSpace.ScopeIndent.IncorrectExact
-        parent::__construct(
-            sprintf(self::MESSAGE, $path, $key, gettype($value)),
-            self::CODE,
-            $previous,
-        );
-    }
-
-    public function getPath(): string
-    {
-        return $this->path;
-    }
-
-    public function getKey(): string
-    {
-        return $this->key;
-    }
-
-    /** @return mixed */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /** @return mixed[] $array */
-    public function getArray(): array
-    {
-        return $this->array;
+        parent::__construct(sprintf(self::MESSAGE, $path, $key, gettype($value)), self::CODE, $previous);
     }
 }

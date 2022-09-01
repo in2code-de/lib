@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @noinspection PhpUnitTestsInspection
+ * @noinspection PhpUnhandledExceptionInspection
+ */
+
 declare(strict_types=1);
 
 namespace CoStack\LibTests\Unit;

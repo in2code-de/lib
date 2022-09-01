@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpUnitTestsInspection */
+
 declare(strict_types=1);
 
 namespace CoStack\LibTests\Unit;
@@ -96,6 +98,7 @@ class FunctionArrayFilterRecursiveTest extends TestCase
         $mock = $this->getMockBuilder(stdClass::class)
                      ->addMethods(['__invoke'])
                      ->getMock();
+        /** @noinspection MockingMethodsCorrectnessInspection */
         $mock->expects($this->exactly(3))
              ->method('__invoke')
              ->withConsecutive(['foo'], ['bar'], ['baz']);
@@ -121,10 +124,10 @@ class FunctionArrayFilterRecursiveTest extends TestCase
         $mock = $this->getMockBuilder(stdClass::class)
                      ->addMethods(['__invoke'])
                      ->getMock();
-        $mock
-            ->expects($this->exactly(3))
-            ->method('__invoke')
-            ->withConsecutive([1, 'foo'], [2, 'bar'], [3, 'baz']);
+        /** @noinspection MockingMethodsCorrectnessInspection */
+        $mock->expects($this->exactly(3))
+             ->method('__invoke')
+             ->withConsecutive([1, 'foo'], [2, 'bar'], [3, 'baz']);
 
         $mockWrapper = function () use ($mock) {
             /** @var callable $mock */
