@@ -6,6 +6,7 @@ namespace CoStack\Lib\Utility;
 
 use Closure;
 use Exception;
+use JetBrains\PhpStorm\Pure;
 
 use function CoStack\Lib\filter;
 
@@ -20,6 +21,7 @@ class FilterUtility
      * @return Closure
      * @throws Exception
      */
+    #[Pure]
     public static function filter(int|float|string|bool $specimen, int $flags = 0): Closure
     {
         return filter($specimen, $flags);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CoStack\Lib\Exceptions;
 
+use JetBrains\PhpStorm\Pure;
 use Throwable;
 
 use function gettype;
@@ -21,7 +22,7 @@ class ArrayPathTerminatesEarlyException extends LibException
      * @param mixed[] $array
      * @param Throwable|null $previous
      */
-    // phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact
+    #[Pure]
     public function __construct(
         private string $path,
         private string $key,
@@ -29,7 +30,6 @@ class ArrayPathTerminatesEarlyException extends LibException
         private array $array,
         Throwable $previous = null,
     ) {
-        // phpcs:enable Generic.WhiteSpace.ScopeIndent.IncorrectExact
         parent::__construct(
             sprintf(self::MESSAGE, $path, $key, gettype($value)),
             self::CODE,

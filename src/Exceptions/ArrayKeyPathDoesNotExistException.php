@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CoStack\Lib\Exceptions;
 
+use JetBrains\PhpStorm\Pure;
 use Throwable;
 
 use function sprintf;
@@ -19,14 +20,13 @@ class ArrayKeyPathDoesNotExistException extends LibException
      * @param mixed[] $array
      * @param Throwable|null $previous
      */
-    // phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact
+    #[Pure]
     public function __construct(
         private string $path,
         private string $key,
         private array $array,
         Throwable $previous = null,
     ) {
-        // phpcs:enable Generic.WhiteSpace.ScopeIndent.IncorrectExact
         parent::__construct(sprintf(self::MESSAGE, $path, $key), self::CODE, $previous);
     }
 

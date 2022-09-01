@@ -6,9 +6,14 @@ namespace CoStack\Lib\Pattern;
 
 use CoStack\Lib\Exceptions\ArgumentCountErrorException;
 use CoStack\Lib\Exceptions\BadMethodCallException;
+use JetBrains\PhpStorm\Immutable;
 
+use function array_key_exists;
+use function lcfirst;
+use function property_exists;
 use function substr;
 
+#[Immutable]
 trait MagicMethodsForImmutables
 {
     /**
@@ -21,7 +26,7 @@ trait MagicMethodsForImmutables
      */
     public function __call(string $method, array $arguments): mixed
     {
-        if ('is' === substr($method, 0, 2)) {
+        if (str_starts_with($method, 'is')) {
             $property = lcfirst(substr($method, 2));
             if (property_exists($this, $property)) {
                 return (bool)$this->{$property};
@@ -38,7 +43,7 @@ trait MagicMethodsForImmutables
                 return $value;
             }
         }
-        if ('without' === substr($method, 0, 7)) {
+        if (str_starts_with($method, 'without')) {
             $property = lcfirst(substr($method, 7));
             if (property_exists($this, $property)) {
                 $clone = clone $this;
@@ -46,7 +51,7 @@ trait MagicMethodsForImmutables
                 return $clone;
             }
         }
-        if ('with' === substr($method, 0, 4)) {
+        if (str_starts_with($method, 'with')) {
             $property = lcfirst(substr($method, 4));
             if (property_exists($this, $property)) {
                 if (!array_key_exists(0, $arguments)) {

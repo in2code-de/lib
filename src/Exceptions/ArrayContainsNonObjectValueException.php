@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CoStack\Lib\Exceptions;
 
+use JetBrains\PhpStorm\Pure;
 use Throwable;
 
 use function gettype;
@@ -19,6 +20,7 @@ class ArrayContainsNonObjectValueException extends LibException
      * @param mixed[] $array
      * @param Throwable|null $previous
      */
+    #[Pure]
     public function __construct(private mixed $value, private array $array, Throwable $previous = null)
     {
         parent::__construct(sprintf(self::MESSAGE, gettype($value)), self::CODE, $previous);

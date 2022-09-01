@@ -1,10 +1,11 @@
 <?php
 
+/** @noinspection NonSecureUniqidUsageInspection */
+
 declare(strict_types=1);
 
 namespace CoStack\LibTests\Unit\Exceptions;
 
-use CoStack\Lib\Exceptions\MissingPropertyOrConstructorArgumentException;
 use CoStack\Lib\Exceptions\PropertyNotPublicException;
 use PHPUnit\Framework\TestCase;
 

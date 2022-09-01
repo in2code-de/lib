@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace CoStack\Lib\Exceptions;
 
+use JetBrains\PhpStorm\Pure;
 use Throwable;
 
 use function get_class;
+use function gettype;
 use function is_object;
 use function sprintf;
 
@@ -20,6 +22,7 @@ class PropertyMustBePropertyNameOrCallable extends LibException
      * @param object[] $array
      * @param Throwable|null $previous
      */
+    #[Pure]
     public function __construct(private mixed $value, private array $array, Throwable $previous = null)
     {
         parent::__construct(

@@ -1,29 +1,32 @@
 <?php
 
+/**
+ * @noinspection PhpMultipleClassDeclarationsInspection
+ */
+
 declare(strict_types=1);
 
 namespace CoStack\Lib;
 
 use Closure;
 use CoStack\Lib\Exceptions;
-use Exception;
+use JetBrains\PhpStorm\ExpectedValues;
+use JetBrains\PhpStorm\Pure;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionNamedType;
 use ReflectionProperty;
+use ReflectionUnionType;
 
 use function array_column;
 use function array_combine;
 use function array_filter;
-use function array_flip;
 use function array_key_exists;
-use function array_keys;
-use function array_map;
-use function array_merge;
 use function define;
 use function dirname;
 use function explode;
 use function function_exists;
+use function gettype;
 use function in_array;
 use function is_array;
 use function is_callable;
@@ -48,9 +51,7 @@ if (!function_exists('\CoStack\Lib\array_filter_recursive')) {
      * @param int $limit
      * @param callable|null $callback
      * @param int $flags
-     * @return array<array-key, int|string|array>
-     *
-     * @noinspection PhpDocSignatureInspection
+     * @return array<array-key, (int|string|array)>
      */
     function array_filter_recursive(array $array, int $limit, callable $callback = null, int $flags = 0): array
     {
@@ -117,8 +118,11 @@ if (!function_exists('\CoStack\Lib\array_property')) {
      * @throws Exceptions\PropertyMustBePropertyNameOrCallable
      * @throws ReflectionException
      */
-    function array_property(array $array, null|string|callable $property, null|string|callable $indexKey = null): array
-    {
+    function array_property(
+        array $array,
+        null|string|callable $property,
+        null|string|callable $indexKey = null
+    ): array {
         $return = [];
 
         if (empty($array)) {
@@ -259,19 +263,20 @@ if (!function_exists('\CoStack\Lib\factory')) {
     /**
      * Creates a new instance of a class with constructor arguments provided as an associative array
      *
-     * @template T
+     * @template T of object
      * @psalm-param class-string<T> $class
      * @param string $class
      * @param mixed[] $arguments
-     * @psalm-return T
-     * @return object
+     * @return T of object
      *
+     * @throws Exceptions\UnknownParameterTypeException
+     * @throws Exceptions\ImpreciseParameterTypeException
      * @throws Exceptions\MissingConstructorArgumentException
      * @throws Exceptions\MissingPropertyOrConstructorArgumentException
      * @throws Exceptions\PropertyNotPublicException
      * @throws ReflectionException
      */
-    function factory(string $class, array $arguments = []): object
+    function factory(string $class, array $arguments = [])
     {
         $reflectionClass = new ReflectionClass($class);
         $constructorArgs = [];
@@ -295,17 +300,32 @@ if (!function_exists('\CoStack\Lib\factory')) {
                     // All remaining arguments will be mapped to public properties.
                     unset($arguments[$name]);
                     if ($reflectionParameter->hasType()) {
+                        $currentType = str_replace(
+                            ['integer', 'boolean', 'double', 'NULL'],
+                            ['int', 'bool', 'float', 'null'],
+                            gettype($value)
+                        );
+                        $expectedType = null;
                         $reflectionType = $reflectionParameter->getType();
-                        if ($reflectionType instanceof ReflectionNamedType) {
-                            $variableTypeName = $reflectionType->getName();
-                        } else {
-                            // @codeCoverageIgnoreStart
-                            /** @noinspection PhpDeprecationInspection */
-                            $variableTypeName = $reflectionType->__toString();
-                            // @codeCoverageIgnoreEnd
+                        if ($reflectionType instanceof ReflectionUnionType) {
+                            foreach ($reflectionType->getTypes() as $type) {
+                                if ($type->getName() === $currentType) {
+                                    $expectedType = $currentType;
+                                    break;
+                                }
+                            }
+                            if (null === $expectedType) {
+                                throw new Exceptions\ImpreciseParameterTypeException($name, $class, $reflectionType);
+                            }
+                        } elseif ($reflectionType instanceof ReflectionNamedType) {
+                            $expectedType = $reflectionType->getName();
                         }
-                        if (in_array($variableTypeName, ['int', 'string', 'float', 'array', 'bool'])) {
-                            settype($value, $variableTypeName);
+                        if (
+                            $currentType !== $expectedType
+                            && in_array($expectedType, ['int', 'string', 'float', 'array', 'bool'])
+                        ) {
+                            /** @psalm-suppress PossiblyNullArgument */
+                            settype($value, $expectedType);
                         }
                     }
                     $constructorArgs[$position] = $value;
@@ -346,8 +366,11 @@ if (!function_exists('\CoStack\Lib\filter')) {
      * @param int|float|string|bool $specimen The value to match against
      * @param int $flags FILTER_* constants from the \CoStack\Lib\ namespace
      * @return Closure
-     * @throws Exception
+     * @noinspection TypeUnsafeComparisonInspection
+     * @noinspection PhpUnused
      */
+    #[Pure]
+    #[ExpectedValues(flags: [0, FILTER_INVERT, FILTER_MATCH_LOOSE])]
     function filter(int|float|string|bool $specimen, int $flags = 0): Closure
     {
         /** @var '=='|'==='|'!='|'!==' $comparison */
