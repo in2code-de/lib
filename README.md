@@ -1,8 +1,8 @@
 # co-stack.com lib
 
 PHP 8.1
-[![pipeline status](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/badges/php80/pipeline.svg)](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/-/pipelines)
-[![coverage report](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/badges/php80/coverage.svg)](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/-/graphs/php81/charts) \
+[![pipeline status](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/badges/php81/pipeline.svg)](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/-/pipelines)
+[![coverage report](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/badges/php81/coverage.svg)](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/-/graphs/php81/charts) \
 PHP 8.0
 [![pipeline status](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/badges/php80/pipeline.svg)](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/-/pipelines)
 [![coverage report](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/badges/php80/coverage.svg)](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/-/graphs/php80/charts) \
