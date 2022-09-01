@@ -71,7 +71,7 @@ include .env
 
 # SETTINGS
 TARGET_MAX_CHAR_NUM := 25
-#MAKEFLAGS += --silent
+MAKEFLAGS += --silent
 SHELL := /bin/bash
 VERSION := 1.0.0
 ARGS = $(filter-out $@,$(MAKECMDGOALS))

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace CoStack\LibTests\Unit\Double;
 
+use function func_get_args;
+
 class FactoryTestClassOne
 {
     /** @var mixed[] */

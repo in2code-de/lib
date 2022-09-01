@@ -12,9 +12,7 @@ class PropertyNotPublicException extends LibException
 {
     private const MESSAGE = 'The property "%s" of class "%s" is not public.';
     public const CODE = 1624002587;
-
     private string $class;
-
     private string $property;
 
     public function __construct(string $class, string $property, Throwable $previous = null)

@@ -7,6 +7,9 @@ namespace CoStack\Lib\Pattern;
 use CoStack\Lib\Exceptions\ArgumentCountErrorException;
 use CoStack\Lib\Exceptions\BadMethodCallException;
 
+use function array_key_exists;
+use function lcfirst;
+use function property_exists;
 use function substr;
 
 trait MagicMethodsForImmutables
@@ -18,6 +21,7 @@ trait MagicMethodsForImmutables
      * @throws ArgumentCountErrorException
      * @throws BadMethodCallException
      * @SuppressWarnings(PHPMD.CyclomaticComplexity) There is no perfect way to do this better
+     * @noinspection SubStrUsedAsStrPosInspection
      */
     public function __call(string $method, array $arguments)
     {

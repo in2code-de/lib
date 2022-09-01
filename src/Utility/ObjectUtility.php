@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CoStack\Lib\Utility;
 
-use CoStack\Lib\Exceptions\MissingConstructorArgumentException;
+use CoStack\Lib\Exceptions;
 use ReflectionException;
 
 use function CoStack\Lib\factory;
@@ -15,17 +15,18 @@ use function CoStack\Lib\factory;
 class ObjectUtility
 {
     /**
-     * @template T
+     * @template T of object
      * @psalm-param class-string<T> $class
      * @param string $class
      * @param mixed[] $arguments
-     * @psalm-return T
-     * @return object
+     * @return T of object
      *
-     * @throws MissingConstructorArgumentException
+     * @throws Exceptions\MissingConstructorArgumentException
+     * @throws Exceptions\MissingPropertyOrConstructorArgumentException
+     * @throws Exceptions\PropertyNotPublicException
      * @throws ReflectionException
      */
-    public static function factory(string $class, array $arguments = []): object
+    public static function factory(string $class, array $arguments = [])
     {
         return factory($class, $arguments);
     }

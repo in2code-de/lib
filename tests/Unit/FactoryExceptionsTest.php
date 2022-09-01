@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @noinspection PhpUnitTestsInspection
+ * @noinspection PhpUnhandledExceptionInspection
+ */
+
 declare(strict_types=1);
 
 namespace CoStack\LibTests\Unit;
@@ -13,6 +18,9 @@ use PHPUnit\Framework\TestCase;
 
 use function CoStack\Lib\factory;
 
+/**
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ */
 class FactoryExceptionsTest extends TestCase
 {
     /**
@@ -20,8 +28,8 @@ class FactoryExceptionsTest extends TestCase
      */
     public function testFunctionThrowsExceptionForMissingNonOptionalArgument(): void
     {
-        self::expectException(MissingConstructorArgumentException::class);
-        self::expectExceptionCode(MissingConstructorArgumentException::CODE);
+        $this->expectException(MissingConstructorArgumentException::class);
+        $this->expectExceptionCode(MissingConstructorArgumentException::CODE);
 
         factory(FactoryTestClassThree::class);
     }
@@ -31,8 +39,8 @@ class FactoryExceptionsTest extends TestCase
      */
     public function testFunctionThrowsExceptionIfArgumentIsNotInConstructorOrProperty(): void
     {
-        self::expectException(MissingPropertyOrConstructorArgumentException::class);
-        self::expectExceptionCode(MissingPropertyOrConstructorArgumentException::CODE);
+        $this->expectException(MissingPropertyOrConstructorArgumentException::class);
+        $this->expectExceptionCode(MissingPropertyOrConstructorArgumentException::CODE);
 
         factory(FactoryTestClassSeven::class, ['foo' => 'faz', '_does_not_exist' => 'blob']);
     }
@@ -42,8 +50,8 @@ class FactoryExceptionsTest extends TestCase
      */
     public function testFunctionThrowsExceptionIfPropertyIsProtected(): void
     {
-        self::expectException(PropertyNotPublicException::class);
-        self::expectExceptionCode(PropertyNotPublicException::CODE);
+        $this->expectException(PropertyNotPublicException::class);
+        $this->expectExceptionCode(PropertyNotPublicException::CODE);
 
         factory(FactoryTestClassSeven::class, ['foo' => 'faz', 'beng' => 'blob']);
     }
@@ -53,8 +61,8 @@ class FactoryExceptionsTest extends TestCase
      */
     public function testFunctionThrowsExceptionIfPropertyIsPrivate(): void
     {
-        self::expectException(PropertyNotPublicException::class);
-        self::expectExceptionCode(PropertyNotPublicException::CODE);
+        $this->expectException(PropertyNotPublicException::class);
+        $this->expectExceptionCode(PropertyNotPublicException::CODE);
 
         factory(FactoryTestClassSeven::class, ['foo' => 'faz', 'fump' => 'blob']);
     }

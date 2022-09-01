@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @noinspection PhpUnitTestsInspection
+ * @noinspection PhpUnhandledExceptionInspection
+ */
+
 declare(strict_types=1);
 
 namespace CoStack\LibTests\Unit;
@@ -32,12 +37,12 @@ class ArrayValueTest extends TestCase
 
     /**
      * @covers \CoStack\Lib\array_value
-     * @uses \CoStack\Lib\Exceptions\ArrayKeyPathDoesNotExistException
+     * @uses   \CoStack\Lib\Exceptions\ArrayKeyPathDoesNotExistException
      */
     public function testFunctionThrowsArrayKeyPathDoesNotExistException(): void
     {
-        self::expectException(ArrayKeyPathDoesNotExistException::class);
-        self::expectExceptionCode(ArrayKeyPathDoesNotExistException::CODE);
+        $this->expectException(ArrayKeyPathDoesNotExistException::class);
+        $this->expectExceptionCode(ArrayKeyPathDoesNotExistException::CODE);
 
         $canary = [];
 
@@ -46,12 +51,12 @@ class ArrayValueTest extends TestCase
 
     /**
      * @covers \CoStack\Lib\array_value
-     * @uses \CoStack\Lib\Exceptions\ArrayPathTerminatesEarlyException
+     * @uses   \CoStack\Lib\Exceptions\ArrayPathTerminatesEarlyException
      */
     public function testFunctionThrowsExceptionIfPathPartTerminatesInNonArrayValue(): void
     {
-        self::expectException(ArrayPathTerminatesEarlyException::class);
-        self::expectExceptionCode(ArrayPathTerminatesEarlyException::CODE);
+        $this->expectException(ArrayPathTerminatesEarlyException::class);
+        $this->expectExceptionCode(ArrayPathTerminatesEarlyException::CODE);
 
         $canary = [
             'foo' => false,

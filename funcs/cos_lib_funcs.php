@@ -1,12 +1,15 @@
 <?php
 
+/**
+ * @noinspection PhpMultipleClassDeclarationsInspection
+ */
+
 declare(strict_types=1);
 
 namespace CoStack\Lib;
 
 use Closure;
 use CoStack\Lib\Exceptions;
-use Exception;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionNamedType;
@@ -15,11 +18,7 @@ use ReflectionProperty;
 use function array_column;
 use function array_combine;
 use function array_filter;
-use function array_flip;
 use function array_key_exists;
-use function array_keys;
-use function array_map;
-use function array_merge;
 use function define;
 use function dirname;
 use function explode;
@@ -50,9 +49,7 @@ if (!function_exists('\CoStack\Lib\array_filter_recursive')) {
      * @param int $limit
      * @param callable|null $callback
      * @param int $flags
-     * @return array<array-key, int|string|array>
-     *
-     * @noinspection PhpDocSignatureInspection
+     * @return array<array-key, (int|string|array)>
      */
     function array_filter_recursive(array $array, int $limit, callable $callback = null, int $flags = 0): array
     {
@@ -262,19 +259,18 @@ if (!function_exists('\CoStack\Lib\factory')) {
     /**
      * Creates a new instance of a class with constructor arguments provided as an associative array
      *
-     * @template T
+     * @template T of object
      * @psalm-param class-string<T> $class
      * @param string $class
      * @param mixed[] $arguments
-     * @psalm-return T
-     * @return object
+     * @return T of object
      *
      * @throws Exceptions\MissingConstructorArgumentException
      * @throws Exceptions\MissingPropertyOrConstructorArgumentException
      * @throws Exceptions\PropertyNotPublicException
      * @throws ReflectionException
      */
-    function factory(string $class, array $arguments = []): object
+    function factory(string $class, array $arguments = [])
     {
         $reflectionClass = new ReflectionClass($class);
         $constructorArgs = [];
@@ -349,7 +345,8 @@ if (!function_exists('\CoStack\Lib\filter')) {
      * @param int|float|string|bool $specimen The value to match against
      * @param int $flags FILTER_* constants from the \CoStack\Lib\ namespace
      * @return Closure
-     * @throws Exception
+     * @noinspection TypeUnsafeComparisonInspection
+     * @noinspection PhpUnused
      * @psalm-suppress DocblockTypeContradiction $specimen can be something different despite the DocBlock
      */
     function filter($specimen, int $flags = 0): Closure

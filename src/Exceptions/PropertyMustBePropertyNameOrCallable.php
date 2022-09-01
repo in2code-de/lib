@@ -7,6 +7,7 @@ namespace CoStack\Lib\Exceptions;
 use Throwable;
 
 use function get_class;
+use function gettype;
 use function is_object;
 use function sprintf;
 
@@ -14,10 +15,8 @@ class PropertyMustBePropertyNameOrCallable extends LibException
 {
     private const MESSAGE = 'The property argument must be a property name or closure but is of type "%s" instead';
     public const CODE = 1599057272;
-
     /** @var mixed */
     private $value;
-
     /** @var object[] */
     private array $array;
 

@@ -15,7 +15,6 @@ class MissingPropertyOrConstructorArgumentException extends LibException
 {
     private const MESSAGE = 'The class "%s" does not define a property or constructor argument named "%s"';
     public const CODE = 1624002516;
-
     private string $class;
     private string $property;
 

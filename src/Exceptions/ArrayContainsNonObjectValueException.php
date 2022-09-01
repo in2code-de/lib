@@ -13,10 +13,8 @@ class ArrayContainsNonObjectValueException extends LibException
 {
     private const MESSAGE = 'The given array must only contain objects, but the first element is a "%s"';
     public const CODE = 1599055645;
-
     /** @var mixed */
     private $value;
-
     /** @var mixed[] */
     private array $array;
 

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @noinspection PhpUnused
+ * @noinspection UnnecessaryUseAliasInspection
+ */
+
 declare(strict_types=1);
 
 namespace CoStack\Lib\Utility;
@@ -18,11 +23,11 @@ use function CoStack\Lib\array_value;
 class ArrayUtility
 {
     /**
-     * @param array<array-key, (int|string|array)> $array
+     * @param array<array<mixed>|int|string> $array
      * @param int $limit
      * @param callable|null $callback
      * @param int $flags
-     * @return array<array-key, (int|string|array)>
+     * @return array<array<mixed>|int|string>
      */
     public static function filterRecursive(array $array, int $limit, callable $callback = null, int $flags = 0): array
     {
@@ -30,7 +35,7 @@ class ArrayUtility
     }
 
     /**
-     * @param array[] $array
+     * @param array<array<mixed>> $array
      * @param string $path
      * @return array[]|mixed
      * @throws Exceptions\ArrayPathTerminatesEarlyException
@@ -50,12 +55,8 @@ class ArrayUtility
      * @throws Exceptions\PropertyMustBePropertyNameOrCallable
      * @throws ReflectionException
      */
-    // phpcs:disable PSR12.Operators.OperatorSpacing.NoSpaceBefore
-    // phpcs:disable PSR12.Operators.OperatorSpacing.NoSpaceAfter
     public function property(array $array, $property, $indexKey): array
     {
-        // phpcs:enable PSR12.Operators.OperatorSpacing.NoSpaceBefore
-        // phpcs:enable PSR12.Operators.OperatorSpacing.NoSpaceAfter
         return array_property($array, $property, $indexKey);
     }
 

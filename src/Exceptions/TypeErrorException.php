@@ -12,11 +12,8 @@ class TypeErrorException extends LibException
 {
     private const MESSAGE = 'The argument "%s" must be of type "%s", but is of type "%s"';
     public const CODE = 1607526148;
-
     private string $argumentName;
-
     private string $actualType;
-
     private string $expectedType;
 
     public function __construct(

@@ -3,6 +3,4 @@ parameters:
 	paths:
 		- src
 		- tests
-	ignoreErrors:
-		- '#PHPDoc tag @return with type mixed is not subtype of native type object.#'
 	excludes_analyse:

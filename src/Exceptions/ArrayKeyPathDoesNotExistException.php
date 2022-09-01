@@ -12,11 +12,8 @@ class ArrayKeyPathDoesNotExistException extends LibException
 {
     private const MESSAGE = 'The array path "%s" does not exist in the given array, because the key "%s" can not be found';
     public const CODE = 1598890975;
-
     private string $path;
-
     private string $key;
-
     /** @var mixed[] */
     private array $array;
 

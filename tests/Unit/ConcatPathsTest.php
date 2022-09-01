@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpUnitTestsInspection */
+
 declare(strict_types=1);
 
 namespace CoStack\LibTests\Unit;
@@ -80,7 +82,7 @@ class ConcatPathsTest extends TestCase
     }
 
     /**
-     * @covers \CoStack\Lib\concat_paths
+     * @covers       \CoStack\Lib\concat_paths
      *
      * @dataProvider pathsForConcatenationDataProvider
      *

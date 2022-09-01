@@ -78,7 +78,7 @@ qa-phpunit-coverage:
       junit: .project/artifacts/rspec.xml
 
 qa-infection:
-  image: in2code/php-dev:8.0-fpm
+  image: in2code/php-dev:7.4-fpm
   stage: qa
   script: XDEBUG_MODE=coverage vendor/bin/infection --configuration=.infection.json -j$(nproc) --min-covered-msi=100 --min-msi=100
   only:

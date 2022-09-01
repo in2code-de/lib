@@ -6,13 +6,13 @@ namespace CoStack\Lib\Exceptions;
 
 use Throwable;
 
+use function sprintf;
+
 class BadMethodCallException extends LibException
 {
     private const MESSAGE = 'Call to undefined method "%s" on class "%s"';
     public const CODE = 1602239449;
-
     private string $class;
-
     private string $method;
 
     public function __construct(string $class, string $method, Throwable $previous = null)
