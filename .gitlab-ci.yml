@@ -76,6 +76,7 @@ qa-phpunit-coverage:
   artifacts:
     reports:
       junit: .project/artifacts/rspec.xml
+  coverage: '/Lines:\s+\d+\.\d+/'
 
 qa-infection:
   image: in2code/php-dev:8.1-fpm
