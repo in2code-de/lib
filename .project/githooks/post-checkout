@@ -1,7 +1,0 @@
-#!/bin/bash
-
-# -e Exit immediately if a command exits with a non-zero status.
-# -u Treat unset variables as error. Kind of a strict mode
-set -eu
-
-make install
