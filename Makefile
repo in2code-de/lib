@@ -22,7 +22,7 @@ help:
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
 
 ## Install this project (required once after checkout)
-install: .prepare .clean .install-githooks .build
+install: .prepare .clean .build
 	docker run --rm -v $(PWD):/app -v $(HOME)/.composer/cache:/tmp/composer/cache -v $(HOME)/.composer/auth.json:/tmp/composer/auth.json co-stack/lib:$(TAG) composer i
 
 .prepare:
@@ -43,29 +43,6 @@ test: .build
 ## Run a bash in a docker environment
 bash: .build
 	docker run --rm -it -v $(PWD):/app -v $(HOME)/.composer/cache:/tmp/composer/cache -v $(HOME)/.composer/auth.json:/tmp/composer/auth.json co-stack/lib:$(TAG) bash
-
-.install-githooks:
-	git config core.hooksPath .project/githooks
-
-## Switch to a git branch at rebuild the dev env
-switch-branch:
-	git checkout $(ARGS)
-	rm -rf composer.lock vendor
-	make install-project
-
-merge-downstream:
-	ON_HEAD=''; for BRANCH in $$(git branch -l 'php*' --format="%(refname)" --sort=-refname | cut -d'/' -f3); do \
-		if [[ "$$ON_HEAD" -eq "" ]]; then \
-			ON_HEAD='1'; \
-			git checkout $$BRANCH; \
-		else \
-			MESSAGE="$$(git log -1 --pretty=%s)" \
-			&& if [[ "$$MESSAGE" != "[BACKPORT]"* ]]; then MESSAGE="[BACKPORT]$$MESSAGE"; fi \
-			&& CURRENT=$$(git branch --show-current) \
-			&& git checkout $$BRANCH \
-			&& git merge --verify -m "$$MESSAGE" $$CURRENT; \
-		fi; \
-	done
 
 include .env
 
