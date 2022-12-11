@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace CoStack\Lib;
 
+use ArrayAccess;
 use Closure;
 use CoStack\Lib\Exceptions;
 use JetBrains\PhpStorm\ExpectedValues;
@@ -92,12 +93,17 @@ if (!function_exists('\CoStack\Lib\array_value')) {
         $return = $array;
         // Iteration is 3 times faster than recursion
         foreach (explode('.', $path) as $key) {
-            if (!is_array($return)) {
+            if (is_array($return)) {
+                // isset() first is no longer faster with PHP >= 7.4
+                if (!array_key_exists($key, $return)) {
+                    throw new Exceptions\ArrayKeyPathDoesNotExistException($path, $key, $array);
+                }
+            } elseif ($return instanceof ArrayAccess) {
+                if (!$return->offsetExists($key)) {
+                    throw new Exceptions\ArrayKeyPathDoesNotExistException($path, $key, $array);
+                }
+            } else {
                 throw new Exceptions\ArrayPathTerminatesEarlyException($path, $key, $return, $array);
-            }
-            // isset() first is no longer faster with PHP >= 7.4
-            if (!array_key_exists($key, $return)) {
-                throw new Exceptions\ArrayKeyPathDoesNotExistException($path, $key, $array);
             }
             // References are 2% slower than plain assignments
             $return = $return[$key];
