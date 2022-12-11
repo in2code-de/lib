@@ -9,11 +9,14 @@ declare(strict_types=1);
 
 namespace CoStack\LibTests\Unit;
 
+use ArrayAccess;
 use CoStack\Lib\Exceptions\ArrayKeyPathDoesNotExistException;
 use CoStack\Lib\Exceptions\ArrayPathTerminatesEarlyException;
+use Exception;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
+use function array_key_exists;
 use function CoStack\Lib\array_value;
 
 class ArrayValueTest extends TestCase
@@ -83,6 +86,74 @@ class ArrayValueTest extends TestCase
         self::assertSame($expected, $actual);
 
         $actual = array_value($expected, '.');
+
+        self::assertSame($expected, $actual);
+    }
+
+    /**
+     * @covers \CoStack\Lib\array_value
+     */
+    public function testFunctionsSupportsArrayAccessInterface(): void
+    {
+        $values = [
+            'bar' => 'baz',
+        ];
+
+        $canary = new class ($values) implements ArrayAccess {
+            /**
+             * @var array<string, string>
+             */
+            protected array $values;
+
+            /**
+             * @param array<string, string> $values
+             */
+            public function __construct(array $values)
+            {
+                $this->values = $values;
+            }
+
+            /**
+             * @param array-key $offset
+             */
+            public function offsetGet(mixed $offset): mixed
+            {
+                return $this->values[$offset];
+            }
+
+            /**
+             * @param array-key $offset
+             */
+            public function offsetExists(mixed $offset): bool
+            {
+                return array_key_exists($offset, $this->values);
+            }
+
+            /**
+             * @param array-key $offset
+             */
+            public function offsetSet(mixed $offset, mixed $value): void
+            {
+                throw new Exception('Not implemented');
+            }
+
+            /**
+             * @param array-key $offset
+             */
+            public function offsetUnset(mixed $offset): void
+            {
+                throw new Exception('Not implemented');
+            }
+        };
+
+        $value = [
+            'foo' => $canary,
+        ];
+
+        $expected = 'baz';
+        $path = 'foo.bar';
+
+        $actual = array_value($value, $path);
 
         self::assertSame($expected, $actual);
     }
