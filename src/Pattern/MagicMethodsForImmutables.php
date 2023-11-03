@@ -17,9 +17,7 @@ use function substr;
 trait MagicMethodsForImmutables
 {
     /**
-     * @param string $method
-     * @param mixed[] $arguments
-     * @return mixed
+     * @param array<mixed> $arguments
      * @throws ArgumentCountErrorException
      * @throws BadMethodCallException
      * @SuppressWarnings(PHPMD.CyclomaticComplexity) There is no perfect way to do this better

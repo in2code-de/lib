@@ -24,6 +24,6 @@ class PropertyMustBePropertyNameOrCallableTest extends TestCase
             'The property argument must be a property name or closure but is of type "string" instead',
             $exception->getMessage()
         );
-        self::assertSame(1599057272, $exception->getCode());
+        self::assertSame(1_599_057_272, $exception->getCode());
     }
 }

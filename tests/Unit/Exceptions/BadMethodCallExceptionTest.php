@@ -19,6 +19,6 @@ class BadMethodCallExceptionTest extends TestCase
     {
         $exception = new BadMethodCallException('foo', 'bar');
 
-        self::assertSame(1602239449, $exception->getCode());
+        self::assertSame(1_602_239_449, $exception->getCode());
     }
 }

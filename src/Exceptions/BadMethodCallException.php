@@ -12,7 +12,7 @@ use function sprintf;
 class BadMethodCallException extends LibException
 {
     private const MESSAGE = 'Call to undefined method "%s" on class "%s"';
-    public const CODE = 1602239449;
+    final public const CODE = 1_602_239_449;
 
     #[Pure]
     public function __construct(

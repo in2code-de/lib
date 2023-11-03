@@ -19,7 +19,7 @@ class FactoryTestClassSeven
     public float $bar;
     protected string $beng;
     /** @phpstan-ignore-next-line */
-    private string $fump;
+    private readonly string $fump;
 
     #[Pure]
     public function __construct(public string $foo)

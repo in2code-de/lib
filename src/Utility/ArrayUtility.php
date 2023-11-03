@@ -24,9 +24,7 @@ class ArrayUtility
 {
     /**
      * @param array<array<mixed>|int|string> $array
-     * @param int $limit
      * @param callable|null $callback
-     * @param int $flags
      * @return array<array<mixed>|int|string>
      */
     public static function filterRecursive(array $array, int $limit, callable $callback = null, int $flags = 0): array
@@ -36,8 +34,7 @@ class ArrayUtility
 
     /**
      * @param array<array<mixed>> $array
-     * @param string $path
-     * @return array[]|mixed
+     * @return array<array>|mixed
      * @throws Exceptions\ArrayPathTerminatesEarlyException
      * @throws Exceptions\ArrayKeyPathDoesNotExistException
      */
@@ -47,10 +44,10 @@ class ArrayUtility
     }
 
     /**
-     * @param object[] $array
+     * @param array<object> $array
      * @param null|string|callable $property
      * @param null|string|callable $indexKey
-     * @return mixed[]
+     * @return array<mixed>
      * @throws Exceptions\ArrayContainsNonObjectValueException
      * @throws Exceptions\PropertyMustBePropertyNameOrCallable
      * @throws ReflectionException

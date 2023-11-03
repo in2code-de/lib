@@ -6,14 +6,12 @@ namespace CoStack\Lib\Exceptions;
 
 use Throwable;
 
-use function get_class;
-use function is_object;
 use function sprintf;
 
 class PropertyMustBePropertyNameOrCallable extends LibException
 {
     private const MESSAGE = 'The property argument must be a property name or closure but is of type "%s" instead';
-    public const CODE = 1599057272;
+    final public const CODE = 1_599_057_272;
 
     /**
      * @param array<object> $array
@@ -21,7 +19,7 @@ class PropertyMustBePropertyNameOrCallable extends LibException
     public function __construct(public readonly mixed $value, public readonly array $array, Throwable $previous = null)
     {
         parent::__construct(
-            sprintf(self::MESSAGE, is_object($value) ? get_class($value) : gettype($value)),
+            sprintf(self::MESSAGE, get_debug_type($value)),
             self::CODE,
             $previous,
         );

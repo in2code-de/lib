@@ -21,11 +21,6 @@ class FileSystemUtility
         return concat_paths(...$paths);
     }
 
-    /**
-     * @param string $path
-     * @param int|null $mode
-     * @return bool
-     */
     public static function mkdirDeep(string $path, int $mode = null): bool
     {
         return mkdir_deep($path, $mode);

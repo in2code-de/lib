@@ -19,6 +19,6 @@ class ArrayContainsNonObjectValueExceptionTest extends TestCase
     {
         $exception = new ArrayContainsNonObjectValueException('foo', ['bar']);
 
-        self::assertSame(1599055645, $exception->getCode());
+        self::assertSame(1_599_055_645, $exception->getCode());
     }
 }

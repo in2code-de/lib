@@ -13,6 +13,11 @@
     "text": ".project\/artifacts\/infection.log"
   },
   "mutators": {
-    "@default": true
+    "@default": true,
+    "LogicalOrAllSubExprNegation": {
+      "ignore": [
+        "CoStack\\Lib\\Pattern\\MagicMethodsForImmutables::__call::34"
+      ]
+    }
   }
 }

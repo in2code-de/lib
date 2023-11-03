@@ -16,9 +16,6 @@ use function CoStack\Lib\filter;
 class FilterUtility
 {
     /**
-     * @param int|float|string|bool $specimen
-     * @param int $flags
-     * @return Closure
      * @throws Exception
      */
     #[Pure]
