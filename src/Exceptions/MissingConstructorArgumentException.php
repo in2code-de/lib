@@ -12,7 +12,7 @@ use function sprintf;
 class MissingConstructorArgumentException extends LibException
 {
     private const MESSAGE = 'Missing constructor argument "%s" for class "%s".';
-    public const CODE = 1599662098;
+    public const CODE = 1_599_662_098;
 
     #[Pure]
     public function __construct(private string $class, private string $argumentName, Throwable $previous = null)

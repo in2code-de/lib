@@ -28,6 +28,6 @@ class ArgumentCountErrorExceptionTest extends TestCase
 
         self::assertSame($canaryClass, $exception->getClass());
         self::assertSame($canaryMethod, $exception->getMethod());
-        self::assertSame(1602239549, $exception->getCode());
+        self::assertSame(1_602_239_549, $exception->getCode());
     }
 }

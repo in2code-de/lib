@@ -30,6 +30,6 @@ class UnknownParameterTypeExceptionTest extends TestCase
 
         self::assertSame($parameterCanary, $exception->getParameter());
         self::assertSame($classCanary, $exception->getClass());
-        self::assertSame(1662032156, $exception->getCode());
+        self::assertSame(1_662_032_156, $exception->getCode());
     }
 }

@@ -28,6 +28,6 @@ class MissingConstructorArgumentExceptionTest extends TestCase
 
         self::assertSame($canaryClass, $exception->getClass());
         self::assertSame($canaryArgumentName, $exception->getArgumentName());
-        self::assertSame(1599662098, $exception->getCode());
+        self::assertSame(1_599_662_098, $exception->getCode());
     }
 }

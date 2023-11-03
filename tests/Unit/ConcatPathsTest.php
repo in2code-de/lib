@@ -87,7 +87,6 @@ class ConcatPathsTest extends TestCase
      * @dataProvider pathsForConcatenationDataProvider
      *
      * @param string[] $paths
-     * @param string $expected
      */
     public function testFunctionReturnsPathsAsExpected(array $paths, string $expected): void
     {

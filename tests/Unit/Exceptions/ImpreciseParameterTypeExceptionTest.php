@@ -34,6 +34,6 @@ class ImpreciseParameterTypeExceptionTest extends TestCase
         self::assertSame($parameterCanary, $exception->getParameter());
         self::assertSame($classCanary, $exception->getClass());
         self::assertSame($reflectionTypeCanary, $exception->getReflectionType());
-        self::assertSame(1662028115, $exception->getCode());
+        self::assertSame(1_662_028_115, $exception->getCode());
     }
 }

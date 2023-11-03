@@ -41,6 +41,7 @@ class ArrayValueTest extends TestCase
     /**
      * @covers \CoStack\Lib\array_value
      * @uses   \CoStack\Lib\Exceptions\ArrayKeyPathDoesNotExistException
+     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      */
     public function testFunctionThrowsArrayKeyPathDoesNotExistException(): void
     {
@@ -55,6 +56,7 @@ class ArrayValueTest extends TestCase
     /**
      * @covers \CoStack\Lib\array_value
      * @uses   \CoStack\Lib\Exceptions\ArrayPathTerminatesEarlyException
+     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      */
     public function testFunctionThrowsExceptionIfPathPartTerminatesInNonArrayValue(): void
     {
@@ -101,20 +103,15 @@ class ArrayValueTest extends TestCase
 
         $canary = new class ($values) implements ArrayAccess {
             /**
-             * @var array<string, string>
-             */
-            protected array $values;
-
-            /**
              * @param array<string, string> $values
              */
-            public function __construct(array $values)
+            public function __construct(protected array $values)
             {
-                $this->values = $values;
             }
 
             /**
              * @param array-key $offset
+             * @noinspection PhpMixedReturnTypeCanBeReducedInspection
              */
             public function offsetGet(mixed $offset): mixed
             {

@@ -13,7 +13,7 @@ use function sprintf;
 class ImpreciseParameterTypeException extends LibException
 {
     private const MESSAGE = 'Can not precisely determine the type of the parameter "%s" of the constructor of class "%s" because it has multiple types.';
-    public const CODE = 1662028115;
+    public const CODE = 1_662_028_115;
 
     #[Pure]
     public function __construct(

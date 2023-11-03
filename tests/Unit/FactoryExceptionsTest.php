@@ -27,6 +27,8 @@ class FactoryExceptionsTest extends TestCase
 {
     /**
      * @covers \CoStack\Lib\factory
+     * @uses   \CoStack\Lib\Exceptions\MissingConstructorArgumentException
+     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      */
     public function testFunctionThrowsExceptionForMissingNonOptionalArgument(): void
     {
@@ -38,6 +40,8 @@ class FactoryExceptionsTest extends TestCase
 
     /**
      * @covers \CoStack\Lib\factory
+     * @uses   \CoStack\Lib\Exceptions\MissingPropertyOrConstructorArgumentException
+     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      */
     public function testFunctionThrowsExceptionIfArgumentIsNotInConstructorOrProperty(): void
     {
@@ -49,6 +53,8 @@ class FactoryExceptionsTest extends TestCase
 
     /**
      * @covers \CoStack\Lib\factory
+     * @uses   \CoStack\Lib\Exceptions\PropertyNotPublicException
+     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      */
     public function testFunctionThrowsExceptionIfPropertyIsProtected(): void
     {
@@ -60,6 +66,8 @@ class FactoryExceptionsTest extends TestCase
 
     /**
      * @covers \CoStack\Lib\factory
+     * @uses \CoStack\Lib\Exceptions\PropertyNotPublicException
+     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      */
     public function testFunctionThrowsExceptionIfPropertyIsPrivate(): void
     {
@@ -71,6 +79,8 @@ class FactoryExceptionsTest extends TestCase
 
     /**
      * @covers \CoStack\Lib\factory
+     * @uses   \CoStack\Lib\Exceptions\ImpreciseParameterTypeException
+     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      */
     public function testFunctionThrowsExceptionIfPropertyIsImprecise(): void
     {
