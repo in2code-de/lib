@@ -70,9 +70,7 @@ class FunctionArrayFilterRecursiveTest extends TestCase
             'beng' => 4,
         ];
 
-        $filter = function ($value): bool {
-            return $value < 2 || $value > 3;
-        };
+        $filter = fn($value): bool => $value < 2 || $value > 3;
 
         $expected = [
             'foo' => 1,
@@ -95,17 +93,27 @@ class FunctionArrayFilterRecursiveTest extends TestCase
             'baz' => 3,
         ];
 
+        $returnValues = [
+            1 => 'foo',
+            2 => 'bar',
+            3 => 'baz',
+        ];
+
         $mock = $this->getMockBuilder(stdClass::class)
                      ->addMethods(['__invoke'])
                      ->getMock();
+
+        $invocationRule = $this->exactly(3);
         /** @noinspection MockingMethodsCorrectnessInspection */
-        $mock->expects($this->exactly(3))
+        $mock->expects($invocationRule)
              ->method('__invoke')
-             ->withConsecutive(['foo'], ['bar'], ['baz']);
-        $mockWrapper = function () use ($mock) {
-            /** @var callable $mock */
-            return $mock(...func_get_args());
-        };
+             ->willReturnCallback(static fn(): string => $returnValues[$invocationRule->getInvocationCount()]);
+
+        /**
+         * @var callable $mock
+         * @return string
+         */
+        $mockWrapper = static fn(): string => $mock(...func_get_args());
 
         array_filter_recursive($canary, -1, $mockWrapper, ARRAY_FILTER_USE_KEY);
     }
@@ -121,18 +129,26 @@ class FunctionArrayFilterRecursiveTest extends TestCase
             'baz' => 3,
         ];
 
+        $returnValues = [
+            1 => [1, 'foo'],
+            2 => [2, 'bar'],
+            3 => [3, 'baz'],
+        ];
+
         $mock = $this->getMockBuilder(stdClass::class)
                      ->addMethods(['__invoke'])
                      ->getMock();
+        $invocationRule = $this->exactly(3);
         /** @noinspection MockingMethodsCorrectnessInspection */
-        $mock->expects($this->exactly(3))
+        $mock->expects($invocationRule)
              ->method('__invoke')
-             ->withConsecutive([1, 'foo'], [2, 'bar'], [3, 'baz']);
+             ->willReturnCallback(static fn(): array => $returnValues[$invocationRule->getInvocationCount()]);
 
-        $mockWrapper = function () use ($mock) {
-            /** @var callable $mock */
-            return $mock(...func_get_args());
-        };
+        /**
+         * @var callable $mock
+         * @return array
+         */
+        $mockWrapper = static fn(): array => $mock(...func_get_args());
 
         array_filter_recursive($canary, -1, $mockWrapper, ARRAY_FILTER_USE_BOTH);
     }

@@ -13,6 +13,8 @@ class MagicMethodsForImmutablesExceptionsTest extends TestCase
 {
     /**
      * @covers \CoStack\LibTests\Unit\Pattern\Double\Immutable::__call
+     * @uses   \CoStack\Lib\Exceptions\BadMethodCallException
+     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      */
     public function testTraitThrowsExceptionIfGetPropertyDoesNotExist(): void
     {
@@ -30,6 +32,8 @@ class MagicMethodsForImmutablesExceptionsTest extends TestCase
 
     /**
      * @covers \CoStack\LibTests\Unit\Pattern\Double\Immutable::__call
+     * @uses \CoStack\Lib\Exceptions\BadMethodCallException
+     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      */
     public function testTraitThrowsExceptionIfWithPropertyDoesNotExist(): void
     {
@@ -47,6 +51,8 @@ class MagicMethodsForImmutablesExceptionsTest extends TestCase
 
     /**
      * @covers \CoStack\LibTests\Unit\Pattern\Double\Immutable::__call
+     * @uses   \CoStack\Lib\Exceptions\ArgumentCountErrorException
+     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      */
     public function testTraitThrowsExceptionIfWithMethodMissesArgument(): void
     {
@@ -64,6 +70,8 @@ class MagicMethodsForImmutablesExceptionsTest extends TestCase
 
     /**
      * @covers \CoStack\LibTests\Unit\Pattern\Double\Immutable::__call
+     * @uses   \CoStack\Lib\Exceptions\BadMethodCallException
+     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      */
     public function testTraitThrowsExceptionIfWithoutPropertyDoesNotExist(): void
     {

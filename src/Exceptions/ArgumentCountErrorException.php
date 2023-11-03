@@ -11,7 +11,7 @@ use function sprintf;
 class ArgumentCountErrorException extends LibException
 {
     private const MESSAGE = 'Missing argument for method "%s" on class "%s"';
-    public const CODE = 1602239549;
+    public const CODE = 1_602_239_549;
     private string $class;
     private string $method;
 

@@ -39,8 +39,9 @@ class ArrayValueTest extends TestCase
     }
 
     /**
-     * @covers \CoStack\Lib\array_value
-     * @uses   \CoStack\Lib\Exceptions\ArrayKeyPathDoesNotExistException
+     * @covers       \CoStack\Lib\array_value
+     * @uses         \CoStack\Lib\Exceptions\ArrayKeyPathDoesNotExistException
+     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      */
     public function testFunctionThrowsArrayKeyPathDoesNotExistException(): void
     {
@@ -53,8 +54,9 @@ class ArrayValueTest extends TestCase
     }
 
     /**
-     * @covers \CoStack\Lib\array_value
-     * @uses   \CoStack\Lib\Exceptions\ArrayPathTerminatesEarlyException
+     * @covers       \CoStack\Lib\array_value
+     * @uses         \CoStack\Lib\Exceptions\ArrayPathTerminatesEarlyException
+     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      */
     public function testFunctionThrowsExceptionIfPathPartTerminatesInNonArrayValue(): void
     {
@@ -115,8 +117,9 @@ class ArrayValueTest extends TestCase
 
             /**
              * @param array-key $offset
+             * @noinspection PhpMixedReturnTypeCanBeReducedInspection
              */
-            public function offsetGet(mixed $offset): mixed
+            public function offsetGet($offset)
             {
                 return $this->values[$offset];
             }
@@ -124,7 +127,7 @@ class ArrayValueTest extends TestCase
             /**
              * @param array-key $offset
              */
-            public function offsetExists(mixed $offset): bool
+            public function offsetExists($offset): bool
             {
                 return array_key_exists($offset, $this->values);
             }
@@ -132,7 +135,7 @@ class ArrayValueTest extends TestCase
             /**
              * @param array-key $offset
              */
-            public function offsetSet(mixed $offset, mixed $value): void
+            public function offsetSet($offset, $value): void
             {
                 throw new Exception('Not implemented');
             }
@@ -140,7 +143,7 @@ class ArrayValueTest extends TestCase
             /**
              * @param array-key $offset
              */
-            public function offsetUnset(mixed $offset): void
+            public function offsetUnset($offset): void
             {
                 throw new Exception('Not implemented');
             }

@@ -11,8 +11,5 @@
   },
   "logs": {
     "text": ".project\/artifacts\/infection.log"
-  },
-  "mutators": {
-    "@default": true
   }
 }

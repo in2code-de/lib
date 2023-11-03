@@ -14,11 +14,7 @@ class FactoryTestClassThree
     public float $floatArg;
 
     /**
-     * @param int $intArg
-     * @param string $stringArg
-     * @param mixed[] $arrayArg
-     * @param bool $boolArg
-     * @param float $floatArg
+     * @param array<mixed> $arrayArg
      */
     public function __construct(int $intArg, string $stringArg, array $arrayArg, bool $boolArg, float $floatArg)
     {

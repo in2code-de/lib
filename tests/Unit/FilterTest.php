@@ -2,7 +2,6 @@
 
 /**
  * @noinspection PhpUnitTestsInspection
- * @noinspection PhpUnhandledExceptionInspection
  */
 
 declare(strict_types=1);
@@ -21,7 +20,7 @@ use const CoStack\Lib\FILTER_MATCH_LOOSE;
 class FilterTest extends TestCase
 {
     /**
-     * @return array<string, array<int, mixed[]|mixed>>
+     * @return array<string, array<int, array|mixed>>
      */
     public function filterConfigurationDataProvider(): array
     {
@@ -64,10 +63,10 @@ class FilterTest extends TestCase
      * @covers       \CoStack\Lib\filter
      * @dataProvider filterConfigurationDataProvider
      *
-     * @param mixed[] $canary
+     * @param array<mixed> $canary
      * @param int|float|string|bool $specimen
      * @param int $flags
-     * @param mixed[] $expected
+     * @param array<mixed> $expected
      */
     public function testFunctionReturnsExpectedValue(
         array $canary,
@@ -82,6 +81,8 @@ class FilterTest extends TestCase
 
     /**
      * @covers \CoStack\Lib\filter
+     * @uses \CoStack\Lib\Exceptions\TypeErrorException
+     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      */
     public function testFunctionThrowsExceptionIfSpecimenTypeIsNotAllowed(): void
     {

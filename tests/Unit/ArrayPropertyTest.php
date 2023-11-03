@@ -17,6 +17,7 @@ use stdClass;
 
 use function array_count_values;
 use function CoStack\Lib\array_property;
+use function CoStack\Lib\array_value;
 use function func_get_args;
 use function property_exists;
 use function sprintf;
@@ -69,7 +70,7 @@ class ArrayPropertyTest extends TestCase
     }
 
     /**
-     * @covers \CoStack\Lib\array_property
+     * @covers       \CoStack\Lib\array_property
      * @noinspection PhpPropertyOnlyWrittenInspection
      */
     public function testFunctionReturnsPrivatePropertyValuesByString(): void
@@ -103,7 +104,7 @@ class ArrayPropertyTest extends TestCase
     }
 
     /**
-     * @covers \CoStack\Lib\array_property
+     * @covers       \CoStack\Lib\array_property
      * @noinspection PhpUnusedPrivateFieldInspection
      * @noinspection PhpUnused
      */
@@ -149,12 +150,11 @@ class ArrayPropertyTest extends TestCase
             }
         };
 
-        /** @noinspection PhpExpressionResultUnusedInspection */
         array_property([$mock], 'foo');
 
         foreach (array_count_values($calls) as $method => $count) {
             self::fail(
-                sprintf('Method %s was expected to be called 0 times, actually called %d times.', $method, $count)
+                sprintf('Method %s was expected to be called 0 times, actually called %d times.', $method, $count),
             );
         }
 
@@ -162,7 +162,7 @@ class ArrayPropertyTest extends TestCase
     }
 
     /**
-     * @covers \CoStack\Lib\array_property
+     * @covers       \CoStack\Lib\array_property
      * @noinspection PhpPropertyOnlyWrittenInspection
      */
     public function testFunctionInvokedOnlyWithIndexKeyIndexesArray(): void
@@ -218,10 +218,15 @@ class ArrayPropertyTest extends TestCase
             }
         };
 
-        $expected = [
-            uniqid(),
-            uniqid(),
-            uniqid(),
+        $returnValues = [
+            1 => uniqid(),
+            2 => uniqid(),
+            3 => uniqid(),
+        ];
+        $expected =  [
+            $returnValues[1],
+            $returnValues[2],
+            $returnValues[3],
         ];
 
         $canary = [];
@@ -234,15 +239,17 @@ class ArrayPropertyTest extends TestCase
         $mock = $this->getMockBuilder(stdClass::class)
                      ->addMethods(['__invoke'])
                      ->getMock();
+        $invocationRule = $this->exactly(3);
         /** @noinspection MockingMethodsCorrectnessInspection */
-        $mock->expects($this->exactly(3))
+        $mock->expects($invocationRule)
              ->method('__invoke')
-             ->withConsecutive([$canary[0]], [$canary[1]], [$canary[2]])
-             ->willReturn($expected[0], $expected[1], $expected[2]);
-        $mockWrapper = function () use ($mock) {
-            /** @var callable $mock */
-            return $mock(...func_get_args());
-        };
+             ->willReturnCallback(static fn() => $returnValues[$invocationRule->getInvocationCount()]);
+
+        /**
+         * @var callable $mock
+         * @return mixed
+         */
+        $mockWrapper = static fn() => $mock(...func_get_args());
 
         $actual = array_property($canary, $mockWrapper);
 
@@ -335,6 +342,7 @@ class ArrayPropertyTest extends TestCase
     /**
      * @covers \CoStack\Lib\array_property
      * @uses   \CoStack\Lib\Exceptions\PropertyMustBePropertyNameOrCallable
+     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      */
     public function testFunctionThrowsExceptionIfBothPropertyAndKeyAreNotSet(): void
     {
@@ -343,7 +351,6 @@ class ArrayPropertyTest extends TestCase
 
         /**
          * @phpstan-ignore-next-line
-         * @noinspection PhpExpressionResultUnusedInspection
          * @noinspection PhpParamsInspection
          */
         array_property(['foo'], null);
@@ -352,6 +359,7 @@ class ArrayPropertyTest extends TestCase
     /**
      * @covers \CoStack\Lib\array_property
      * @uses   \CoStack\Lib\Exceptions\ArrayContainsNonObjectValueException
+     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      */
     public function testFunctionThrowsExceptionIfValueIsNotAnObject(): void
     {
@@ -360,7 +368,6 @@ class ArrayPropertyTest extends TestCase
 
         /**
          * @phpstan-ignore-next-line
-         * @noinspection PhpExpressionResultUnusedInspection
          * @noinspection PhpParamsInspection
          */
         array_property(['foo'], 'foo');

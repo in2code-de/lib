@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @noinspection PhpMultipleClassDeclarationsInspection
- */
-
 declare(strict_types=1);
 
 namespace CoStack\Lib;
@@ -47,9 +43,7 @@ if (!function_exists('\CoStack\Lib\array_filter_recursive')) {
      * Filters an array the same way array_filter would, but recursively, until $limit is hit.
      *
      * @param array<array-key, int|string|array> $array
-     * @param int $limit
      * @param callable|null $callback
-     * @param int $flags
      * @return array<array-key, (int|string|array)>
      */
     function array_filter_recursive(array $array, int $limit, callable $callback = null, int $flags = 0): array
@@ -78,8 +72,8 @@ if (!function_exists('\CoStack\Lib\array_value')) {
      * @param array $array
      * @param string $path
      * @return mixed
-     * @throws Exceptions\ArrayPathTerminatesEarlyException
      * @throws Exceptions\ArrayKeyPathDoesNotExistException
+     * @throws Exceptions\ArrayPathTerminatesEarlyException
      */
     function array_value(array $array, string $path)
     {
@@ -117,7 +111,7 @@ if (!function_exists('\CoStack\Lib\array_property')) {
      * @param object[] $array
      * @param null|string|callable $property
      * @param null|string|callable $indexKey
-     * @return mixed[]
+     * @return array
      * @throws Exceptions\ArrayContainsNonObjectValueException
      * @throws Exceptions\PropertyMustBePropertyNameOrCallable
      * @throws ReflectionException
@@ -182,10 +176,10 @@ if (!function_exists('\CoStack\Lib\array_unique_keys')) {
      * Return all keys from all arrays in a list.
      * A list consist of consecutive key numbers from 0 to count($array)-1
      *
-     * @param array<mixed> ...$arrays
+     * @param array ...$arrays
      * @return array<int, int|string>
      *
-     * @noinspection PhpDocSignatureInspection
+     * @psalm-suppress NamedArgumentNotAllowed
      */
     function array_unique_keys(array ...$arrays): array
     {
@@ -197,9 +191,6 @@ if (!function_exists('\CoStack\Lib\array_unique_keys')) {
 if (!function_exists('\CoStack\Lib\concat_paths')) {
     /**
      * Concatenate filesystem paths
-     *
-     * @param string ...$paths
-     * @return string
      */
     function concat_paths(string ...$paths): string
     {
@@ -239,10 +230,6 @@ if (!function_exists('\CoStack\Lib\mkdir_deep')) {
     /**
      * Create a directory recursively without need to pass the mode argument.
      * The default mode is *not* always 0777, as defined in the signature, because it is modified globally by umask().
-     *
-     * @param string $path
-     * @param int|null $mode
-     * @return bool
      */
     function mkdir_deep(string $path, int $mode = null): bool
     {
@@ -267,8 +254,6 @@ if (!function_exists('\CoStack\Lib\factory')) {
      *
      * @template T of object
      * @psalm-param class-string<T> $class
-     * @param string $class
-     * @param mixed[] $arguments
      * @return T of object
      *
      * @throws Exceptions\MissingConstructorArgumentException
@@ -350,7 +335,6 @@ if (!function_exists('\CoStack\Lib\filter')) {
      *
      * @param int|float|string|bool $specimen The value to match against
      * @param int $flags FILTER_* constants from the \CoStack\Lib\ namespace
-     * @return Closure
      * @noinspection TypeUnsafeComparisonInspection
      * @noinspection PhpUnused
      * @psalm-suppress DocblockTypeContradiction $specimen can be something different despite the DocBlock

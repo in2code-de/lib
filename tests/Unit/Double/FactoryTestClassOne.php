@@ -8,7 +8,7 @@ use function func_get_args;
 
 class FactoryTestClassOne
 {
-    /** @var mixed[] */
+    /** @var array<mixed> */
     public array $args;
 
     public function __construct()

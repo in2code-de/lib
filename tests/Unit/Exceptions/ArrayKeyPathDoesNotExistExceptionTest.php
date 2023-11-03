@@ -33,6 +33,6 @@ class ArrayKeyPathDoesNotExistExceptionTest extends TestCase
         self::assertSame($canaryPath, $exception->getPath());
         self::assertSame($canaryKey, $exception->getKey());
         self::assertSame($canaryArray, $exception->getArray());
-        self::assertSame(1598890975, $exception->getCode());
+        self::assertSame(1_598_890_975, $exception->getCode());
     }
 }
