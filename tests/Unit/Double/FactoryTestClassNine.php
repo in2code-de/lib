@@ -13,9 +13,6 @@ use Stringable;
 
 class FactoryTestClassNine
 {
-    /**
-     * @noinspection PhpMultipleClassDeclarationsInspection
-     */
     #[Pure]
     public function __construct(public stdClass&Stringable&IteratorAggregate $foo)
     {

@@ -19,6 +19,6 @@ class ArrayPathTerminatesEarlyExceptionTest extends TestCase
     {
         $exception = new ArrayPathTerminatesEarlyException('foo', 'bar', 'baz', ['beng']);
 
-        self::assertSame(1598892530, $exception->getCode());
+        self::assertSame(1_598_892_530, $exception->getCode());
     }
 }

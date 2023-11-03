@@ -9,11 +9,7 @@ use JetBrains\PhpStorm\Pure;
 class FactoryTestClassThree
 {
     /**
-     * @param int $intArg
-     * @param string $stringArg
-     * @param mixed[] $arrayArg
-     * @param bool $boolArg
-     * @param float $floatArg
+     * @param array<mixed> $arrayArg
      */
     #[Pure]
     public function __construct(

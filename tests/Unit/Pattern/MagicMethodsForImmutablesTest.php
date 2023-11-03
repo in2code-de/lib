@@ -99,4 +99,14 @@ class MagicMethodsForImmutablesTest extends TestCase
 
         $this->assertFalse($actual);
     }
+
+    /**
+     * @covers \CoStack\LibTests\Unit\Pattern\Double\Immutable::__call
+     */
+    public function testTraitGetAndHasBehaveDifferentOnNullValue(): void
+    {
+        $canary = new Immutable(null);
+        $this->assertNull($canary->getFoo());
+        $this->assertFalse($canary->hasFoo());
+    }
 }

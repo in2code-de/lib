@@ -20,6 +20,6 @@ class ImpreciseParameterTypeExceptionTest extends TestCase
     {
         $exception = new ImpreciseParameterTypeException('foo', 'bar', new ReflectionUnionType());
 
-        self::assertSame(1662028115, $exception->getCode());
+        self::assertSame(1_662_028_115, $exception->getCode());
     }
 }

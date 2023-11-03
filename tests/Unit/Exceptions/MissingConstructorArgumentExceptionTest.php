@@ -19,6 +19,6 @@ class MissingConstructorArgumentExceptionTest extends TestCase
     {
         $exception = new MissingConstructorArgumentException('foo', 'bar');
 
-        self::assertSame(1599662098, $exception->getCode());
+        self::assertSame(1_599_662_098, $exception->getCode());
     }
 }

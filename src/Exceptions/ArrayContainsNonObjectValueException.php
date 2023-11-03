@@ -12,7 +12,7 @@ use function sprintf;
 class ArrayContainsNonObjectValueException extends LibException
 {
     private const MESSAGE = 'The given array must only contain objects, but the first element is a "%s"';
-    public const CODE = 1599055645;
+    final public const CODE = 1_599_055_645;
 
     /**
      * @param array<mixed> $array

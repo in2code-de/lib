@@ -19,6 +19,6 @@ class PropertyNotPublicExceptionTest extends TestCase
     {
         $exception = new PropertyNotPublicException('foo', 'bar');
 
-        self::assertSame(1624002587, $exception->getCode());
+        self::assertSame(1_624_002_587, $exception->getCode());
     }
 }

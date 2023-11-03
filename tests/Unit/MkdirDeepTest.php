@@ -25,6 +25,8 @@ class MkdirDeepTest extends TestCase
 {
     /**
      * @covers \CoStack\Lib\mkdir_deep
+     * @uses \CoStack\Lib\concat_paths
+     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      */
     public function testFunctionCreatesDirectory(): void
     {
@@ -40,6 +42,8 @@ class MkdirDeepTest extends TestCase
 
     /**
      * @covers \CoStack\Lib\mkdir_deep
+     * @uses   \CoStack\Lib\concat_paths
+     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
      */
     public function testFunctionAllowsSettingMode(): void
     {

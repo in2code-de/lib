@@ -19,6 +19,6 @@ class ArrayKeyPathDoesNotExistExceptionTest extends TestCase
     {
         $exception = new ArrayKeyPathDoesNotExistException('foo', 'bar', ['baz']);
 
-        self::assertSame(1598890975, $exception->getCode());
+        self::assertSame(1_598_890_975, $exception->getCode());
     }
 }

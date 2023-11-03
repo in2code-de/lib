@@ -12,10 +12,11 @@ vendor                  export-ignore
 .phpcs.xml              export-ignore
 .phpmd.xml              export-ignore
 .phpstan.neon           export-ignore
+.phpstorm.meta.php      export-ignore
 .phpunit.result.cache   export-ignore
 .phpunit.xml            export-ignore
 .psalm.xml              export-ignore
 composer.lock           export-ignore
-docker-compose.yml      export-ignore
 Makefile                export-ignore
 phpunit.xml             export-ignore
+rector.php              export-ignore

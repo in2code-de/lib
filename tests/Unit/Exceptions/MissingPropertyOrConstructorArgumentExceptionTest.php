@@ -20,6 +20,6 @@ class MissingPropertyOrConstructorArgumentExceptionTest extends TestCase
     {
         $exception = new MissingPropertyOrConstructorArgumentException('foo', 'bar');
 
-        self::assertSame(1624002516, $exception->getCode());
+        self::assertSame(1_624_002_516, $exception->getCode());
     }
 }
