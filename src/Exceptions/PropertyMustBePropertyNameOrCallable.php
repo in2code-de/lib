@@ -7,9 +7,7 @@ namespace CoStack\Lib\Exceptions;
 use JetBrains\PhpStorm\Pure;
 use Throwable;
 
-use function get_class;
-use function gettype;
-use function is_object;
+use function get_debug_type;
 use function sprintf;
 
 class PropertyMustBePropertyNameOrCallable extends LibException
