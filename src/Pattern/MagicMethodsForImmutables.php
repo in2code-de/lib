@@ -11,6 +11,7 @@ use JetBrains\PhpStorm\Immutable;
 use function array_key_exists;
 use function lcfirst;
 use function property_exists;
+use function str_starts_with;
 use function substr;
 
 #[Immutable]

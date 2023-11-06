@@ -6,6 +6,7 @@ namespace CoStack\Lib\Exceptions;
 
 use Throwable;
 
+use function get_debug_type;
 use function sprintf;
 
 class PropertyMustBePropertyNameOrCallable extends LibException
