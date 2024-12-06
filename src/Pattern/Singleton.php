@@ -7,7 +7,7 @@ namespace CoStack\Lib\Pattern;
 use JetBrains\PhpStorm\Pure;
 
 /**
- * @SuppressWarnings(PHPMD.StaticAccess)
+ * @SuppressWarnings("PHPMD.StaticAccess")
  */
 trait Singleton
 {

@@ -12,7 +12,7 @@ namespace CoStack\LibTests\Unit\Double;
 use JetBrains\PhpStorm\Pure;
 
 /**
- * @SuppressWarnings(PHPMD.UnusedPrivateField)
+ * @SuppressWarnings("PHPMD.UnusedPrivateField")
  */
 class FactoryTestClassSeven
 {

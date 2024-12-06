@@ -16,7 +16,7 @@ class SingletonTest extends TestCase
     /**
      * @covers ::__construct
      * @covers ::getInstance
-     * @SuppressWarnings(PHPMD.StaticAccess)
+     * @SuppressWarnings("PHPMD.StaticAccess")
      */
     public function testClassWithSingletonAlwaysReturnsTheSameInstance(): void
     {

@@ -21,7 +21,7 @@ trait MagicMethodsForImmutables
      * @param array<mixed> $arguments
      * @throws ArgumentCountErrorException
      * @throws BadMethodCallException
-     * @SuppressWarnings(PHPMD.CyclomaticComplexity) There is no perfect way to do this better
+     * @SuppressWarnings("PHPMD.CyclomaticComplexity") There is no perfect way to do this better
      */
     public function __call(string $method, array $arguments): mixed
     {

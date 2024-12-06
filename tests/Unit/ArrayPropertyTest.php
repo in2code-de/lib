@@ -25,11 +25,11 @@ use function sprintf;
 use function uniqid;
 
 /**
- * @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ * @SuppressWarnings("PHPMD.TooManyPublicMethods")
  *
  * PHPMD generates a lot of false positives in this test
- * @SuppressWarnings(PHPMD.UnusedLocalVariable)
- * @SuppressWarnings(PHPMD.UndefinedVariable)
+ * @SuppressWarnings("PHPMD.UnusedLocalVariable")
+ * @SuppressWarnings("PHPMD.UndefinedVariable")
  */
 class ArrayPropertyTest extends TestCase
 {
@@ -120,8 +120,8 @@ class ArrayPropertyTest extends TestCase
 
             /**
              * @param string[] $calls
-             * @phpstan-ignore-next-line
              * @noinspection PhpPropertyOnlyWrittenInspection
+             * @phpstan-ignore property.onlyWritten
              */
             public function __construct(private array &$calls)
             {
@@ -244,8 +244,9 @@ class ArrayPropertyTest extends TestCase
         /**
          * @var callable $mock
          * @return mixed
+         * @phpstan-ignore varTag.nativeType
          */
-        $mockWrapper = static fn() => $mock(...func_get_args());
+        $mockWrapper = static fn(): mixed => $mock(...func_get_args());
 
         $actual = array_property($canary, $mockWrapper);
 
@@ -325,8 +326,8 @@ class ArrayPropertyTest extends TestCase
         $this->expectExceptionCode(PropertyMustBePropertyNameOrCallable::CODE);
 
         /**
-         * @phpstan-ignore-next-line
          * @noinspection PhpParamsInspection
+         * @phpstan-ignore argument.type
          */
         array_property(['foo'], null);
     }
@@ -342,8 +343,8 @@ class ArrayPropertyTest extends TestCase
         $this->expectExceptionCode(ArrayContainsNonObjectValueException::CODE);
 
         /**
-         * @phpstan-ignore-next-line
          * @noinspection PhpParamsInspection
+         * @phpstan-ignore argument.type
          */
         array_property(['foo'], 'foo');
     }

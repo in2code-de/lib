@@ -16,7 +16,7 @@
     "@default": true,
     "LogicalOrAllSubExprNegation": {
       "ignore": [
-        "CoStack\\Lib\\Pattern\\MagicMethodsForImmutables::__call::34"
+        "CoStack\\Lib\\Pattern\\MagicMethodsForImmutables::__call::35"
       ]
     }
   }
