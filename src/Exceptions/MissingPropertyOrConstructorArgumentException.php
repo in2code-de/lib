@@ -10,12 +10,12 @@ use Throwable;
 use function sprintf;
 
 /**
- * @SuppressWarnings(PHPMD.LongClassName) Exception class names should be descriptive, shouldn't they?
+ * @SuppressWarnings("PHPMD.LongClassName") Exception class names should be descriptive, shouldn't they?
  */
 class MissingPropertyOrConstructorArgumentException extends LibException
 {
-    private const MESSAGE = 'The class "%s" does not define a property or constructor argument named "%s"';
-    final public const CODE = 1_624_002_516;
+    private const string MESSAGE = 'The class "%s" does not define a property or constructor argument named "%s"';
+    final public const int CODE = 1_624_002_516;
 
     #[Pure]
     public function __construct(

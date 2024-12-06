@@ -11,8 +11,8 @@ use function sprintf;
 
 class ArgumentCountErrorException extends LibException
 {
-    private const MESSAGE = 'Missing argument for method "%s" on class "%s"';
-    final public const CODE = 1_602_239_549;
+    private const string MESSAGE = 'Missing argument for method "%s" on class "%s"';
+    final public const int CODE = 1_602_239_549;
 
     #[Pure]
     public function __construct(

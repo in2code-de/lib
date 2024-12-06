@@ -11,8 +11,8 @@ use function sprintf;
 
 class PropertyMustBePropertyNameOrCallable extends LibException
 {
-    private const MESSAGE = 'The property argument must be a property name or closure but is of type "%s" instead';
-    final public const CODE = 1_599_057_272;
+    private const string MESSAGE = 'The property argument must be a property name or closure but is of type "%s" instead';
+    final public const int CODE = 1_599_057_272;
 
     /**
      * @param array<object> $array

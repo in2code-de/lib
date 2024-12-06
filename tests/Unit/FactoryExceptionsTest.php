@@ -27,7 +27,7 @@ use TypeError;
 use function CoStack\Lib\factory;
 
 /**
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ * @SuppressWarnings("PHPMD.CouplingBetweenObjects")
  */
 class FactoryExceptionsTest extends TestCase
 {

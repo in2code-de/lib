@@ -11,8 +11,8 @@ use function sprintf;
 
 class MissingConstructorArgumentException extends LibException
 {
-    private const MESSAGE = 'Missing constructor argument "%s" for class "%s".';
-    final public const CODE = 1_599_662_098;
+    private const string MESSAGE = 'Missing constructor argument "%s" for class "%s".';
+    final public const int CODE = 1_599_662_098;
 
     #[Pure]
     public function __construct(

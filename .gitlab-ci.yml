@@ -11,7 +11,7 @@ stages:
   - composer
   - qa
 
-image: in2code/php:8.2-fpm
+image: in2code/php:8.3-fpm
 
 composer:
   stage: composer
@@ -67,7 +67,7 @@ qa-psalm:
       - "**/*.php"
 
 qa-phpunit-coverage:
-  image: in2code/php-dev:8.2-fpm
+  image: in2code/php-dev:8.3-fpm
   stage: qa
   script: XDEBUG_MODE=coverage vendor/bin/phpunit -c .phpunit.xml --coverage-text --colors=never
   only:
@@ -79,7 +79,7 @@ qa-phpunit-coverage:
   coverage: '/Lines:\s+\d+\.\d+/'
 
 qa-infection:
-  image: in2code/php-dev:8.2-fpm
+  image: in2code/php-dev:8.3-fpm
   stage: qa
   script: XDEBUG_MODE=coverage vendor/bin/infection --configuration=.infection.json -j$(nproc) --min-covered-msi=100 --min-msi=100
   only:

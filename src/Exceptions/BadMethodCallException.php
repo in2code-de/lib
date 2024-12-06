@@ -11,8 +11,8 @@ use function sprintf;
 
 class BadMethodCallException extends LibException
 {
-    private const MESSAGE = 'Call to undefined method "%s" on class "%s"';
-    final public const CODE = 1_602_239_449;
+    private const string MESSAGE = 'Call to undefined method "%s" on class "%s"';
+    final public const int CODE = 1_602_239_449;
 
     #[Pure]
     public function __construct(

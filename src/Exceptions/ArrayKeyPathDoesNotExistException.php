@@ -11,8 +11,8 @@ use function sprintf;
 
 class ArrayKeyPathDoesNotExistException extends LibException
 {
-    private const MESSAGE = 'The array path "%s" does not exist in the given array, because the key "%s" can not be found';
-    final public const CODE = 1_598_890_975;
+    private const string MESSAGE = 'The array path "%s" does not exist in the given array, because the key "%s" can not be found';
+    final public const int CODE = 1_598_890_975;
 
     /**
      * @param array<mixed> $array

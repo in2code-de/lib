@@ -11,8 +11,8 @@ use function sprintf;
 
 class ArrayPathTerminatesEarlyException extends LibException
 {
-    private const MESSAGE = 'The array path "%s" is terminated early, because the value before key "%s" is a "%s" instead of an array';
-    final public const CODE = 1_598_892_530;
+    private const string MESSAGE = 'The array path "%s" is terminated early, because the value before key "%s" is a "%s" instead of an array';
+    final public const int CODE = 1_598_892_530;
 
     /**
      * @param array<mixed> $array

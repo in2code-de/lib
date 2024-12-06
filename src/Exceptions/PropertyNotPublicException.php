@@ -11,8 +11,8 @@ use function sprintf;
 
 class PropertyNotPublicException extends LibException
 {
-    private const MESSAGE = 'The property "%s" of class "%s" is not public.';
-    final public const CODE = 1_624_002_587;
+    private const string MESSAGE = 'The property "%s" of class "%s" is not public.';
+    final public const int CODE = 1_624_002_587;
 
     #[Pure]
     public function __construct(

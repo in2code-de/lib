@@ -11,8 +11,8 @@ use function sprintf;
 
 class UnknownParameterTypeException extends LibException
 {
-    private const MESSAGE = 'The parameter "%s" of the constructor of class "%s" has no type.';
-    final public const CODE = 1_662_032_156;
+    private const string MESSAGE = 'The parameter "%s" of the constructor of class "%s" has no type.';
+    final public const int CODE = 1_662_032_156;
 
     #[Pure]
     public function __construct(
