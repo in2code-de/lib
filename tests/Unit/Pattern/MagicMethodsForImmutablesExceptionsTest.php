@@ -24,8 +24,8 @@ class MagicMethodsForImmutablesExceptionsTest extends TestCase
         $this->expectExceptionCode(BadMethodCallException::CODE);
 
         /**
-         * @phpstan-ignore-next-line
          * @noinspection PhpUndefinedMethodInspection
+         * @phpstan-ignore method.notFound
          */
         $canary->getBaz();
     }
@@ -43,8 +43,8 @@ class MagicMethodsForImmutablesExceptionsTest extends TestCase
         $this->expectExceptionCode(BadMethodCallException::CODE);
 
         /**
-         * @phpstan-ignore-next-line
          * @noinspection PhpUndefinedMethodInspection
+         * @phpstan-ignore method.notFound
          */
         $canary->withBaz();
     }
@@ -62,8 +62,8 @@ class MagicMethodsForImmutablesExceptionsTest extends TestCase
         $this->expectExceptionCode(ArgumentCountErrorException::CODE);
 
         /**
-         * @phpstan-ignore-next-line
          * @noinspection PhpParamsInspection
+         * @phpstan-ignore arguments.count
          */
         $canary->withBar();
     }
@@ -81,8 +81,8 @@ class MagicMethodsForImmutablesExceptionsTest extends TestCase
         $this->expectExceptionCode(BadMethodCallException::CODE);
 
         /**
-         * @phpstan-ignore-next-line
          * @noinspection PhpUndefinedMethodInspection
+         * @phpstan-ignore method.notFound
          */
         $canary->withoutBaz();
     }

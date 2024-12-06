@@ -10,7 +10,7 @@ use Throwable;
 use function sprintf;
 
 /**
- * @SuppressWarnings(PHPMD.LongClassName) Exception class names should be descriptive, shouldn't they?
+ * @SuppressWarnings("PHPMD.LongClassName") Exception class names should be descriptive, shouldn't they?
  */
 class MissingPropertyOrConstructorArgumentException extends LibException
 {

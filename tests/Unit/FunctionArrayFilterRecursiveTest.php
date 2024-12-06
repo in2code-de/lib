@@ -110,8 +110,9 @@ class FunctionArrayFilterRecursiveTest extends TestCase
              ->willReturnCallback(static fn(): string => $returnValues[$invocationRule->getInvocationCount()]);
 
         /**
-         * @var callable $mock
          * @return string
+         * @var callable $mock
+         * @phpstan-ignore varTag.nativeType
          */
         $mockWrapper = static fn(): string => $mock(...func_get_args());
 
@@ -145,8 +146,9 @@ class FunctionArrayFilterRecursiveTest extends TestCase
              ->willReturnCallback(static fn(): array => $returnValues[$invocationRule->getInvocationCount()]);
 
         /**
-         * @var callable $mock
          * @return array
+         * @var callable $mock
+         * @phpstan-ignore varTag.nativeType
          */
         $mockWrapper = static fn(): array => $mock(...func_get_args());
 

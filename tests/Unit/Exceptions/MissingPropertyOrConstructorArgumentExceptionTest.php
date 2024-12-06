@@ -8,7 +8,7 @@ use CoStack\Lib\Exceptions\MissingPropertyOrConstructorArgumentException;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @SuppressWarnings(PHPMD.LongClassName)
+ * @SuppressWarnings("PHPMD.LongClassName")
  * @coversDefaultClass \CoStack\Lib\Exceptions\MissingPropertyOrConstructorArgumentException
  */
 class MissingPropertyOrConstructorArgumentExceptionTest extends TestCase
