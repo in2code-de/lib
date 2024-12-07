@@ -77,7 +77,10 @@ class ArrayPropertyTest extends TestCase
     public function testFunctionReturnsPrivatePropertyValuesByString(): void
     {
         $testObject = new class {
-            /** @phpstan-ignore-next-line */
+            /**
+             * @noinspection PhpGetterAndSetterCanBeReplacedWithPropertyHooksInspection
+             * @phpstan-ignore-next-line
+             */
             private string $foo;
 
             public function setFoo(string $value): void
@@ -164,7 +167,10 @@ class ArrayPropertyTest extends TestCase
     public function testFunctionInvokedOnlyWithIndexKeyIndexesArray(): void
     {
         $testObject = new class {
-            /** @phpstan-ignore-next-line */
+            /**
+             * @noinspection PhpGetterAndSetterCanBeReplacedWithPropertyHooksInspection
+             * @phpstan-ignore-next-line
+             */
             private string $foo;
 
             public function setFoo(string $value): void
@@ -200,6 +206,7 @@ class ArrayPropertyTest extends TestCase
     public function testFunctionReturnsValuesReturnedByClosure(): void
     {
         $testObject = new class {
+            /** @noinspection PhpGetterAndSetterCanBeReplacedWithPropertyHooksInspection */
             private string $foo;
 
             public function setFoo(string $foo): void

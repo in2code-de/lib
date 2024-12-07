@@ -18,7 +18,7 @@ class BadMethodCallException extends LibException
     public function __construct(
         public readonly string $class,
         public readonly string $method,
-        Throwable $previous = null
+        ?Throwable $previous = null
     ) {
         parent::__construct(sprintf(self::MESSAGE, $method, $class), self::CODE, $previous);
     }
