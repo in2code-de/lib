@@ -53,7 +53,7 @@ if (!function_exists('\CoStack\Lib\array_filter_recursive')) {
      * @param callable|null $callback
      * @return array<array-key, (int|string|array)>
      */
-    function array_filter_recursive(array $array, int $limit, callable $callback = null, int $flags = 0): array
+    function array_filter_recursive(array $array, int $limit, ?callable $callback = null, int $flags = 0): array
     {
         if ($limit > 1) {
             foreach ($array as $key => $value) {
@@ -234,7 +234,7 @@ if (!function_exists('\CoStack\Lib\mkdir_deep')) {
      * Create a directory recursively without need to pass the mode argument.
      * The default mode is *not* always 0777, as defined in the signature, because it is modified globally by umask().
      */
-    function mkdir_deep(string $path, int $mode = null): bool
+    function mkdir_deep(string $path, ?int $mode = null): bool
     {
         if (is_dir($path)) {
             return true;

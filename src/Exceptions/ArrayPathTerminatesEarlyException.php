@@ -22,7 +22,7 @@ class ArrayPathTerminatesEarlyException extends LibException
         public readonly string $key,
         public readonly mixed $value,
         public readonly array $array,
-        Throwable $previous = null,
+        ?Throwable $previous = null,
     ) {
         parent::__construct(sprintf(self::MESSAGE, $path, $key, gettype($value)), self::CODE, $previous);
     }

@@ -17,7 +17,7 @@ class PropertyMustBePropertyNameOrCallable extends LibException
     /**
      * @param array<object> $array
      */
-    public function __construct(public readonly mixed $value, public readonly array $array, Throwable $previous = null)
+    public function __construct(public readonly mixed $value, public readonly array $array, ?Throwable $previous = null)
     {
         parent::__construct(
             sprintf(self::MESSAGE, get_debug_type($value)),

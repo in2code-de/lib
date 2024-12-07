@@ -22,7 +22,7 @@ class ArrayKeyPathDoesNotExistException extends LibException
         public readonly string $path,
         public readonly string $key,
         public readonly array $array,
-        Throwable $previous = null,
+        ?Throwable $previous = null,
     ) {
         parent::__construct(sprintf(self::MESSAGE, $path, $key), self::CODE, $previous);
     }

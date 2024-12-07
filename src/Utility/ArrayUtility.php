@@ -27,7 +27,7 @@ class ArrayUtility
      * @param callable|null $callback
      * @return array<array<mixed>|int|string>
      */
-    public static function filterRecursive(array $array, int $limit, callable $callback = null, int $flags = 0): array
+    public static function filterRecursive(array $array, int $limit, ?callable $callback = null, int $flags = 0): array
     {
         return array_filter_recursive($array, $limit, $callback, $flags);
     }
