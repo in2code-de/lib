@@ -1,5 +1,8 @@
 # co-stack.com lib
 
+PHP 8.4
+[![pipeline status](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/badges/php84/pipeline.svg)](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/-/pipelines)
+[![coverage report](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/badges/php84/coverage.svg)](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/-/graphs/php82/charts) \
 PHP 8.3
 [![pipeline status](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/badges/php83/pipeline.svg)](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/-/pipelines)
 [![coverage report](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/badges/php83/coverage.svg)](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/-/graphs/php82/charts) \
@@ -65,3 +68,4 @@ Lower supported versions receive backports of all features, which are possible i
 | 5.x     | 8.1         | php81       |      31 Dec 2025 |
 | 6.x     | 8.2         | php82       |      31 Dec 2026 |
 | 7.x     | 8.3         | php83       |      31 Dec 2027 |
+| 8.x     | 8.4         | php84       |      31 Dec 2028 |
