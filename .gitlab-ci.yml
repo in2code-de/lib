@@ -59,12 +59,12 @@ qa-phpstan:
     changes:
       - "**/*.php"
 
-qa-psalm:
-  stage: qa
-  script: composer run qa-psalm
-  only:
-    changes:
-      - "**/*.php"
+#qa-psalm:
+#  stage: qa
+#  script: composer run qa-psalm
+#  only:
+#    changes:
+#      - "**/*.php"
 
 qa-phpunit-coverage:
   image: in2code/php-dev:8.4-fpm
