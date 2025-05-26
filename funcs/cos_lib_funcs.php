@@ -35,6 +35,7 @@ use function is_dir;
 use function is_object;
 use function is_string;
 use function mkdir;
+use function rawurldecode;
 use function reset;
 use function settype;
 use function str_contains;
@@ -370,5 +371,45 @@ if (!function_exists('\CoStack\Lib\filter')) {
             '!=' => static fn(mixed $probe): bool => $probe != $specimen,
             '!==' => static fn(mixed $probe): bool => $probe !== $specimen,
         };
+    }
+}
+
+if (!function_exists('\CoStack\Lib\cgi_parse_str')) {
+    /**
+     * parse_str is affected by max_input_vars and therefore not pure.
+     * Also, it is not CGI compliant, as it does not parse multiple values
+     * into an array, if the keys aren't suffixed with array brackets '[]'.
+     *
+     * @param string $string The string to parse, mostly the path component of a URI.
+     * @return array<string, string|array<string, string>> Array of key-value pairs, where values can be an array, too.
+     */
+    #[Pure]
+    function cgi_parse_str(string $string): array
+    {
+        $result = [];
+
+        $values = explode('&', $string);
+
+        foreach ($values as $value) {
+            $parts = explode('=', $value, 2);
+            [$name, $value] = match (count($parts)) {
+                1 => [$parts[0], ''],
+                2 => [$parts[0], rawurldecode($parts[1])],
+            };
+
+            if ('' !== $name) {
+                if (isset($result[$name])) {
+                    if (is_array($result[$name])) {
+                        $result[$name][] = $value;
+                    } else {
+                        $result[$name] = [$result[$name], $value];
+                    }
+                } else {
+                    $result[$name] = $value;
+                }
+            }
+        }
+
+        return $result;
     }
 }
