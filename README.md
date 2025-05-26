@@ -1,5 +1,7 @@
 # co-stack.com lib
 
+(Only active branch badges are listed)
+
 PHP 8.4
 [![pipeline status](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/badges/php84/pipeline.svg)](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/-/pipelines)
 [![coverage report](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/badges/php84/coverage.svg)](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/-/graphs/php82/charts) \
@@ -11,19 +13,7 @@ PHP 8.2
 [![coverage report](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/badges/php82/coverage.svg)](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/-/graphs/php82/charts) \
 PHP 8.1
 [![pipeline status](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/badges/php81/pipeline.svg)](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/-/pipelines)
-[![coverage report](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/badges/php81/coverage.svg)](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/-/graphs/php81/charts) \
-PHP 8.0
-[![pipeline status](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/badges/php80/pipeline.svg)](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/-/pipelines)
-[![coverage report](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/badges/php80/coverage.svg)](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/-/graphs/php80/charts) \
-PHP 7.4
-[![pipeline status](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/badges/php74/pipeline.svg)](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/-/pipelines)
-[![coverage report](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/badges/php74/coverage.svg)](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/-/graphs/php74/charts) \
-PHP 7.3
-[![pipeline status](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/badges/php73/pipeline.svg)](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/-/pipelines)
-[![coverage report](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/badges/php73/coverage.svg)](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/-/graphs/php73/charts) \
-PHP 7.2
-[![pipeline status](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/badges/php72/pipeline.svg)](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/-/pipelines)
-[![coverage report](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/badges/php72/coverage.svg)](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/-/graphs/php72/charts)
+[![coverage report](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/badges/php81/coverage.svg)](https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib/-/graphs/php81/charts)
 
 ## About
 
@@ -59,13 +49,13 @@ Only PHP versions, which are officially maintained are supported.
 Lower supported versions receive backports of all features, which are possible in that PHP Version.
 (e.g. type annotations will be backported, but Attributes will not be available below PHP 8.0)
 
-| Version | PHP Version | Branch Name | Maintained until |
-|---------|-------------|-------------|------------------|
-| 1.x     | 7.2         | php72       |      31 Jul 2021 |
-| 2.x     | 7.3         | php73       |       6 Dec 2021 |
-| 3.x     | 7.4         | php74       |      28 Nov 2022 |
-| 4.x     | 8.0         | php80       |      26 Nov 2023 |
-| 5.x     | 8.1         | php81       |      31 Dec 2025 |
-| 6.x     | 8.2         | php82       |      31 Dec 2026 |
-| 7.x     | 8.3         | php83       |      31 Dec 2027 |
-| 8.x     | 8.4         | php84       |      31 Dec 2028 |
+| Version | PHP Version | Branch Name | Maintained until | Currently Supported |
+|---------|-------------|-------------|------------------|---------------------|
+| 1.x     | 7.2         | php72       |      31 Jul 2021 | ❌                   |
+| 2.x     | 7.3         | php73       |       6 Dec 2021 | ❌                   |
+| 3.x     | 7.4         | php74       |      28 Nov 2022 | ❌                   |
+| 4.x     | 8.0         | php80       |      26 Nov 2023 | ❌                   |
+| 5.x     | 8.1         | php81       |      31 Dec 2025 | ✅                   |
+| 6.x     | 8.2         | php82       |      31 Dec 2026 | ✅                   |
+| 7.x     | 8.3         | php83       |      31 Dec 2027 | ✅                   |
+| 8.x     | 8.4         | php84       |      31 Dec 2028 | ✅                   |
