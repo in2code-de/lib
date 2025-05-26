@@ -41,6 +41,7 @@ So you don't need to bother about performance or implementation details.
 * `mkdir_deep`. `mkdir` with the `recursive` flag, but without `mode`.
 * `factory`. Creates a new object by mapping an associative array to constructor arguments and public properties.
 * `filter`. Factory for simple filter closures for use with `array_filter`.
+* `cgi_parse_str`. A pure and actually CGI compliant parse_str alternative.
 
 ## Compatibility
 
