@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CoStack\Lib\Exceptions;
 
+use ArrayAccess;
 use JetBrains\PhpStorm\Pure;
 use Throwable;
 
@@ -14,14 +15,11 @@ class ArrayKeyPathDoesNotExistException extends LibException
     private const string MESSAGE = 'The array path "%s" does not exist in the given array, because the key "%s" can not be found';
     final public const int CODE = 1_598_890_975;
 
-    /**
-     * @param array<mixed> $array
-     */
     #[Pure]
     public function __construct(
         public readonly string $path,
         public readonly string $key,
-        public readonly array $array,
+        public readonly array|ArrayAccess $array,
         ?Throwable $previous = null,
     ) {
         parent::__construct(sprintf(self::MESSAGE, $path, $key), self::CODE, $previous);

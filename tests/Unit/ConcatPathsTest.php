@@ -6,17 +6,17 @@ declare(strict_types=1);
 
 namespace CoStack\LibTests\Unit;
 
+use PHPUnit\Framework\Attributes\CoversFunction;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 use function CoStack\Lib\concat_paths;
 
 use const DIRECTORY_SEPARATOR;
 
+#[CoversFunction('CoStack\Lib\concat_paths')]
 class ConcatPathsTest extends TestCase
 {
-    /**
-     * @covers \CoStack\Lib\concat_paths
-     */
     public function testFunctionSupportsProtocols(): void
     {
         $actual = concat_paths('vfs://foo/', '/bar');
@@ -24,9 +24,6 @@ class ConcatPathsTest extends TestCase
         self::assertSame('vfs://foo/bar', $actual);
     }
 
-    /**
-     * @covers \CoStack\Lib\concat_paths
-     */
     public function testFunctionReturnsEmptyStringForEmptyPaths(): void
     {
         $actual = concat_paths();
@@ -34,9 +31,6 @@ class ConcatPathsTest extends TestCase
         self::assertSame('', $actual);
     }
 
-    /**
-     * @covers \CoStack\Lib\concat_paths
-     */
     public function testFunctionReturnsPathWithoutDuplicateDirectorySeparator(): void
     {
         $actual = concat_paths(DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR);
@@ -44,9 +38,6 @@ class ConcatPathsTest extends TestCase
         self::assertSame(DIRECTORY_SEPARATOR, $actual);
     }
 
-    /**
-     * @covers \CoStack\Lib\concat_paths
-     */
     public function testFunctionPreservesAbsoluteness(): void
     {
         $actual = concat_paths(DIRECTORY_SEPARATOR, 'foo');
@@ -54,8 +45,19 @@ class ConcatPathsTest extends TestCase
         self::assertSame('/foo', $actual);
     }
 
+    /**
+     * @param array<string, array<int, (string|array<int, string>)>> $paths
+     */
+    #[DataProvider('pathsForConcatenationDataProvider')]
+    public function testFunctionReturnsPathsAsExpected(array $paths, string $expected): void
+    {
+        $actual = concat_paths(...$paths);
+
+        self::assertSame($expected, $actual);
+    }
+
     /** @return array<string, array<int, (string|array<int, string>)>> */
-    public function pathsForConcatenationDataProvider(): array
+    public static function pathsForConcatenationDataProvider(): array
     {
         $dirSep = DIRECTORY_SEPARATOR;
         $doubleDs = $dirSep . $dirSep;
@@ -79,19 +81,5 @@ class ConcatPathsTest extends TestCase
                 '/foo/path/to/another/part/foo/',
             ],
         ];
-    }
-
-    /**
-     * @covers       \CoStack\Lib\concat_paths
-     *
-     * @dataProvider pathsForConcatenationDataProvider
-     *
-     * @param string[] $paths
-     */
-    public function testFunctionReturnsPathsAsExpected(array $paths, string $expected): void
-    {
-        $actual = concat_paths(...$paths);
-
-        self::assertSame($expected, $actual);
     }
 }

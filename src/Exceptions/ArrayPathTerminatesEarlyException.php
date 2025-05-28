@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace CoStack\Lib\Exceptions;
 
+use ArrayAccess;
+use ArrayObject;
 use Throwable;
 
 use function gettype;
@@ -21,7 +23,7 @@ class ArrayPathTerminatesEarlyException extends LibException
         public readonly string $path,
         public readonly string $key,
         public readonly mixed $value,
-        public readonly array $array,
+        public readonly array|ArrayAccess $array,
         ?Throwable $previous = null,
     ) {
         parent::__construct(sprintf(self::MESSAGE, $path, $key, gettype($value)), self::CODE, $previous);

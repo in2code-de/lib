@@ -10,20 +10,23 @@ declare(strict_types=1);
 namespace CoStack\LibTests\Unit;
 
 use ArrayAccess;
+use ArrayObject;
 use CoStack\Lib\Exceptions\ArrayKeyPathDoesNotExistException;
 use CoStack\Lib\Exceptions\ArrayPathTerminatesEarlyException;
 use Exception;
+use PHPUnit\Framework\Attributes\CoversFunction;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
 use function array_key_exists;
 use function CoStack\Lib\array_value;
 
+#[CoversFunction('CoStack\Lib\array_value')]
+#[UsesClass(ArrayKeyPathDoesNotExistException::class)]
+#[UsesClass(ArrayPathTerminatesEarlyException::class)]
 class ArrayValueTest extends TestCase
 {
-    /**
-     * @covers \CoStack\Lib\array_value
-     */
     public function testFunctionReturnsValueAtTheEndOfThePath(): void
     {
         $expected = 'baz';
@@ -38,12 +41,7 @@ class ArrayValueTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    /**
-     * @covers \CoStack\Lib\array_value
-     * @uses   \CoStack\Lib\Exceptions\ArrayKeyPathDoesNotExistException
-     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
-     */
-    public function testFunctionThrowsArrayKeyPathDoesNotExistException(): void
+    public function testFunctionThrowsArrayKeyPathDoesNotExistExceptionForArray(): void
     {
         $this->expectException(ArrayKeyPathDoesNotExistException::class);
         $this->expectExceptionCode(ArrayKeyPathDoesNotExistException::CODE);
@@ -53,11 +51,16 @@ class ArrayValueTest extends TestCase
         array_value($canary, 'foo');
     }
 
-    /**
-     * @covers \CoStack\Lib\array_value
-     * @uses   \CoStack\Lib\Exceptions\ArrayPathTerminatesEarlyException
-     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
-     */
+    public function testFunctionThrowsArrayKeyPathDoesNotExistExceptionForArrayAccess(): void
+    {
+        $this->expectException(ArrayKeyPathDoesNotExistException::class);
+        $this->expectExceptionCode(ArrayKeyPathDoesNotExistException::CODE);
+
+        $canary = ['foo' => new ArrayObject()];
+
+        array_value($canary, 'foo.baz');
+    }
+
     public function testFunctionThrowsExceptionIfPathPartTerminatesInNonArrayValue(): void
     {
         $this->expectException(ArrayPathTerminatesEarlyException::class);
@@ -70,9 +73,6 @@ class ArrayValueTest extends TestCase
         array_value($canary, 'foo.bar');
     }
 
-    /**
-     * @covers \CoStack\Lib\array_value
-     */
     public function testFunctionReturnsArrayIfPathIsEmpty(): void
     {
         $expected = [
@@ -92,9 +92,6 @@ class ArrayValueTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    /**
-     * @covers \CoStack\Lib\array_value
-     */
     public function testFunctionsSupportsArrayAccessInterface(): void
     {
         $values = [
@@ -105,9 +102,7 @@ class ArrayValueTest extends TestCase
             /**
              * @param array<string, string> $values
              */
-            public function __construct(protected array $values)
-            {
-            }
+            public function __construct(protected array $values) {}
 
             /**
              * @param array-key $offset

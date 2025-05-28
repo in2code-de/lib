@@ -77,13 +77,13 @@ if (!function_exists('\CoStack\Lib\array_value')) {
     /**
      * Returns a subset of the array by walking down the keys defined in $path, separated by dots.
      *
-     * @param array $array
+     * @param array|ArrayAccess $array
      * @param string $path
      * @return mixed
      * @throws Exceptions\ArrayKeyPathDoesNotExistException
      * @throws Exceptions\ArrayPathTerminatesEarlyException
      */
-    function array_value(array $array, string $path): mixed
+    function array_value(array|ArrayAccess $array, string $path): mixed
     {
         // Trim all chars and dots
         $path = trim($path, " \t\n\r\0\x0B.");

@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace CoStack\LibTests\Unit;
 
+use PHPUnit\Framework\Attributes\CoversFunction;
 use PHPUnit\Framework\TestCase;
 
 use function CoStack\Lib\array_unique_keys;
 
+#[CoversFunction('CoStack\Lib\array_unique_keys')]
 class ArrayUniqueKeysTest extends TestCase
 {
-    /**
-     * @covers \CoStack\Lib\array_unique_keys
-     */
     public function testFunctionReturnsArrayKeysAsList(): void
     {
         $expected = [1, 2, 3, 'foo', 4, 'bar'];
@@ -37,9 +36,6 @@ class ArrayUniqueKeysTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    /**
-     * @covers \CoStack\Lib\array_unique_keys
-     */
     public function testFunctionReturnsEmptyArrayForMissingInput(): void
     {
         $expected = [];
@@ -49,9 +45,6 @@ class ArrayUniqueKeysTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    /**
-     * @covers \CoStack\Lib\array_unique_keys
-     */
     public function testFunctionReturnsEmptyArrayForEmptyInput(): void
     {
         $expected = [];

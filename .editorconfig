@@ -16,7 +16,11 @@ indent_size = 4
 
 [*.xml]
 indent_size = 4
+ij_xml_space_inside_empty_tag = false
 
 [Makefile]
 indent_style = tab
+indent_size = 4
+
+[composer.json]
 indent_size = 4

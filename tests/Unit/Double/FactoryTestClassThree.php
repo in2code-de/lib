@@ -18,6 +18,5 @@ class FactoryTestClassThree
         public array $arrayArg,
         public bool $boolArg,
         public float $floatArg,
-    ) {
-    }
+    ) {}
 }

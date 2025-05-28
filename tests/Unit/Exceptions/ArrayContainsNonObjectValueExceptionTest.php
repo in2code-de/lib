@@ -5,16 +5,12 @@ declare(strict_types=1);
 namespace CoStack\LibTests\Unit\Exceptions;
 
 use CoStack\Lib\Exceptions\ArrayContainsNonObjectValueException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \CoStack\Lib\Exceptions\ArrayContainsNonObjectValueException
- */
+#[CoversClass(ArrayContainsNonObjectValueException::class)]
 class ArrayContainsNonObjectValueExceptionTest extends TestCase
 {
-    /**
-     * @covers ::__construct
-     */
     public function testExceptionContainsConstructorArguments(): void
     {
         $exception = new ArrayContainsNonObjectValueException('foo', ['bar']);

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace CoStack\LibTests\Unit\Pattern;
 
+use CoStack\Lib\Pattern\MagicMethodsForImmutables;
 use CoStack\LibTests\Unit\Pattern\Double\Immutable;
+use PHPUnit\Framework\Attributes\CoversTrait;
 use PHPUnit\Framework\TestCase;
 
+#[CoversTrait(MagicMethodsForImmutables::class)]
 class MagicMethodsForImmutablesTest extends TestCase
 {
-    /**
-     * @covers \CoStack\LibTests\Unit\Pattern\Double\Immutable::__call
-     */
     public function testTraitAddsGetMethodForAllProperties(): void
     {
         $canary = new Immutable('baz', 'boo');
@@ -20,9 +20,6 @@ class MagicMethodsForImmutablesTest extends TestCase
         self::assertSame('boo', $canary->getBar());
     }
 
-    /**
-     * @covers \CoStack\LibTests\Unit\Pattern\Double\Immutable::__call
-     */
     public function testTraitAddsHasMethodForAllProperties(): void
     {
         $canary = new Immutable(null, 'boo');
@@ -31,9 +28,6 @@ class MagicMethodsForImmutablesTest extends TestCase
         self::assertTrue($canary->hasBar());
     }
 
-    /**
-     * @covers \CoStack\LibTests\Unit\Pattern\Double\Immutable::__call
-     */
     public function testTraitAddsWithMethodForAllProperties(): void
     {
         $canary = new Immutable(null);
@@ -44,9 +38,6 @@ class MagicMethodsForImmutablesTest extends TestCase
         self::assertSame('faz', $withFoo->getFoo());
     }
 
-    /**
-     * @covers \CoStack\LibTests\Unit\Pattern\Double\Immutable::__call
-     */
     public function testTraitRemovesValueIfWithoutPropertyIsCalled(): void
     {
         $canary = new Immutable('foo');
@@ -56,9 +47,6 @@ class MagicMethodsForImmutablesTest extends TestCase
         self::assertNull($canary->foo);
     }
 
-    /**
-     * @covers \CoStack\LibTests\Unit\Pattern\Double\Immutable::__call
-     */
     public function testTraitClonesTheObjectWhenWithIsCalled(): void
     {
         $canary = new Immutable();
@@ -67,9 +55,6 @@ class MagicMethodsForImmutablesTest extends TestCase
         $this->assertNotSame($canary, $actual);
     }
 
-    /**
-     * @covers \CoStack\LibTests\Unit\Pattern\Double\Immutable::__call
-     */
     public function testTraitClonesTheObjectWhenWithoutIsCalled(): void
     {
         $canary = new Immutable();
@@ -78,9 +63,6 @@ class MagicMethodsForImmutablesTest extends TestCase
         $this->assertNotSame($canary, $actual);
     }
 
-    /**
-     * @covers \CoStack\LibTests\Unit\Pattern\Double\Immutable::__call
-     */
     public function testTraitAddsIsMethodForAllProperties(): void
     {
         $canary = new Immutable(null, null, true);
@@ -89,9 +71,6 @@ class MagicMethodsForImmutablesTest extends TestCase
         $this->assertTrue($actual);
     }
 
-    /**
-     * @covers \CoStack\LibTests\Unit\Pattern\Double\Immutable::__call
-     */
     public function testTraitIsMethodAlwaysReturnsBool(): void
     {
         $canary = new Immutable(null, null, null);
@@ -100,9 +79,6 @@ class MagicMethodsForImmutablesTest extends TestCase
         $this->assertFalse($actual);
     }
 
-    /**
-     * @covers \CoStack\LibTests\Unit\Pattern\Double\Immutable::__call
-     */
     public function testTraitGetAndHasBehaveDifferentOnNullValue(): void
     {
         $canary = new Immutable(null);

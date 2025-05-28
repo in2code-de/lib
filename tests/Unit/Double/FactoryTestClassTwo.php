@@ -9,7 +9,5 @@ use JetBrains\PhpStorm\Pure;
 class FactoryTestClassTwo
 {
     #[Pure]
-    public function __construct(public int $myValue)
-    {
-    }
+    public function __construct(public int $myValue) {}
 }
