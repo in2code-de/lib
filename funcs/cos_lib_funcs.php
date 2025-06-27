@@ -6,6 +6,7 @@ namespace CoStack\Lib;
 
 use ArrayAccess;
 use Closure;
+use CoStack\Lib\Utility\StringPool;
 use JetBrains\PhpStorm\ExpectedValues;
 use JetBrains\PhpStorm\Pure;
 use ReflectionClass;
@@ -346,8 +347,8 @@ if (!function_exists('\CoStack\Lib\factory')) {
 }
 
 if (!function_exists('\CoStack\Lib\filter')) {
-    define(__NAMESPACE__ . '\\FILTER_INVERT', 1 << 0);
-    define(__NAMESPACE__ . '\\FILTER_MATCH_LOOSE', 1 << 1);
+    define(__NAMESPACE__ . '\FILTER_INVERT', 1 << 0);
+    define(__NAMESPACE__ . '\FILTER_MATCH_LOOSE', 1 << 1);
 
     /**
      * For use with array_filter(). Creates a filter closure for you that matches the given $specimen.
@@ -414,5 +415,50 @@ if (!function_exists('\CoStack\Lib\cgi_parse_str')) {
         }
 
         return $result;
+    }
+}
+
+if (!function_exists('\CoStack\Lib\pool')) {
+    /**
+     * Pool a string.
+     * This will put a string into an array and return the string from that array.
+     * The result is a copy-on-write reference to the string.
+     * The size required by the variable holding the string is reduced to the site of PHP's zval.
+     * (16 bytes, @see https://github.com/phpinternalsbook/PHP-Internals-Book/blob/master/Book/php7/zvals/basic_structure.rst?plain=1#L183)
+     * This is especially useful if you have data where strings occur multiple times.
+     *
+     * This function does not have a garbage collection!
+     * If you pool a string, it will be stored in memory until your script ends.
+     *
+     * Putting a string in the pool is not always the best choice, but you
+     * will use an additional 216 bytes for each string in the worst case.
+     *
+     * There is no simple match function to determine if using the pool actually saves memory, because it depends on the
+     * size of zval on your system, the length and the amount of times you are using the string.
+     *
+     * As a rule of thumb, you should
+     * A) Not pool a string if
+     * A.1) the string length is 0
+     * A.2) you only need the string temporarily
+     * A.3) you use it 5 times and the length is between 10 and 15
+     * A.4) you try to pool only different strings
+     * B) Always pool a string if
+     * B.1) you use it more than 11 times
+     * B.2) string length is >= 20
+     * B.3) for string length < 20: it's used more times than string length / 48
+     * B.4) you don't care about the tradeoff
+     *
+     * These rules will get about 85% for lengths 0-100 and times 0-100 right, but only for high numbers.
+     * As there is no easy solution, you should decide when to pool a
+     * string by yourself, hence this logic is not implemented here.
+     *
+     * @param string $string The string you want to put into the pool.
+     * @return string The same string you put into the function, but it will use less memory.
+     */
+    function pool(string $string): string
+    {
+        // Use a class because the initialization of a static class member takes less than a static function variable.
+        // Also, it allows flushing the pool.
+        return StringPool::get($string);
     }
 }

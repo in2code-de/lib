@@ -51,6 +51,7 @@ qa-phpmd:
   only:
     changes:
       - "**/*.php"
+  allow_failure: true # as long as phpmd can not parse asymmetric visibility
 
 qa-phpstan:
   stage: qa
@@ -67,9 +68,16 @@ qa-phpstan:
 #      - "**/*.php"
 
 qa-phpunit-coverage:
-  image: in2code/php-dev:8.4-fpm
+  image:
+    name: in2code/php-dev:8.4-fpm
+    docker:
+      user: root
   stage: qa
-  script: XDEBUG_MODE=coverage vendor/bin/phpunit -c .phpunit.xml --coverage-text --colors=never
+  variables:
+    XDEBUG_MODE: coverage
+  script:
+    - docker-php-ext-install pcntl
+    - su -c 'vendor/bin/phpunit -c .phpunit.xml --coverage-text --colors=never' $(id -un 1000)
   only:
     changes:
       - "**/*.php"
@@ -79,9 +87,16 @@ qa-phpunit-coverage:
   coverage: '/Lines:\s+\d+\.\d+/'
 
 qa-infection:
-  image: in2code/php-dev:8.4-fpm
+  image:
+    name: in2code/php-dev:8.4-fpm
+    docker:
+      user: root
   stage: qa
-  script: XDEBUG_MODE=coverage vendor/bin/infection --configuration=.infection.json -j$(nproc) --min-covered-msi=100 --min-msi=100
+  variables:
+    XDEBUG_MODE: coverage
+  script:
+    - docker-php-ext-install pcntl
+    - su -c 'vendor/bin/infection --configuration=.infection.json -j$(nproc) --min-covered-msi=100 --min-msi=100' $(id -un 1000)
   only:
     changes:
       - "**/*.php"

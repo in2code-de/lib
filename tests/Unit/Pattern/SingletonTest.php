@@ -6,7 +6,6 @@ namespace CoStack\LibTests\Unit\Pattern;
 
 use CoStack\Lib\Pattern\Singleton;
 use CoStack\LibTests\Unit\Pattern\Double\ClassWithSingletonTrait;
-use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\CoversTrait;
 use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
@@ -14,9 +13,6 @@ use ReflectionMethod;
 #[CoversTrait(Singleton::class)]
 class SingletonTest extends TestCase
 {
-    /**
-     * @SuppressWarnings("PHPMD.StaticAccess")
-     */
     public function testClassWithSingletonAlwaysReturnsTheSameInstance(): void
     {
         $singleton1 = ClassWithSingletonTrait::getInstance();
@@ -25,7 +21,6 @@ class SingletonTest extends TestCase
         self::assertSame($singleton1, $singleton2);
     }
 
-    #[CoversNothing]
     public function testClassWithSingletonHasPrivateConstructor(): void
     {
         $methodReflection = new ReflectionMethod(ClassWithSingletonTrait::class, '__construct');

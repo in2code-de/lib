@@ -82,6 +82,9 @@ class Uri implements Stringable
         $this->fragment = $uriParts['fragment'] ?? null;
     }
 
+    /**
+     * @return array<array<mixed>|string>
+     */
     public function getQueryParts(): array
     {
         $query = $this->getQuery();
@@ -98,12 +101,15 @@ class Uri implements Stringable
         return array_key_exists($name, $this->getQueryParts());
     }
 
-    public function getQueryPart(string $name, $default = null): mixed
+    /**
+     * @return array<mixed>|string
+     */
+    public function getQueryPart(string $name, mixed $default = null): array|string
     {
         return $this->getQueryParts()[$name] ?? $default;
     }
 
-    public function withQueryPart(string $name, $value): Uri
+    public function withQueryPart(string $name, mixed $value): Uri
     {
         $queryParts = $this->getQueryParts();
         $queryParts[$name] = $value;

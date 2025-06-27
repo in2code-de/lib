@@ -17,6 +17,7 @@ use JetBrains\PhpStorm\ArrayShape;
 use PHPUnit\Framework\Attributes\CoversFunction;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\UsesClass;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 use function array_count_values;
@@ -239,8 +240,7 @@ class ArrayPropertyTest extends TestCase
 
         /**
          * @return mixed
-         * @phpstan-ignore varTag.nativeType
-         * @var callable $mock
+         * @var MockObject&callable $mock
          */
         $mockWrapper = static fn(): mixed => $mock(...func_get_args());
 

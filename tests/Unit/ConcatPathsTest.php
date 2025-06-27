@@ -51,7 +51,7 @@ class ConcatPathsTest extends TestCase
     #[DataProvider('pathsForConcatenationDataProvider')]
     public function testFunctionReturnsPathsAsExpected(array $paths, string $expected): void
     {
-        $actual = concat_paths(...$paths);
+        $actual = concat_paths(...$paths);  // @phpstan-ignore argument.type (false positive)
 
         self::assertSame($expected, $actual);
     }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace CoStack\Lib\Exceptions;
 
 use ArrayAccess;
-use ArrayObject;
 use Throwable;
 
 use function gettype;
@@ -17,7 +16,7 @@ class ArrayPathTerminatesEarlyException extends LibException
     final public const int CODE = 1_598_892_530;
 
     /**
-     * @param array<mixed> $array
+     * @param array<mixed>|ArrayAccess<mixed, mixed> $array
      */
     public function __construct(
         public readonly string $path,

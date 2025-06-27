@@ -37,6 +37,9 @@ class UriTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
+    /**
+     * @return array<string, array<int, string>>
+     */
     public static function validUriStringProvider(): array
     {
         return [
