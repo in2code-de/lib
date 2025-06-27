@@ -5,16 +5,12 @@ declare(strict_types=1);
 namespace CoStack\LibTests\Unit\Exceptions;
 
 use CoStack\Lib\Exceptions\MissingConstructorArgumentException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \CoStack\Lib\Exceptions\MissingConstructorArgumentException
- */
+#[CoversClass(MissingConstructorArgumentException::class)]
 class MissingConstructorArgumentExceptionTest extends TestCase
 {
-    /**
-     * @covers ::__construct
-     */
     public function testExceptionContainsConstructorArguments(): void
     {
         $exception = new MissingConstructorArgumentException('foo', 'bar');

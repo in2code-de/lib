@@ -1,13 +1,12 @@
 <?php
 
-/** @noinspection PhpUnitTestsInspection */
-
 declare(strict_types=1);
 
 namespace CoStack\LibTests\Unit;
 
+use CoStack\Lib\Contract\Invokable;
+use PHPUnit\Framework\Attributes\CoversFunction;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 
 use function CoStack\Lib\array_filter_recursive;
 use function func_get_args;
@@ -15,11 +14,9 @@ use function func_get_args;
 use const ARRAY_FILTER_USE_BOTH;
 use const ARRAY_FILTER_USE_KEY;
 
+#[CoversFunction('CoStack\Lib\array_filter_recursive')]
 class FunctionArrayFilterRecursiveTest extends TestCase
 {
-    /**
-     * @covers \CoStack\Lib\array_filter_recursive
-     */
     public function testFunctionStopsFilterAtGivenLevel(): void
     {
         $canary = [
@@ -58,9 +55,6 @@ class FunctionArrayFilterRecursiveTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    /**
-     * @covers \CoStack\Lib\array_filter_recursive
-     */
     public function testClosureCanBeUsedAsFilterFunction(): void
     {
         $canary = [
@@ -82,9 +76,6 @@ class FunctionArrayFilterRecursiveTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    /**
-     * @covers \CoStack\Lib\array_filter_recursive
-     */
     public function testFunctionSupportsUseKeyFlag(): void
     {
         $canary = [
@@ -99,15 +90,13 @@ class FunctionArrayFilterRecursiveTest extends TestCase
             3 => 'baz',
         ];
 
-        $mock = $this->getMockBuilder(stdClass::class)
-                     ->addMethods(['__invoke'])
-                     ->getMock();
+        $mock = $this->getMockBuilder(Invokable::class)->getMock();
 
         $invocationRule = $this->exactly(3);
         /** @noinspection MockingMethodsCorrectnessInspection */
         $mock->expects($invocationRule)
-             ->method('__invoke')
-             ->willReturnCallback(static fn(): string => $returnValues[$invocationRule->getInvocationCount()]);
+            ->method('__invoke')
+            ->willReturnCallback(static fn(): string => $returnValues[$invocationRule->numberOfInvocations()]);
 
         /**
          * @return string
@@ -119,9 +108,6 @@ class FunctionArrayFilterRecursiveTest extends TestCase
         array_filter_recursive($canary, -1, $mockWrapper, ARRAY_FILTER_USE_KEY);
     }
 
-    /**
-     * @covers \CoStack\Lib\array_filter_recursive
-     */
     public function testFunctionSupportsUseBothFlag(): void
     {
         $canary = [
@@ -136,14 +122,12 @@ class FunctionArrayFilterRecursiveTest extends TestCase
             3 => [3, 'baz'],
         ];
 
-        $mock = $this->getMockBuilder(stdClass::class)
-                     ->addMethods(['__invoke'])
-                     ->getMock();
+        $mock = $this->getMockBuilder(Invokable::class)->getMock();
         $invocationRule = $this->exactly(3);
         /** @noinspection MockingMethodsCorrectnessInspection */
         $mock->expects($invocationRule)
-             ->method('__invoke')
-             ->willReturnCallback(static fn(): array => $returnValues[$invocationRule->getInvocationCount()]);
+            ->method('__invoke')
+            ->willReturnCallback(static fn(): array => $returnValues[$invocationRule->numberOfInvocations()]);
 
         /**
          * @return array

@@ -2,13 +2,14 @@
 
 /**
  * @noinspection NonSecureUniqidUsageInspection
- * @noinspection PhpUnitTestsInspection
  */
 
 declare(strict_types=1);
 
 namespace CoStack\LibTests\Unit;
 
+use PHPUnit\Framework\Attributes\CoversFunction;
+use PHPUnit\Framework\Attributes\UsesFunction;
 use PHPUnit\Framework\TestCase;
 
 use function CoStack\Lib\concat_paths;
@@ -21,13 +22,10 @@ use function substr;
 use function sys_get_temp_dir;
 use function uniqid;
 
+#[CoversFunction('CoStack\Lib\mkdir_deep')]
+#[UsesFunction('CoStack\Lib\concat_paths')]
 class MkdirDeepTest extends TestCase
 {
-    /**
-     * @covers \CoStack\Lib\mkdir_deep
-     * @uses \CoStack\Lib\concat_paths
-     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
-     */
     public function testFunctionCreatesDirectory(): void
     {
         $prefix = concat_paths(sys_get_temp_dir(), uniqid());
@@ -40,11 +38,6 @@ class MkdirDeepTest extends TestCase
         exec('rm -rf ' . escapeshellarg($prefix));
     }
 
-    /**
-     * @covers \CoStack\Lib\mkdir_deep
-     * @uses   \CoStack\Lib\concat_paths
-     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
-     */
     public function testFunctionAllowsSettingMode(): void
     {
         $prefix = concat_paths(sys_get_temp_dir(), uniqid());

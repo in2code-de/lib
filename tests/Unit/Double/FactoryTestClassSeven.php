@@ -22,7 +22,5 @@ class FactoryTestClassSeven
     private readonly string $fump;
 
     #[Pure]
-    public function __construct(public string $foo)
-    {
-    }
+    public function __construct(public string $foo) {}
 }

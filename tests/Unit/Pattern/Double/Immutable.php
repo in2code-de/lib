@@ -28,7 +28,5 @@ class Immutable
     use MagicMethodsForImmutables;
 
     #[Pure]
-    public function __construct(public ?string $foo = '', public ?string $bar = null, public ?bool $boo = null)
-    {
-    }
+    public function __construct(public ?string $foo = '', public ?string $bar = null, public ?bool $boo = null) {}
 }

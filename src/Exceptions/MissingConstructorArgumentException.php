@@ -18,7 +18,7 @@ class MissingConstructorArgumentException extends LibException
     public function __construct(
         public readonly string $class,
         public readonly string $argumentName,
-        ?Throwable $previous = null
+        ?Throwable $previous = null,
     ) {
         parent::__construct(sprintf(self::MESSAGE, $argumentName, $class), self::CODE, $previous);
     }

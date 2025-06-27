@@ -18,7 +18,7 @@ class PropertyNotPublicException extends LibException
     public function __construct(
         public readonly string $class,
         public readonly string $property,
-        ?Throwable $previous = null
+        ?Throwable $previous = null,
     ) {
         parent::__construct(sprintf(self::MESSAGE, $property, $class), self::CODE, $previous);
     }

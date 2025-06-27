@@ -20,6 +20,7 @@ use CoStack\LibTests\Unit\Double\FactoryTestClassSix;
 use CoStack\LibTests\Unit\Double\FactoryTestClassThree;
 use CoStack\LibTests\Unit\Double\FactoryTestClassTwo;
 use IteratorAggregate;
+use PHPUnit\Framework\Attributes\CoversFunction;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Stringable;
@@ -30,20 +31,15 @@ use function CoStack\Lib\factory;
 /**
  * @SuppressWarnings("PHPMD.CouplingBetweenObjects")
  */
+#[CoversFunction('CoStack\Lib\factory')]
 class FactoryTest extends TestCase
 {
-    /**
-     * @covers \CoStack\Lib\factory
-     */
     public function testFunctionCreatesNewInstanceOfClassWithoutArgs(): void
     {
         $object = factory(FactoryTestClassOne::class);
         self::assertInstanceOf(FactoryTestClassOne::class, $object);
     }
 
-    /**
-     * @covers \CoStack\Lib\factory
-     */
     public function testFunctionCreatesNewInstanceOfClassWithArgs(): void
     {
         $expected = 15;
@@ -58,9 +54,6 @@ class FactoryTest extends TestCase
         self::assertSame($expected, $object->myValue);
     }
 
-    /**
-     * @covers \CoStack\Lib\factory
-     */
     public function testFunctionConvertsArgumentsToExpectedType(): void
     {
         $arguments = [
@@ -81,18 +74,12 @@ class FactoryTest extends TestCase
         self::assertSame(58.848, $object->floatArg);
     }
 
-    /**
-     * @covers \CoStack\Lib\factory
-     */
     public function testFunctionCreatesInstanceWithDefaultArgumentsIfNoneAreProvided(): void
     {
         $object = factory(FactoryTestClassFour::class);
         self::assertSame('bar', $object->foo);
     }
 
-    /**
-     * @covers \CoStack\Lib\factory
-     */
     public function testFunctionCreatesInstanceOfClassWithoutConstructor(): void
     {
         $object = factory(FactoryTestClassFive::class);
@@ -100,9 +87,6 @@ class FactoryTest extends TestCase
         self::assertInstanceOf(FactoryTestClassFive::class, $object);
     }
 
-    /**
-     * @covers \CoStack\Lib\factory
-     */
     public function testFunctionMapsArgumentsToPublicProperties(): void
     {
         $object = factory(FactoryTestClassSix::class, ['foo' => 'baz', 'bar' => 13]);
@@ -111,9 +95,6 @@ class FactoryTest extends TestCase
         self::assertSame($object->bar, 13);
     }
 
-    /**
-     * @covers \CoStack\Lib\factory
-     */
     public function testFunctionMapsArgumentsToConstructorAndPublicProperties(): void
     {
         $object = factory(FactoryTestClassSeven::class, ['foo' => 'boo', 'bar' => 24.85]);
@@ -122,9 +103,6 @@ class FactoryTest extends TestCase
         self::assertSame($object->bar, 24.85);
     }
 
-    /**
-     * @covers \CoStack\Lib\factory
-     */
     public function testFunctionMapsArgumentsToUnionTypesWhichAcceptTheArgument(): void
     {
         $object = factory(FactoryTestClassEight::class, ['foo' => 42]);
@@ -132,9 +110,6 @@ class FactoryTest extends TestCase
         self::assertSame($object->foo, 42);
     }
 
-    /**
-     * @covers \CoStack\Lib\factory
-     */
     public function testFunctionMapsArgumentsToIntersectionTypesWhichAcceptTheArgument(): void
     {
         $argument = new class extends stdClass implements Stringable, IteratorAggregate {

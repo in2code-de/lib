@@ -5,17 +5,13 @@ declare(strict_types=1);
 namespace CoStack\LibTests\Unit\Exceptions;
 
 use CoStack\Lib\Exceptions\ImpreciseParameterTypeException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use ReflectionUnionType;
 
-/**
- * @coversDefaultClass \CoStack\Lib\Exceptions\ImpreciseParameterTypeException
- */
+#[CoversClass(ImpreciseParameterTypeException::class)]
 class ImpreciseParameterTypeExceptionTest extends TestCase
 {
-    /**
-     * @covers ::__construct
-     */
     public function testExceptionContainsConstructorArguments(): void
     {
         $exception = new ImpreciseParameterTypeException('foo', 'bar', new ReflectionUnionType());

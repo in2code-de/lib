@@ -2,7 +2,7 @@
   <configuration default="false" name="vendor/bin/phpunit -c phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
     <CommandLine>
       <PhpTestInterpreterSettings>
-        <option name="interpreterName" value="co-stack/lib:8.2" />
+        <option name="interpreterName" value="co-stack/lib:8.4" />
       </PhpTestInterpreterSettings>
     </CommandLine>
     <TestRunner configuration_file="$PROJECT_DIR$/phpunit.xml" scope="XML" use_alternative_configuration_file="true" />

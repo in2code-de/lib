@@ -5,16 +5,12 @@ declare(strict_types=1);
 namespace CoStack\LibTests\Unit\Exceptions;
 
 use CoStack\Lib\Exceptions\ArrayPathTerminatesEarlyException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \CoStack\Lib\Exceptions\ArrayPathTerminatesEarlyException
- */
+#[CoversClass(ArrayPathTerminatesEarlyException::class)]
 class ArrayPathTerminatesEarlyExceptionTest extends TestCase
 {
-    /**
-     * @covers ::__construct
-     */
     public function testExceptionContainsConstructorArguments(): void
     {
         $exception = new ArrayPathTerminatesEarlyException('foo', 'bar', 'baz', ['beng']);

@@ -20,7 +20,7 @@ class ImpreciseParameterTypeException extends LibException
         public readonly string $parameter,
         public readonly string $class,
         public readonly ReflectionType $reflectionType,
-        ?Throwable $previous = null
+        ?Throwable $previous = null,
     ) {
         parent::__construct(sprintf(self::MESSAGE, $parameter, $class), self::CODE, $previous);
     }

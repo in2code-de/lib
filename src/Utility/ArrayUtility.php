@@ -55,7 +55,7 @@ class ArrayUtility
     public function property(
         array $array,
         null|string|callable $property,
-        null|string|callable $indexKey
+        null|string|callable $indexKey,
     ): array {
         return array_property($array, $property, $indexKey);
     }
