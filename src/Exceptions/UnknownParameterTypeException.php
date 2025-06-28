@@ -18,7 +18,7 @@ class UnknownParameterTypeException extends LibException
     public function __construct(
         public readonly string $parameter,
         public readonly string $class,
-        ?Throwable $previous = null
+        ?Throwable $previous = null,
     ) {
         parent::__construct(sprintf(self::MESSAGE, $parameter, $class), self::CODE, $previous);
     }

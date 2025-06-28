@@ -2,7 +2,7 @@
 /.project/githooks/tmp
 /.project/artifacts/*
 !/.project/artifacts/.gitkeep
-/.phpunit.result.cache
+/.phpunit.cache
 /vendor
 /composer.lock
 

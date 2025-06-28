@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace CoStack\LibTests\Unit;
 
 use ArrayAccess;
+use ArrayObject;
 use CoStack\Lib\Exceptions\ArrayKeyPathDoesNotExistException;
 use CoStack\Lib\Exceptions\ArrayPathTerminatesEarlyException;
 use Exception;
@@ -51,6 +52,21 @@ class ArrayValueTest extends TestCase
         $canary = [];
 
         array_value($canary, 'foo');
+    }
+
+    /**
+     * @covers \CoStack\Lib\array_value
+     * @uses   \CoStack\Lib\Exceptions\ArrayKeyPathDoesNotExistException
+     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
+     */
+    public function testFunctionThrowsArrayKeyPathDoesNotExistExceptionForArrayAccess(): void
+    {
+        $this->expectException(ArrayKeyPathDoesNotExistException::class);
+        $this->expectExceptionCode(ArrayKeyPathDoesNotExistException::CODE);
+
+        $canary = ['foo' => new ArrayObject()];
+
+        array_value($canary, 'foo.baz');
     }
 
     /**
@@ -105,9 +121,7 @@ class ArrayValueTest extends TestCase
             /**
              * @param array<string, string> $values
              */
-            public function __construct(protected array $values)
-            {
-            }
+            public function __construct(protected array $values) {}
 
             /**
              * @param array-key $offset

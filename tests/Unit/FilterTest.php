@@ -19,9 +19,29 @@ use const CoStack\Lib\FILTER_MATCH_LOOSE;
 class FilterTest extends TestCase
 {
     /**
+     * @covers       \CoStack\Lib\filter
+     * @dataProvider filterConfigurationDataProvider
+     *
+     * @param array<int, array|mixed> $canary
+     * @param int|float|string|bool $specimen
+     * @param int $flags
+     * @param array<int, array|mixed> $expected
+     */
+    public function testFunctionReturnsExpectedValue(
+        array $canary,
+        int|float|string|bool $specimen,
+        int $flags,
+        array $expected,
+    ): void {
+        $filter = filter($specimen, $flags);
+        $actual = array_filter($canary, $filter);
+        self::assertSame($expected, $actual);
+    }
+
+    /**
      * @return array<string, array<int, array|mixed>>
      */
-    public function filterConfigurationDataProvider(): array
+    public static function filterConfigurationDataProvider(): array
     {
         return [
             'remove "not foo" from array' => [
@@ -56,25 +76,5 @@ class FilterTest extends TestCase
                 [],
             ],
         ];
-    }
-
-    /**
-     * @covers       \CoStack\Lib\filter
-     * @dataProvider filterConfigurationDataProvider
-     *
-     * @param array<mixed> $canary
-     * @param int|float|string|bool $specimen
-     * @param int $flags
-     * @param array<mixed> $expected
-     */
-    public function testFunctionReturnsExpectedValue(
-        array $canary,
-        int|float|string|bool $specimen,
-        int $flags,
-        array $expected
-    ): void {
-        $filter = filter($specimen, $flags);
-        $actual = array_filter($canary, $filter);
-        self::assertSame($expected, $actual);
     }
 }

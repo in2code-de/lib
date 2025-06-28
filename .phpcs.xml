@@ -12,6 +12,12 @@
 
     <arg name="basepath" value="."/>
     <arg name="colors"/>
+    <arg name="extensions" value="php"/>
     <arg name="parallel" value="75"/>
     <arg value="nps"/>
+
+    <rule ref="PSR12">
+        <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
+        <exclude name="Squiz.WhiteSpace.ScopeClosingBrace.ContentBefore"/>
+    </rule>
 </ruleset>

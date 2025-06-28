@@ -6,8 +6,8 @@ declare(strict_types=1);
 
 namespace CoStack\LibTests\Unit;
 
+use CoStack\Lib\Contract\Invokable;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 
 use function CoStack\Lib\array_filter_recursive;
 use function func_get_args;
@@ -99,15 +99,13 @@ class FunctionArrayFilterRecursiveTest extends TestCase
             3 => 'baz',
         ];
 
-        $mock = $this->getMockBuilder(stdClass::class)
-                     ->addMethods(['__invoke'])
-                     ->getMock();
+        $mock = $this->getMockBuilder(Invokable::class)->getMock();
 
         $invocationRule = $this->exactly(3);
         /** @noinspection MockingMethodsCorrectnessInspection */
         $mock->expects($invocationRule)
-             ->method('__invoke')
-             ->willReturnCallback(static fn(): string => $returnValues[$invocationRule->getInvocationCount()]);
+            ->method('__invoke')
+            ->willReturnCallback(static fn(): string => $returnValues[$invocationRule->numberOfInvocations()]);
 
         /**
          * @return string
@@ -136,14 +134,12 @@ class FunctionArrayFilterRecursiveTest extends TestCase
             3 => [3, 'baz'],
         ];
 
-        $mock = $this->getMockBuilder(stdClass::class)
-                     ->addMethods(['__invoke'])
-                     ->getMock();
+        $mock = $this->getMockBuilder(Invokable::class)->getMock();
         $invocationRule = $this->exactly(3);
         /** @noinspection MockingMethodsCorrectnessInspection */
         $mock->expects($invocationRule)
-             ->method('__invoke')
-             ->willReturnCallback(static fn(): array => $returnValues[$invocationRule->getInvocationCount()]);
+            ->method('__invoke')
+            ->willReturnCallback(static fn(): array => $returnValues[$invocationRule->numberOfInvocations()]);
 
         /**
          * @return array

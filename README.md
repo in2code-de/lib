@@ -19,6 +19,7 @@ PHP 8.1
 
 co-stack.com lib provides generic everyday functions, which aim to help you to focus on your main task.
 This package tries to achieve this by providing:
+
 * intuitive function names
 * high quality code
 * constant performance optimization
@@ -52,11 +53,11 @@ Lower supported versions receive backports of all features, which are possible i
 
 | Version | PHP Version | Branch Name | Maintained until | Currently Supported |
 |---------|-------------|-------------|------------------|---------------------|
-| 1.x     | 7.2         | php72       |      31 Jul 2021 | ❌                   |
-| 2.x     | 7.3         | php73       |       6 Dec 2021 | ❌                   |
-| 3.x     | 7.4         | php74       |      28 Nov 2022 | ❌                   |
-| 4.x     | 8.0         | php80       |      26 Nov 2023 | ❌                   |
-| 5.x     | 8.1         | php81       |      31 Dec 2025 | ✅                   |
-| 6.x     | 8.2         | php82       |      31 Dec 2026 | ✅                   |
-| 7.x     | 8.3         | php83       |      31 Dec 2027 | ✅                   |
-| 8.x     | 8.4         | php84       |      31 Dec 2028 | ✅                   |
+| 1.x     | 7.2         | php72       | 31 Jul 2021      | ❌                   |
+| 2.x     | 7.3         | php73       | 6 Dec 2021       | ❌                   |
+| 3.x     | 7.4         | php74       | 28 Nov 2022      | ❌                   |
+| 4.x     | 8.0         | php80       | 26 Nov 2023      | ❌                   |
+| 5.x     | 8.1         | php81       | 31 Dec 2025      | ✅                   |
+| 6.x     | 8.2         | php82       | 31 Dec 2026      | ✅                   |
+| 7.x     | 8.3         | php83       | 31 Dec 2027      | ✅                   |
+| 8.x     | 8.4         | php84       | 31 Dec 2028      | ✅                   |
