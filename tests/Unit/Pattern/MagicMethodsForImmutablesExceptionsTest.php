@@ -6,16 +6,17 @@ namespace CoStack\LibTests\Unit\Pattern;
 
 use CoStack\Lib\Exceptions\ArgumentCountErrorException;
 use CoStack\Lib\Exceptions\BadMethodCallException;
+use CoStack\Lib\Pattern\MagicMethodsForImmutables;
 use CoStack\LibTests\Unit\Pattern\Double\Immutable;
+use PHPUnit\Framework\Attributes\CoversTrait;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversTrait(MagicMethodsForImmutables::class)]
+#[UsesClass(BadMethodCallException::class)]
+#[UsesClass(ArgumentCountErrorException::class)]
 class MagicMethodsForImmutablesExceptionsTest extends TestCase
 {
-    /**
-     * @covers \CoStack\LibTests\Unit\Pattern\Double\Immutable::__call
-     * @uses   \CoStack\Lib\Exceptions\BadMethodCallException
-     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
-     */
     public function testTraitThrowsExceptionIfGetPropertyDoesNotExist(): void
     {
         $canary = new Immutable();
@@ -30,11 +31,6 @@ class MagicMethodsForImmutablesExceptionsTest extends TestCase
         $canary->getBaz();
     }
 
-    /**
-     * @covers \CoStack\LibTests\Unit\Pattern\Double\Immutable::__call
-     * @uses \CoStack\Lib\Exceptions\BadMethodCallException
-     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
-     */
     public function testTraitThrowsExceptionIfWithPropertyDoesNotExist(): void
     {
         $canary = new Immutable();
@@ -49,11 +45,6 @@ class MagicMethodsForImmutablesExceptionsTest extends TestCase
         $canary->withBaz();
     }
 
-    /**
-     * @covers \CoStack\LibTests\Unit\Pattern\Double\Immutable::__call
-     * @uses   \CoStack\Lib\Exceptions\ArgumentCountErrorException
-     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
-     */
     public function testTraitThrowsExceptionIfWithMethodMissesArgument(): void
     {
         $canary = new Immutable();
@@ -68,11 +59,6 @@ class MagicMethodsForImmutablesExceptionsTest extends TestCase
         $canary->withBar();
     }
 
-    /**
-     * @covers \CoStack\LibTests\Unit\Pattern\Double\Immutable::__call
-     * @uses   \CoStack\Lib\Exceptions\BadMethodCallException
-     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
-     */
     public function testTraitThrowsExceptionIfWithoutPropertyDoesNotExist(): void
     {
         $canary = new Immutable();

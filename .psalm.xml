@@ -8,10 +8,10 @@
     allowStringToStandInForClass="true"
 >
     <projectFiles>
-        <directory name="funcs" />
-        <directory name="src" />
+        <directory name="funcs"/>
+        <directory name="src"/>
         <ignoreFiles>
-            <directory name="vendor" />
+            <directory name="vendor"/>
         </ignoreFiles>
     </projectFiles>
 

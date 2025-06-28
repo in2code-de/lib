@@ -28,7 +28,7 @@ trait MagicMethodsForImmutables
         if (str_starts_with($method, 'is')) {
             $property = lcfirst(substr($method, 2));
             if (property_exists($this, $property)) {
-                return (bool)$this->{$property};
+                return (bool) $this->{$property};
             }
         }
         $method3 = substr($method, 0, 3);

@@ -10,15 +10,18 @@ declare(strict_types=1);
 
 namespace CoStack\LibTests\Unit;
 
+use CoStack\Lib\Contract\Invokable;
 use CoStack\Lib\Exceptions\ArrayContainsNonObjectValueException;
 use CoStack\Lib\Exceptions\PropertyMustBePropertyNameOrCallable;
 use JetBrains\PhpStorm\ArrayShape;
+use PHPUnit\Framework\Attributes\CoversFunction;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\UsesClass;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 
 use function array_count_values;
 use function CoStack\Lib\array_property;
-use function CoStack\Lib\array_value;
 use function func_get_args;
 use function property_exists;
 use function sprintf;
@@ -31,11 +34,11 @@ use function uniqid;
  * @SuppressWarnings("PHPMD.UnusedLocalVariable")
  * @SuppressWarnings("PHPMD.UndefinedVariable")
  */
+#[CoversFunction('CoStack\Lib\array_property')]
+#[UsesClass(PropertyMustBePropertyNameOrCallable::class)]
+#[UsesClass(ArrayContainsNonObjectValueException::class)]
 class ArrayPropertyTest extends TestCase
 {
-    /**
-     * @covers \CoStack\Lib\array_property
-     */
     public function testFunctionReturnsEmptyArrayForEmptyArray(): void
     {
         $actual = array_property([], null);
@@ -43,9 +46,6 @@ class ArrayPropertyTest extends TestCase
         self::assertSame([], $actual);
     }
 
-    /**
-     * @covers \CoStack\Lib\array_property
-     */
     public function testFunctionReturnsPublicPropertyValuesByString(): void
     {
         $testObject = new class {
@@ -71,7 +71,6 @@ class ArrayPropertyTest extends TestCase
     }
 
     /**
-     * @covers       \CoStack\Lib\array_property
      * @noinspection PhpPropertyOnlyWrittenInspection
      */
     public function testFunctionReturnsPrivatePropertyValuesByString(): void
@@ -108,7 +107,6 @@ class ArrayPropertyTest extends TestCase
     }
 
     /**
-     * @covers       \CoStack\Lib\array_property
      * @noinspection PhpUnusedPrivateFieldInspection
      * @noinspection PhpUnused
      */
@@ -126,9 +124,7 @@ class ArrayPropertyTest extends TestCase
              * @noinspection PhpPropertyOnlyWrittenInspection
              * @phpstan-ignore property.onlyWritten
              */
-            public function __construct(private array &$calls)
-            {
-            }
+            public function __construct(private array &$calls) {}
 
             /** @noinspection PhpUnused */
             public function getFoo(): void
@@ -161,7 +157,6 @@ class ArrayPropertyTest extends TestCase
     }
 
     /**
-     * @covers       \CoStack\Lib\array_property
      * @noinspection PhpPropertyOnlyWrittenInspection
      */
     public function testFunctionInvokedOnlyWithIndexKeyIndexesArray(): void
@@ -200,9 +195,6 @@ class ArrayPropertyTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    /**
-     * @covers \CoStack\Lib\array_property
-     */
     public function testFunctionReturnsValuesReturnedByClosure(): void
     {
         $testObject = new class {
@@ -226,7 +218,7 @@ class ArrayPropertyTest extends TestCase
             2 => uniqid(),
             3 => uniqid(),
         ];
-        $expected =  [
+        $expected = [
             $returnValues[1],
             $returnValues[2],
             $returnValues[3],
@@ -239,19 +231,16 @@ class ArrayPropertyTest extends TestCase
             $canary[] = $object;
         }
 
-        $mock = $this->getMockBuilder(stdClass::class)
-                     ->addMethods(['__invoke'])
-                     ->getMock();
+        $mock = $this->getMockBuilder(Invokable::class)->getMock();
         $invocationRule = $this->exactly(3);
         /** @noinspection MockingMethodsCorrectnessInspection */
         $mock->expects($invocationRule)
-             ->method('__invoke')
-             ->willReturnCallback(static fn() => $returnValues[$invocationRule->getInvocationCount()]);
+            ->method('__invoke')
+            ->willReturnCallback(static fn() => $returnValues[$invocationRule->numberOfInvocations()]);
 
         /**
-         * @var callable $mock
          * @return mixed
-         * @phpstan-ignore varTag.nativeType
+         * @var MockObject&callable $mock
          */
         $mockWrapper = static fn(): mixed => $mock(...func_get_args());
 
@@ -260,40 +249,7 @@ class ArrayPropertyTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    /** @return array<string, array<int, (string|callable(object): string)>> */
-    #[ArrayShape(shape: [
-        'p-string, ik-string' => "string[]",
-        'p-closure, ik-string' => "array",
-        'p-string, ik-closure' => "array",
-        'p-closure, ik-closure' => "\Closure[]",
-    ])]
-    public function propertyAndIndexKeyMatrixProvider(): array
-    {
-        $fooGetter = static function (object $object): string {
-            if (property_exists($object, 'foo')) {
-                return $object->foo;
-            }
-            return '';
-        };
-        $barGetter = static function (object $object): string {
-            if (property_exists($object, 'bar')) {
-                return $object->bar;
-            }
-            return '';
-        };
-        return [
-            'p-string, ik-string' => ['foo', 'bar'],
-            'p-closure, ik-string' => [$fooGetter, 'bar'],
-            'p-string, ik-closure' => ['foo', $barGetter],
-            'p-closure, ik-closure' => [$fooGetter, $barGetter],
-        ];
-    }
-
-    /**
-     * @covers       \CoStack\Lib\array_property
-     *
-     * @dataProvider propertyAndIndexKeyMatrixProvider
-     */
+    #[DataProvider('propertyAndIndexKeyMatrixProvider')]
     public function testFunctionWithPropertyAndIndexKeyWillReturnIndexedArray(
         string|callable $property,
         string|callable $indexKey,
@@ -322,11 +278,35 @@ class ArrayPropertyTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    /**
-     * @covers \CoStack\Lib\array_property
-     * @uses   \CoStack\Lib\Exceptions\PropertyMustBePropertyNameOrCallable
-     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
-     */
+    /** @return array<string, array<int, (string|callable(object): string)>> */
+    #[ArrayShape(shape: [
+        'p-string, ik-string' => "string[]",
+        'p-closure, ik-string' => "array",
+        'p-string, ik-closure' => "array",
+        'p-closure, ik-closure' => "\Closure[]",
+    ])]
+    public static function propertyAndIndexKeyMatrixProvider(): array
+    {
+        $fooGetter = static function (object $object): string {
+            if (property_exists($object, 'foo')) {
+                return $object->foo;
+            }
+            return '';
+        };
+        $barGetter = static function (object $object): string {
+            if (property_exists($object, 'bar')) {
+                return $object->bar;
+            }
+            return '';
+        };
+        return [
+            'p-string, ik-string' => ['foo', 'bar'],
+            'p-closure, ik-string' => [$fooGetter, 'bar'],
+            'p-string, ik-closure' => ['foo', $barGetter],
+            'p-closure, ik-closure' => [$fooGetter, $barGetter],
+        ];
+    }
+
     public function testFunctionThrowsExceptionIfBothPropertyAndKeyAreNotSet(): void
     {
         $this->expectException(PropertyMustBePropertyNameOrCallable::class);
@@ -339,11 +319,6 @@ class ArrayPropertyTest extends TestCase
         array_property(['foo'], null);
     }
 
-    /**
-     * @covers \CoStack\Lib\array_property
-     * @uses   \CoStack\Lib\Exceptions\ArrayContainsNonObjectValueException
-     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
-     */
     public function testFunctionThrowsExceptionIfValueIsNotAnObject(): void
     {
         $this->expectException(ArrayContainsNonObjectValueException::class);

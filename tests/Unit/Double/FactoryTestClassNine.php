@@ -14,7 +14,5 @@ use Stringable;
 class FactoryTestClassNine
 {
     #[Pure]
-    public function __construct(public stdClass&Stringable&IteratorAggregate $foo)
-    {
-    }
+    public function __construct(public stdClass&Stringable&IteratorAggregate $foo) {}
 }

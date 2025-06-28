@@ -1,13 +1,11 @@
 <?php
 
-/**
- * @noinspection PhpUnitTestsInspection
- */
-
 declare(strict_types=1);
 
 namespace CoStack\LibTests\Unit;
 
+use PHPUnit\Framework\Attributes\CoversFunction;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 use function array_filter;
@@ -16,12 +14,31 @@ use function CoStack\Lib\filter;
 use const CoStack\Lib\FILTER_INVERT;
 use const CoStack\Lib\FILTER_MATCH_LOOSE;
 
+#[CoversFunction('CoStack\Lib\filter')]
 class FilterTest extends TestCase
 {
     /**
+     * @param array<int, array|mixed> $canary
+     * @param int|float|string|bool $specimen
+     * @param int $flags
+     * @param array<int, array|mixed> $expected
+     */
+    #[DataProvider('filterConfigurationDataProvider')]
+    public function testFunctionReturnsExpectedValue(
+        array $canary,
+        int|float|string|bool $specimen,
+        int $flags,
+        array $expected,
+    ): void {
+        $filter = filter($specimen, $flags);
+        $actual = array_filter($canary, $filter);
+        self::assertSame($expected, $actual);
+    }
+
+    /**
      * @return array<string, array<int, array|mixed>>
      */
-    public function filterConfigurationDataProvider(): array
+    public static function filterConfigurationDataProvider(): array
     {
         return [
             'remove "not foo" from array' => [
@@ -56,25 +73,5 @@ class FilterTest extends TestCase
                 [],
             ],
         ];
-    }
-
-    /**
-     * @covers       \CoStack\Lib\filter
-     * @dataProvider filterConfigurationDataProvider
-     *
-     * @param array<mixed> $canary
-     * @param int|float|string|bool $specimen
-     * @param int $flags
-     * @param array<mixed> $expected
-     */
-    public function testFunctionReturnsExpectedValue(
-        array $canary,
-        int|float|string|bool $specimen,
-        int $flags,
-        array $expected
-    ): void {
-        $filter = filter($specimen, $flags);
-        $actual = array_filter($canary, $filter);
-        self::assertSame($expected, $actual);
     }
 }

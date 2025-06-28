@@ -1,7 +1,6 @@
 <?php
 
 /**
- * @noinspection PhpUnitTestsInspection
  * @noinspection PhpUnhandledExceptionInspection
  */
 
@@ -19,6 +18,8 @@ use CoStack\LibTests\Unit\Double\FactoryTestClassNine;
 use CoStack\LibTests\Unit\Double\FactoryTestClassSeven;
 use CoStack\LibTests\Unit\Double\FactoryTestClassThree;
 use IteratorAggregate;
+use PHPUnit\Framework\Attributes\CoversFunction;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Traversable;
@@ -29,13 +30,13 @@ use function CoStack\Lib\factory;
 /**
  * @SuppressWarnings("PHPMD.CouplingBetweenObjects")
  */
+#[CoversFunction('CoStack\Lib\factory')]
+#[UsesClass(MissingConstructorArgumentException::class)]
+#[UsesClass(PropertyNotPublicException::class)]
+#[UsesClass(ImpreciseParameterTypeException::class)]
+#[UsesClass(MissingPropertyOrConstructorArgumentException::class)]
 class FactoryExceptionsTest extends TestCase
 {
-    /**
-     * @covers \CoStack\Lib\factory
-     * @uses   \CoStack\Lib\Exceptions\MissingConstructorArgumentException
-     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
-     */
     public function testFunctionThrowsExceptionForMissingNonOptionalArgument(): void
     {
         $this->expectException(MissingConstructorArgumentException::class);
@@ -44,11 +45,6 @@ class FactoryExceptionsTest extends TestCase
         factory(FactoryTestClassThree::class);
     }
 
-    /**
-     * @covers \CoStack\Lib\factory
-     * @uses   \CoStack\Lib\Exceptions\MissingPropertyOrConstructorArgumentException
-     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
-     */
     public function testFunctionThrowsExceptionIfArgumentIsNotInConstructorOrProperty(): void
     {
         $this->expectException(MissingPropertyOrConstructorArgumentException::class);
@@ -57,11 +53,6 @@ class FactoryExceptionsTest extends TestCase
         factory(FactoryTestClassSeven::class, ['foo' => 'faz', '_does_not_exist' => 'blob']);
     }
 
-    /**
-     * @covers \CoStack\Lib\factory
-     * @uses   \CoStack\Lib\Exceptions\PropertyNotPublicException
-     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
-     */
     public function testFunctionThrowsExceptionIfPropertyIsProtected(): void
     {
         $this->expectException(PropertyNotPublicException::class);
@@ -70,11 +61,6 @@ class FactoryExceptionsTest extends TestCase
         factory(FactoryTestClassSeven::class, ['foo' => 'faz', 'beng' => 'blob']);
     }
 
-    /**
-     * @covers \CoStack\Lib\factory
-     * @uses \CoStack\Lib\Exceptions\PropertyNotPublicException
-     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
-     */
     public function testFunctionThrowsExceptionIfPropertyIsPrivate(): void
     {
         $this->expectException(PropertyNotPublicException::class);
@@ -83,11 +69,6 @@ class FactoryExceptionsTest extends TestCase
         factory(FactoryTestClassSeven::class, ['foo' => 'faz', 'fump' => 'blob']);
     }
 
-    /**
-     * @covers \CoStack\Lib\factory
-     * @uses   \CoStack\Lib\Exceptions\ImpreciseParameterTypeException
-     * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
-     */
     public function testFunctionThrowsExceptionIfPropertyIsImprecise(): void
     {
         $this->expectException(ImpreciseParameterTypeException::class);
@@ -96,9 +77,6 @@ class FactoryExceptionsTest extends TestCase
         factory(FactoryTestClassEight::class, ['foo' => 0.123]);
     }
 
-    /**
-     * @covers \CoStack\Lib\factory
-     */
     public function testFunctionAcceptsUnionTypes(): void
     {
         $this->expectException(TypeError::class);

@@ -11,7 +11,5 @@ use JetBrains\PhpStorm\Pure;
 class FactoryTestClassEight
 {
     #[Pure]
-    public function __construct(public int|string $foo)
-    {
-    }
+    public function __construct(public int|string $foo) {}
 }

@@ -5,16 +5,12 @@ declare(strict_types=1);
 namespace CoStack\LibTests\Unit\Exceptions;
 
 use CoStack\Lib\Exceptions\PropertyNotPublicException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \CoStack\Lib\Exceptions\PropertyNotPublicException
- */
+#[CoversClass(PropertyNotPublicException::class)]
 class PropertyNotPublicExceptionTest extends TestCase
 {
-    /**
-     * @covers ::__construct
-     */
     public function testExceptionContainsConstructorArguments(): void
     {
         $exception = new PropertyNotPublicException('foo', 'bar');

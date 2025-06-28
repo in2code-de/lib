@@ -5,17 +5,15 @@ declare(strict_types=1);
 namespace CoStack\LibTests\Unit\Exceptions;
 
 use CoStack\Lib\Exceptions\MissingPropertyOrConstructorArgumentException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @SuppressWarnings("PHPMD.LongClassName")
- * @coversDefaultClass \CoStack\Lib\Exceptions\MissingPropertyOrConstructorArgumentException
  */
+#[CoversClass(MissingPropertyOrConstructorArgumentException::class)]
 class MissingPropertyOrConstructorArgumentExceptionTest extends TestCase
 {
-    /**
-     * @covers ::__construct
-     */
     public function testExceptionContainsConstructorArguments(): void
     {
         $exception = new MissingPropertyOrConstructorArgumentException('foo', 'bar');

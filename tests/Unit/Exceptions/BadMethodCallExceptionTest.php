@@ -5,16 +5,12 @@ declare(strict_types=1);
 namespace CoStack\LibTests\Unit\Exceptions;
 
 use CoStack\Lib\Exceptions\BadMethodCallException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \CoStack\Lib\Exceptions\BadMethodCallException
- */
+#[CoversClass(BadMethodCallException::class)]
 class BadMethodCallExceptionTest extends TestCase
 {
-    /**
-     * @covers ::__construct
-     */
     public function testExceptionContainsConstructorArguments(): void
     {
         $exception = new BadMethodCallException('foo', 'bar');
