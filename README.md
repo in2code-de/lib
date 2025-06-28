@@ -32,17 +32,28 @@ This package tries to achieve this by providing:
 
 So you don't need to bother about performance or implementation details.
 
+## Classes list
+
+_This list does not include classes which are aliases/wrappers for functions._
+
+* `\CoStack\Lib\Contract\Invokable`: An interface to force classes to implement `__invoke` like `Stringable`.
+* `\CoStack\Lib\Generic\Uri`: (Immutable) Basic URI implementation with methods to create variations.
+* `\CoStack\Lib\Pattern\MagicMethodsForImmutables`: A trait which implements `__call` to make all properties `get`-, `with`- and `without`-able.
+* `\CoStack\Lib\Pattern\Singleton`: The classic singleton pattern. Note that singletons must not have constructor arguments and you are not allowed to override `__construct`.
+* `\CoStack\Lib\Utility\StringPool`: Reduces memory usage by interning strings. Refer to `pool` DocBlock.
+
 ## Function list
 
 * `array_filter_recursive`: Like `array_filter`, but recursively.
-* `array_value`. Get an array value by an index path.
-* `array_property`. `array_column` for objects
-* `array_unique_keys`. Get an array of all distinct keys fo all arrays.
-* `concat_paths`. Concatenate filesystem paths without duplicate directory separators.
-* `mkdir_deep`. `mkdir` with the `recursive` flag, but without `mode`.
-* `factory`. Creates a new object by mapping an associative array to constructor arguments and public properties.
-* `filter`. Factory for simple filter closures for use with `array_filter`.
-* `cgi_parse_str`. A pure and actually CGI compliant parse_str alternative.
+* `array_value`: Get an array value by an index path.
+* `array_property`: `array_column` for objects
+* `array_unique_keys`: Get an array of all distinct keys fo all arrays.
+* `concat_paths`: Concatenate filesystem paths without duplicate directory separators.
+* `mkdir_deep`: `mkdir` with the `recursive` flag, but without `mode`.
+* `factory`: Creates a new object by mapping an associative array to constructor arguments and public properties.
+* `filter`: Factory for simple filter closures for use with `array_filter`.
+* `cgi_parse_str`: A pure and actually CGI compliant parse_str alternative.
+* `pool`: Alias for `\CoStack\Lib\Utility\StringPool::get`.
 
 ## Compatibility
 
