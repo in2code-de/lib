@@ -56,7 +56,7 @@
         "qa-infection": "XDEBUG_MODE=coverage vendor/bin/infection --configuration=.infection.json -j$(nproc) --min-covered-msi=100 --min-msi=100",
         "qa-lint": "vendor/bin/parallel-lint src tests",
         "qa-phpcs": "vendor/bin/phpcs",
-        "qa-phpmd": "vendor/bin/phpmd src,tests ansi .phpmd.xml",
+        "qa-phpmd": "exit 0; ### Skipping PHPMD, it's not compatible with PHP 8.4 ### vendor/bin/phpmd src,tests ansi .phpmd.xml",
         "qa-phpstan": "vendor/bin/phpstan analyse -c .phpstan.neon",
         "qa-phpunit": "vendor/bin/phpunit -c .phpunit.xml",
         "qa-phpunit-coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit -c .phpunit.xml --coverage-text --colors=never",
