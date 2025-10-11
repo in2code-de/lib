@@ -54,6 +54,7 @@ _This list does not include classes which are aliases/wrappers for functions._
 * `filter`: Factory for simple filter closures for use with `array_filter`.
 * `cgi_parse_str`: A pure and actually CGI compliant parse_str alternative.
 * `pool`: Alias for `\CoStack\Lib\Utility\StringPool::get`.
+* `enumerate`: Implode strings for natural (human) language.
 
 ## Compatibility
 
@@ -68,7 +69,7 @@ Lower supported versions receive backports of all features, which are possible i
 | 2.x     | 7.3         | php73       | 6 Dec 2021       | ❌                   |
 | 3.x     | 7.4         | php74       | 28 Nov 2022      | ❌                   |
 | 4.x     | 8.0         | php80       | 26 Nov 2023      | ❌                   |
-| 5.x     | 8.1         | php81       | 31 Dec 2025      | ✅                   |
+| 5.x     | 8.1         | php81       | 31 Dec 2025      | ❌                   |
 | 6.x     | 8.2         | php82       | 31 Dec 2026      | ✅                   |
 | 7.x     | 8.3         | php83       | 31 Dec 2027      | ✅                   |
 | 8.x     | 8.4         | php84       | 31 Dec 2028      | ✅                   |
