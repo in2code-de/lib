@@ -23,12 +23,15 @@ use function array_key_exists;
 use function array_keys;
 use function array_map;
 use function array_merge;
+use function array_pop;
+use function array_values;
 use function count;
 use function define;
 use function dirname;
 use function explode;
 use function function_exists;
 use function gettype;
+use function implode;
 use function in_array;
 use function is_array;
 use function is_callable;
@@ -457,5 +460,52 @@ if (!function_exists('\CoStack\Lib\pool')) {
         // Use a class because the initialization of a static class member takes less than a static function variable.
         // Also, it allows flushing the pool.
         return StringPool::get($string);
+    }
+}
+
+if (!function_exists('enumerate')) {
+    /**
+     * Like implode, but uses "," as glue and adds the last element with a different separator.
+     * The use case is imploding strings for natural (human) language.
+     *
+     * Oxford-Comma:
+     *  The Oxford comma (also known as the serial comma) is a comma that is placed
+     *  before the word "and" or "or" in a list—that is, before the last element of a list.
+     *
+     *  With Oxford-Comma:
+     *      I love my parents, Lady Gaga, and Superman.
+     *
+     *  Without Oxford-Comma:
+     *      I love my parents, Lady Gaga and Superman.
+     *
+     *  The difference is subtle but important:
+     *      Without the Oxford comma, the second sentence could be understood
+     *      as if Lady Gaga and Superman were the parents of the person speaking.
+     *      With the Oxford comma, the list is unambiguous.
+     *
+     * @param string $glue The glue for the last element. Most of the time "and" in the target language.
+     * @param array<string> $strings Array of strings that will be imploded
+     * @param bool $oxfordComma Add a comma before the last element in lists of elements >= 3
+     * @return string The concatenated parts of $strings
+     * @SuppressWarnings("PHPMD.BooleanArgumentFlag")
+     */
+    function enumerate(string $glue, array $strings, bool $oxfordComma = false): string
+    {
+        $input = array_values($strings);
+
+        return match (count($input)) {
+            0 => '',
+            1 => $input[0],
+            2 => $input[0] . $glue . $input[1],
+            default => (static function () use ($input, $glue, $oxfordComma): string {
+                $end = '';
+                if ($oxfordComma) {
+                    $end .= ',';
+                }
+                $end .= $glue;
+                $end .= array_pop($input);
+                return implode(', ', $input) . $end;
+            })()
+        };
     }
 }
