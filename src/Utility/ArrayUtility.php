@@ -16,6 +16,7 @@ use function CoStack\Lib\array_filter_recursive;
 use function CoStack\Lib\array_property;
 use function CoStack\Lib\array_unique_keys;
 use function CoStack\Lib\array_value;
+use function CoStack\Lib\enumerate;
 
 /**
  * @codeCoverageIgnore
@@ -67,5 +68,17 @@ class ArrayUtility
     public function uniqueKeys(array ...$arrays): array
     {
         return array_unique_keys($arrays);
+    }
+
+    /**
+     * @param string $glue The glue for the last element. Most of the time "and" in the target language.
+     * @param array<string> $strings Array of strings that will be imploded
+     * @param bool $oxfordComma Add a comma before the last element in lists of elements >= 3
+     * @return string The concatenated parts of $strings
+     * @SuppressWarnings("PHPMD.BooleanArgumentFlag")
+     */
+    public static function enumerate(string $glue, array $strings, bool $oxfordComma = false): string
+    {
+        return enumerate($glue, $strings, $oxfordComma);
     }
 }
