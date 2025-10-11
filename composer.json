@@ -1,8 +1,8 @@
 {
     "name": "co-stack/lib",
-    "type": "library",
     "description": "A set of really useful, well tested and high performant php functions",
     "license": "MIT",
+    "type": "library",
     "authors": [
         {
             "name": "Oliver Eglseder",
@@ -13,15 +13,15 @@
         "php": "^8.4"
     },
     "require-dev": {
-        "ergebnis/composer-normalize": "^2.47",
+        "ergebnis/composer-normalize": "^2.48",
+        "infection/infection": "^0.29.14",
+        "jetbrains/phpstorm-attributes": "^1.2",
         "php-parallel-lint/php-parallel-lint": "^1.4",
         "phpmd/phpmd": "^2.15",
         "phpstan/phpstan": "^2.1",
         "phpunit/phpunit": "^12.1",
-        "squizlabs/php_codesniffer": "^3.13",
-        "infection/infection": "^0.29.14",
-        "jetbrains/phpstorm-attributes": "^1.2",
-        "rector/rector": "^2.0"
+        "rector/rector": "^2.0",
+        "squizlabs/php_codesniffer": "^3.13"
     },
     "autoload": {
         "psr-4": {
@@ -36,6 +36,12 @@
             "CoStack\\LibTests\\": "tests"
         }
     },
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true,
+            "infection/extension-installer": true
+        }
+    },
     "scripts": {
         "qa-all": [
             "@qa-composer",
@@ -47,19 +53,13 @@
             "@qa-infection"
         ],
         "qa-composer": "composer validate --no-check-lock",
+        "qa-infection": "XDEBUG_MODE=coverage vendor/bin/infection --configuration=.infection.json -j$(nproc) --min-covered-msi=100 --min-msi=100",
         "qa-lint": "vendor/bin/parallel-lint src tests",
         "qa-phpcs": "vendor/bin/phpcs",
         "qa-phpmd": "vendor/bin/phpmd src,tests ansi .phpmd.xml",
         "qa-phpstan": "vendor/bin/phpstan analyse -c .phpstan.neon",
         "qa-phpunit": "vendor/bin/phpunit -c .phpunit.xml",
         "qa-phpunit-coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit -c .phpunit.xml --coverage-text --colors=never",
-        "qa-psalm": "vendor/bin/psalm -c .psalm.xml",
-        "qa-infection": "XDEBUG_MODE=coverage vendor/bin/infection --configuration=.infection.json -j$(nproc) --min-covered-msi=100 --min-msi=100"
-    },
-    "config": {
-        "allow-plugins": {
-            "infection/extension-installer": true,
-            "ergebnis/composer-normalize": true
-        }
+        "qa-psalm": "vendor/bin/psalm -c .psalm.xml"
     }
 }
