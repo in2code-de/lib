@@ -4,7 +4,7 @@
 >
 > - **Old location:** `gitlab.com/co-stack.com/co-stack.com/php-packages/lib`
 > - **New location:** `github.com/in2code-de/lib`
-> - **Composer name:** `co-stack/libt` (unchanged)
+> - **Composer name:** `co-stack/lib` (unchanged)
 
 # co-stack.com lib - A general purpose PHP library
 
