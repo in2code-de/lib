@@ -1,4 +1,12 @@
-# co-stack.com lib
+> **📦 Migration Notice**  
+> This package is a fork from https://gitlab.com/co-stack.com/co-stack.com/php-packages/lib 
+> It is now maintained by [in2code GmbH](https://www.in2code.de).
+>
+> - **Old location:** `gitlab.com/co-stack.com/co-stack.com/php-packages/lib`
+> - **New location:** `github.com/in2code-de/lib`
+> - **Composer name:** `co-stack/libt` (unchanged)
+
+# co-stack.com lib - A general purpose PHP library
 
 (Only active branch badges are listed)
 
